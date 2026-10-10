@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#245D83" />
+    <meta
+      name="description"
+      content="LENTERA — ruang literasi dan edukasi kebanksentralan. Prototipe interaktif untuk peserta, pengelola BI, dan mitra."
+    />
+    <title>LENTERA — Ruang Literasi Kebanksentralan</title>
+    <link rel="icon" href="assets/lentera-logo.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/outfit-700.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/work-sans-400.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="assets/lucide.min.js"></script>
+    <script defer src="assets/pdf-lib.min.js"></script>
+    <script defer src="assets/fontkit.min.js"></script>
+    <script defer src="assets/pdf-fonts.js"></script>
+    <script defer src="assets/jszip.min.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="pages-participant.js"></script>
+    <script defer src="pages-admin.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Lewati navigasi</a>
+    <div id="app"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <dialog id="app-dialog" aria-labelledby="dialog-title"></dialog>
+    <noscript
+      ><main class="container">
+        <h1>LENTERA</h1>
+        <p>
+          Aktifkan JavaScript untuk membuka 20 halaman dan interaksi demo ini.
+        </p>
+        <a href="assets/materi-kebanksentralan.pdf">Unduh materi PDF</a>
+      </main></noscript
+    >
+  </body>
+</html>

@@ -124,7 +124,7 @@
   const logo = () =>
     `<a href="#/pengenalan" aria-label="LENTERA, halaman pengenalan"><img class="brand-logo" src="assets/lentera-logo.png" alt="LENTERA" width="2048" height="684"></a>`;
   function publicHeader() {
-    return `<header class="top-header">${logo()}<nav class="main-nav" aria-label="Navigasi utama">${a("pengenalan", "Tentang LENTERA", "", "")}${a("kegiatan", "Alur belajar", "", "")}${a("panduan", "Panduan", "", "")}</nav><div class="header-right"><img class="bi-logo" src="assets/bank-indonesia-logo.png" alt="Bank Indonesia" width="2048" height="362">${b(i("menu"), "mobile-menu", "icon-btn mobile-menu", 'aria-label="Buka menu"')}</div></header>`;
+    return `<header class="top-header">${logo()}<nav class="main-nav" aria-label="Navigasi utama">${a("pengenalan", "Tentang LENTERA", "", "")}${a("kegiatan", "Alur belajar", "", "")}${a("panduan", "Panduan", "", "")}</nav><div class="header-right"><img class="bi-logo" src="assets/bank-indonesia-logo.png" alt="Bank Indonesia" width="2048" height="362">${b(i("menu"), "mobile-menu", "icon-btn mobile-menu", 'aria-label="Buka menu"')}</div></header>${endorsement()}`;
   }
   function participantHeader() {
     return `<header class="top-header">${logo()}<nav class="main-nav" aria-label="Navigasi peserta">${navLinks(participantNav)}</nav><div class="header-right"><img class="bi-logo" src="assets/bank-indonesia-logo.png" alt="Bank Indonesia" width="2048" height="362">${profileButton("participant")}${b(i("menu"), "mobile-menu", "icon-btn mobile-menu", 'aria-label="Buka menu"')}</div></header>${endorsement()}`;
@@ -245,7 +245,7 @@
           : participantNav;
     modal(
       "Menu LENTERA",
-      `<nav class="stack sm" aria-label="Menu lengkap">${navLinks(nav, true)}</nav><hr><div class="row wrap">${b("Jelajahi 20 layar", "catalog", "btn")}${a("profil", "Profil peserta", "btn secondary", "user-round")}${a("pengenalan", "Halaman pengenalan", "btn ghost", "")}</div>`,
+      `<div class="mobile-menu-endorsement" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);"><span style="font-size:12px;color:var(--quiet);font-weight:500;">Didukung oleh</span><img src="assets/bank-indonesia-logo.png" alt="Bank Indonesia" style="height:20px;width:auto;max-height:22px;object-fit:contain;"></div><nav class="stack sm" aria-label="Menu lengkap">${navLinks(nav, true)}</nav><hr><div class="row wrap">${b("Jelajahi 20 layar", "catalog", "btn")}${a("profil", "Profil peserta", "btn secondary", "user-round")}${a("pengenalan", "Halaman pengenalan", "btn ghost", "")}</div>`,
     );
   }
   function clearErrors(form) {

@@ -98,6 +98,7 @@ a:hover {
 }
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 h1,
@@ -456,6 +457,7 @@ h1:focus {
 .bi-logo {
   width: 208px;
   height: auto;
+  object-fit: contain;
 }
 .main-nav {
   display: flex;
@@ -2190,10 +2192,13 @@ dialog::backdrop {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 10px 22px 0;
+    padding: 10px 20px 0;
   }
   .mobile-endorsement img {
-    width: 136px;
+    width: 124px;
+    height: auto;
+    max-height: 26px;
+    object-fit: contain;
   }
   .container {
     padding: 26px 20px 32px;

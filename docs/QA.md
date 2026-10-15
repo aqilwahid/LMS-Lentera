@@ -1,3 +1,21 @@
+# Verifikasi alur QR tanpa akun — 15 Oktober 2026
+
+Alur ini mengikuti koreksi kebutuhan pengguna: peserta mengisi formulir melalui QR kelas tanpa login; autentikasi hanya untuk BI/mitra.
+
+- Migrasi tambahan berhasil pada database SQLite lokal, mempertahankan data awal dan menambah identitas/akses peserta tamu serta token/jadwal kelas.
+- **27 tes PHPUnit, 213 assertion lulus**: pendaftaran tanpa akun, delapan field identitas, narasumber server, nomor identitas berawalan nol, instansi belum dipetakan, retry pendaftaran/L1, browser dan kelas lain, kepesertaan dicabut, jadwal/tautan ditutup, login participant ditolak, QR sesuai peran/KPwBI, serta regresi L1 fondasi awal.
+- Pembatasan request formulir diuji per sesi browser, termasuk peserta berbeda pada IP yang sama.
+- Chromium: pengelola membuka QR → browser peserta terpisah mengisi formulir → membuka kelas → mengisi 30 radio L1 → konfirmasi tersimpan → reload/retry → browser lain tetap harus mengisi formulir dan tidak melihat respons pertama.
+- Form pendaftaran diperiksa pada 375, 768 dan 1440 px tanpa overflow horizontal. Target radio L1 mobile minimal 44 px. Screenshot diperiksa.
+- Browser menguji CSRF pendaftaran (419), validasi L1 tidak sah (422), dan keluaran QR SVG (200).
+- Pint, Composer validate --strict, check-platform-reqs, kompilasi Blade dan Vite production build lulus.
+
+Browser test kini membuat kepesertaan dan respons sintetis baru pada setiap run tanpa membuat akun peserta. Screenshot berada di tests/outputs/backend, diabaikan Git. Batas: belum menguji pemindaian QR memakai kamera perangkat fisik, MariaDB/Hostinger, konkurensi atau kapasitas 1.500 pengguna. Email/identitas belum diverifikasi dan pemulihan akses lintas perangkat belum tersedia; lihat [ACCESS_FLOW.md](ACCESS_FLOW.md).
+
+Hasil tahap pertama di bawah merupakan catatan historis sebelum perubahan metode masuk peserta.
+
+---
+
 # Verifikasi backend tahap 1 — 15 Oktober 2026
 
 Hasil lokal pada PHP 8.4.26 / Laravel 13.36.0:

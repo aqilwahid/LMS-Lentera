@@ -6,8 +6,8 @@
         <form class="login-form" method="post" action="{{ route('login') }}">
             @csrf
             <p class="eyebrow">RUANG LITERASI KEBANKSENTRALAN</p>
-            <h1>Masuk ke LENTERA.</h1>
-            <p>Gunakan akun yang diberikan pengelola kegiatan.</p>
+            <h1>Masuk pengelola / mitra.</h1>
+            <p>Halaman ini untuk pegawai BI dan mitra perguruan tinggi. Peserta cukup membuka QR atau tautan kelas dan mengisi formulir tanpa login.</p>
             <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" required maxlength="255" @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
                 @error('email')<p id="email-error">{{ $message }}</p>@enderror
             </div>

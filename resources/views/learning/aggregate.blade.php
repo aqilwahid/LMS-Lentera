@@ -13,5 +13,17 @@
 @endforelse
 </div>{{ $aggregates->links() }}
 </section>
+@if(auth()->user()->role === 'bi_admin')
+<section class="panel"><h2>Bagikan QR kelas</h2><div class="server-list">
+@forelse($activities as $activity)
+<article><h3>{{ $activity->title }}</h3>
+@foreach($activity->sessions as $session)
+@if($session->join_enabled && $session->join_token)<p><a href="{{ route('class.access',$session) }}">QR dan tautan: {{ $session->title }}</a></p>@endif
+@endforeach
+</article>
+@empty <p>Belum ada kegiatan pada cakupan KPwBI Anda.</p>
+@endforelse
+</div>{{ $activities->links() }}</section>
+@endif
 <section class="panel"><h2>Evaluasi L2</h2><p>Pretest dan post-test belum diimplementasikan pada tahap backend ini.</p></section>
 @endsection

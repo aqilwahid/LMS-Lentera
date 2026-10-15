@@ -10,7 +10,7 @@ class LearningSession extends Model
 
     protected function casts(): array
     {
-        return ['starts_at' => 'datetime', 'l1_opens_at' => 'datetime', 'l1_closes_at' => 'datetime'];
+        return ['starts_at' => 'datetime', 'l1_opens_at' => 'datetime', 'l1_closes_at' => 'datetime', 'join_opens_at' => 'datetime', 'join_closes_at' => 'datetime', 'join_enabled' => 'boolean'];
     }
 
     public function activity()

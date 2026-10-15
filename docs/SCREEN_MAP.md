@@ -2,13 +2,17 @@
 
 | Acuan V2 | Rute server | Status |
 | --- | --- | --- |
-| S02 | GET/POST /masuk; POST /keluar | Login session dan logout server |
+| S02 (BI/mitra) | GET/POST /masuk; POST /keluar | Login session hanya untuk pengelola/mitra |
+| Pendaftaran peserta | GET/POST /kelas/{token} | Form identitas tanpa akun melalui QR |
+| Kelas peserta | GET /kelas/{token}/kegiatan | Kelas sesuai pendaftaran dan sesi browser |
+| S08 (peserta QR) | GET/POST /kelas/{token}/l1 | L1 tanpa akun, hanya respons browser peserta sendiri |
+| QR pengelola | GET /pengelola/sesi/{session}/akses dan /qr | Tampilan tautan dan QR SVG sesuai cakupan KPwBI |
 | S04 | GET /beranda (peserta) | Kepesertaan aktif dari database |
 | S05 | GET /kegiatan/{activity} | Detail kegiatan/sesi dengan policy |
 | S08 | GET/POST /sesi/{session}/l1 | Form L1, validasi, simpan final dan konfirmasi |
 | S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi |
 
-Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).
+Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).
 
 ---
 

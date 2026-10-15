@@ -1,6 +1,9 @@
 <header class="top-header server-header" x-data="{ open: false }">
-    <a href="{{ auth()->check() ? route('dashboard') : route('login') }}" aria-label="LENTERA — beranda"><img class="brand-logo" src="{{ asset('assets/lentera-logo.png') }}" alt="LENTERA"></a>
+    <a href="{{ auth()->check() ? route('dashboard') : route('home') }}" aria-label="LENTERA — beranda"><img class="brand-logo" src="{{ asset('assets/lentera-logo.png') }}" alt="LENTERA"></a>
     <nav aria-label="Navigasi utama">
+        @if(request()->route('token'))
+            <a href="{{ route('class.show', request()->route('token')) }}">Kelas saya</a>
+        @endif
         @auth
             <a href="{{ route('dashboard') }}">Beranda</a>
             <button class="btn secondary" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="account-menu">Akun</button>

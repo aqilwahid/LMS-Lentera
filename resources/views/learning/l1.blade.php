@@ -2,7 +2,7 @@
 @section('title', 'Evaluasi L1 — LENTERA')
 @section('content')
 <div class="server-form">
-<a href="{{ route('activities.show', $session->activity) }}">Kembali ke kegiatan</a>
+<a href="{{ $returnUrl ?? route('activities.show', $session->activity) }}">Kembali ke kegiatan</a>
 <div class="page-heading"><div><p class="eyebrow">UMPAN BALIK PEMBELAJARAN</p><h1>Evaluasi L1.</h1></div></div>
 <section class="panel server-context">
     <h2>{{ $session->activity->title }}</h2><p>Sesi: {{ $session->title }}</p>
@@ -22,7 +22,7 @@
 @elseif(!now()->betweenIncluded($session->l1_opens_at, $session->l1_closes_at))
     <section class="panel"><h2>Evaluasi belum dibuka atau sudah ditutup.</h2><p>Jadwal: {{ $session->l1_opens_at }} sampai {{ $session->l1_closes_at }}.</p></section>
 @else
-<form class="panel" method="post" action="{{ route('l1.store', $session) }}" x-data="{ sending: false, answers: {{ Illuminate\Support\Js::from(array_values(old('answers', []))) }} }" @submit="sending = true">
+<form class="panel" method="post" action="{{ $submitUrl ?? route('l1.store', $session) }}" x-data="{ sending: false, answers: {{ Illuminate\Support\Js::from(array_values(old('answers', []))) }} }" @submit="sending = true">
     @csrf
     <input type="hidden" id="instrument_id" name="instrument_id" value="{{ $session->l1_instrument_id }}">
     <h2>Bagaimana pengalaman belajar Anda?</h2>

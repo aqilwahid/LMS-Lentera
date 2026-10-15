@@ -26,9 +26,9 @@ php artisan db:seed --class=DemoSeeder
 php artisan serve --host=127.0.0.1 --port=8000
 ```
 
-Buka http://127.0.0.1:8000/masuk. Akun contoh: peserta@example.test, pengelola@example.test, mitra@example.test. Kata sandi ketiganya: Lentera-Demo-2026!. Seeder hanya berjalan pada APP_ENV=local/testing dengan flag demo aktif, tidak menimpa akun/respons yang sudah ada. DatabaseSeeder default kosong. Data contoh tidak memuat identitas responden Excel atau snapshot 141 respons April.
+Buka http://127.0.0.1:8000/. Login /masuk hanya untuk pengelola@example.test dan mitra@example.test, kata sandi Lentera-Demo-2026!. Akun participant contoh lama tetap menjadi fixture regresi, tetapi tidak dapat login. Seeder hanya berjalan pada APP_ENV=local/testing dengan flag demo aktif, tidak menimpa akun/respons yang sudah ada. DatabaseSeeder default kosong. Data contoh tidak memuat identitas responden Excel atau snapshot 141 respons April.
 
-Alur peserta: masuk → Kegiatan saya → Lihat kegiatan → Buka evaluasi L1 → pilih lima nilai → Kirim evaluasi → konfirmasi waktu server. Masuk dengan mitra/pengelola untuk melihat agregat yang tersimpan. Akun tidak memilih peran di formulir.
+Alur peserta: pindai QR/buka tautan kelas → isi formulir identitas → Gabung kelas → Buka evaluasi L1 → pilih lima nilai → Kirim evaluasi → konfirmasi waktu server. Peserta tidak login atau membuat akun. Untuk memperoleh QR contoh, login pengelola lalu buka QR dan tautan pada ringkasan. Masuk dengan mitra/pengelola untuk melihat agregat sesuai cakupan. Baca [ACCESS_FLOW.md](ACCESS_FLOW.md) untuk keputusan akses terbaru.
 
 ## Lingkungan Windows yang disiapkan pada sesi ini
 
@@ -50,7 +50,7 @@ Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk 
 
 ## Data dan aturan sementara
 
-- Tiga peran tunggal: participant, bi_admin dan partner. Belum ada kombinasi peran atau UI pemberian izin. Pengelola BI dibatasi office_id; mitra pada institution_id; peserta pada kepesertaan aktifnya. Akun nonaktif ditolak pada setiap request terautentikasi.
+- Login hanya untuk bi_admin dan partner. Peserta memakai kepesertaan tamu dengan user_id=null dan akses sesi browser. Data/endpoint participant dari fondasi awal dipertahankan untuk kompatibilitas dan regresi; bukan jalur pendaftaran baru. Pengelola BI dibatasi office_id; mitra pada institution_id. Akun nonaktif ditolak pada setiap request terautentikasi.
 - Master offices/institutions, users, activities, learning_sessions, enrollments, l1_instruments dan l1_responses. Nomor identitas berupa teks.
 - Institusi ID/nama dan kategori pada enrollment adalah snapshot saat pendaftaran; perubahan profil tidak mengubahnya. Model menolak perubahan konteks enrollment, tetapi status dapat dicabut.
 - Satu respons final per enrollment+sesi. Sesi tahap ini mempunyai satu narasumber, satu versi L1 dan jendela pengisian. Multi-narasumber memerlukan assignment terpisah sebelum dipakai dalam kegiatan nyata.
@@ -59,7 +59,7 @@ Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk 
 - Server memeriksa kepesertaan, peran, jadwal, versi instrumen, tepat lima nilai integer 1–6 dan panjang feedback. score_sum dihitung server; rata-rata = score_sum/5.
 - Transaksi mengunci enrollment dan sesi; constraint unik enrollment+sesi menjadi pengaman akhir. Retry setelah final mengembalikan konfirmasi yang sama, tanpa menimpa jawaban, meski jadwal sudah ditutup. Retry dengan payload berbeda juga mempertahankan respons pertama. Request tetap harus berasal dari peserta yang masih berhak.
 - Respons final tidak dapat diedit/dihapus lewat model. Koreksi administratif dan audit koreksi belum disediakan.
-- Login memakai session Laravel, rotasi session ID, CSRF, password hashing dan pembatasan percobaan per email/IP. Logout menghapus session. Tidak ada registrasi terbuka, reset email otomatis, SSO atau HRIS pada tahap ini.
+- Login memakai session Laravel, rotasi session ID, CSRF, password hashing dan pembatasan percobaan per email/IP. Logout menghapus session. Pendaftaran kelas terbuka bagi pemegang tautan QR selama jadwalnya aktif, tanpa membuat akun. Reset email otomatis, SSO dan HRIS belum tersedia.
 - Mitra hanya menerima agregat institusi historisnya, tanpa identitas/jawaban/feedback individu; tidak dapat membuka detail kegiatan peserta atau mengekspor. BI melihat agregat KPwBI akun. Agregat dipisahkan per sesi, instrumen dan konteks institusi, disertai jumlah respons/periode.
 - L1 tidak mensyaratkan L2/membaca PDF. Materi privat, draft server, CRUD pengelola dan laporan belum dihubungkan.
 
@@ -77,7 +77,7 @@ npx playwright install chromium
 node tests/browser.cjs
 ```
 
-Tes PHPUnit memakai database SQLite in-memory, terpisah dari database lokal. Browser test memakai akun contoh pada server lokal yang sedang berjalan, menolak lingkungan tanpa banner contoh, dan akan menyimpan satu respons sintetis 5/6 jika belum ada respons. Jalankan pada database demo baru untuk memeriksa radio/CSRF/validasi sebelum final; pada run berikutnya tes memeriksa konfirmasi yang sudah tersimpan. Jangan gunakan database berisi data produksi.
+Tes PHPUnit memakai database SQLite in-memory, terpisah dari database lokal. Browser test masuk sebagai pengelola contoh untuk memperoleh QR, lalu memakai browser context terpisah untuk mendaftar dan mengirim L1 tanpa akun. Setiap run membuat satu kepesertaan dan respons sintetis baru 5/6. Tes menolak lingkungan tanpa banner contoh. Jangan gunakan database berisi data produksi.
 
 Jika dependency Node dibangun di folder lain, arahkan LENTERA_JSDOM_PATH dan LENTERA_PLAYWRIGHT_PATH ke paket di folder node_modules tersebut. Artefak screenshot dan ekspor berada di tests/outputs (diabaikan Git).
 
@@ -101,4 +101,4 @@ Jangan aktifkan cron sebelum memastikan job bounded dan mekanisme anti-overlap s
 
 ## Tahap selanjutnya
 
-CRUD kegiatan/sesi, kepesertaan dan narasumber beserta audit; materi privat; undangan/pemulihan akun; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.
+CRUD kegiatan/sesi, kepesertaan dan narasumber beserta audit; materi privat; pengelolaan QR dan pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.

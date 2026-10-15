@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (RateLimiter::tooManyAttempts($key, 5)) {
             throw ValidationException::withMessages(['email' => 'Terlalu banyak percobaan. Coba lagi dalam '.RateLimiter::availableIn($key).' detik.']);
         }
-        if (! Auth::attempt([...$data, 'is_active' => true])) {
+        if (! Auth::attempt([...$data, 'is_active' => true, 'role' => ['bi_admin', 'partner']])) {
             RateLimiter::hit($key, 60);
             throw ValidationException::withMessages(['email' => 'Email atau kata sandi tidak sesuai, atau akun belum aktif.']);
         }

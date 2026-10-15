@@ -6,6 +6,7 @@
 .server-main { padding-top:32px; padding-bottom:48px; min-height:75vh; }
 .server-main .panel { padding:24px; margin-bottom:24px; }
 .server-form { max-width:760px; margin:auto; }
+.server-form .field { margin-bottom:20px; }
 .server-form fieldset { min-width:0; }
 .server-form textarea { width:100%; min-height:120px; }
 .server-error { border:2px solid #9f1239; padding:16px; margin-bottom:24px; border-radius:12px; }

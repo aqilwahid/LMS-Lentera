@@ -71,10 +71,9 @@ class LearningFlowTest extends TestCase
         $this->assertDatabaseCount('l1_responses', 0);
     }
 
-    public function test_login_full_flow_persists_server_score_and_retry_is_idempotent(): void
+    public function test_legacy_records_keep_server_score_and_retry_idempotency(): void
     {
-        $this->post('/masuk', ['email' => 'peserta@example.test', 'password' => 'Lentera-Demo-2026!', 'role' => 'bi_admin'])->assertRedirect('/beranda');
-        $this->assertAuthenticatedAs($this->participant());
+        $this->actingAs($this->participant());
         $this->get('/beranda')->assertOk()->assertSee('Kegiatan saya.');
         $session = LearningSession::first();
         $this->get(route('activities.show', $session->activity))->assertOk()->assertSee($session->title);

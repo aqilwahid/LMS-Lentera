@@ -14,6 +14,6 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertRedirect('/masuk');
+        $response->assertOk()->assertSee('Ikuti kelas bersama LENTERA.');
     }
 }

@@ -2,6 +2,8 @@
 
 return [
     'demo_enabled' => (bool) env('LENTERA_DEMO_ENABLED', false),
+    // Suggestions only; participants may type another category.
+    'participant_categories' => ['Mahasiswa', 'GenBI', 'Dosen', 'Akademisi', 'Pegawai', 'Lainnya'],
     // Working copy of DESIGN V2; official wording awaits approval.
     'l1_questions' => [
         'Kejelasan isi: Menurut Bapak/Ibu, bagaimana pemahaman Bapak/Ibu terhadap materi/informasi Literasi Kebanksentralan pada Civitas Akademika Tahun 2026?',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\SubmitL1;
 use App\Models\Activity;
 use App\Models\Enrollment;
 use App\Models\L1Response;
@@ -32,7 +33,11 @@ class LearningController extends Controller
             ->selectRaw('COUNT(*) as responses, AVG(r.score_sum) / 5 as mean_score, MIN(r.submitted_at) as period_start, MAX(r.submitted_at) as period_end')
             ->groupBy('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')->paginate(15);
 
-        return view('learning.aggregate', compact('aggregates'));
+        $activities = $user->role === 'bi_admin'
+            ? Activity::where('office_id', $user->office_id)->with('sessions')->paginate(10, ['*'], 'activities_page')
+            : null;
+
+        return view('learning.aggregate', compact('aggregates', 'activities'));
     }
 
     public function activity(Activity $activity)
@@ -58,33 +63,10 @@ class LearningController extends Controller
         return view('learning.l1', compact('session', 'enrollment', 'response'));
     }
 
-    public function store(Request $request, LearningSession $session)
+    public function store(Request $request, LearningSession $session, SubmitL1 $action)
     {
         $enrollment = $this->enrollment($request, $session);
-        DB::transaction(function () use ($request, $session, $enrollment) {
-            // Serialize retries; unique constraint is the final safeguard.
-            $locked = Enrollment::whereKey($enrollment->id)->lockForUpdate()->firstOrFail();
-            abort_unless($locked->status === 'active', 403);
-            if (L1Response::where('enrollment_id', $locked->id)->where('learning_session_id', $session->id)->exists()) {
-                return;
-            }
-            $session = LearningSession::whereKey($session->id)->lockForUpdate()->firstOrFail();
-            $instrument = $session->instrument;
-            abort_unless($instrument->published_at && count($instrument->questions) === 5, 409, 'Instrumen belum siap.');
-            abort_unless(now()->betweenIncluded($session->l1_opens_at, $session->l1_closes_at), 403, 'Evaluasi belum dibuka atau sudah ditutup.');
-            $data = $request->validate([
-                'instrument_id' => ['required', 'integer', 'in:'.$instrument->id],
-                'answers' => 'required|array:0,1,2,3,4|size:5', 'answers.*' => 'required|integer|between:1,6',
-                'feedback' => 'nullable|string|max:2000',
-            ]);
-            $answers = array_map('intval', $data['answers']);
-            L1Response::create([
-                'enrollment_id' => $locked->id, 'learning_session_id' => $session->id, 'l1_instrument_id' => $instrument->id,
-                'instrument_snapshot' => ['code' => $instrument->code, 'version' => $instrument->version, 'questions' => $instrument->questions, 'scale' => [1, 2, 3, 4, 5, 6]],
-                'speaker_name' => $session->speaker_name, 'answers' => $answers, 'score_sum' => array_sum($answers),
-                'feedback' => $data['feedback'] ?? null, 'submitted_at' => now(),
-            ]);
-        }, 3);
+        $action->handle($request, $enrollment, $session);
 
         return redirect()->route('l1.edit', $session)->with('status', 'Evaluasi sudah dikirim dan tersimpan di server.');
     }

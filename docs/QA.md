@@ -1,3 +1,23 @@
+# Verifikasi backend tahap 1 — 15 Oktober 2026
+
+Hasil lokal pada PHP 8.4.26 / Laravel 13.36.0:
+
+- Migrasi SQLite dan DemoSeeder berhasil; seeder ulang tidak menggandakan akun/kepesertaan.
+- PHPUnit: **17 tes, 99 assertion lulus**. Termasuk constraint unik database, retry final, perhitungan server, izin peran dan KPwBI/institusi, kepesertaan dicabut, snapshot historis, instrumen terbit, jadwal, rate limit dan logout.
+- Composer validate --strict, check-platform-reqs dan pemeriksaan advisory saat pembaruan lockfile berhasil.
+- Pint --test lulus; Blade view:cache berhasil.
+- Vite production build berhasil, dengan npm dependency dibangun pada C: karena drive Google menolak beberapa operasi ekstraksi.
+- Chromium browser: login → kegiatan → 30 radio L1 tanpa pilihan awal → kirim lima nilai → konfirmasi → reload → logout; agregat BI/mitra terbaca tanpa feedback individu.
+- Browser HTTP menolak CSRF invalid (419) dan payload nilai tidak sah (422).
+- Form L1 pada 375, 768 dan 1440 px tidak memiliki overflow horizontal; target radio mobile minimal 44 px. Screenshot desktop/mobile diperiksa. Ini hanya cakupan layar/alur tahap 1, bukan audit visual semua layar.
+- Smoke test prototype 20 rute dan ekspor PDF/XLSX lulus. Tes ekspor menunggu hasil asynchronous dengan batas waktu, menggantikan jeda tetap 100 ms.
+
+Artefak screenshot berada di tests/outputs/backend; hasil ekspor prototype di tests/outputs. Semua artefak dan database lokal diabaikan Git. Browser QA meninggalkan satu respons **sintetis** lima nilai 5, rata-rata 5,00/6, untuk akun peserta contoh.
+
+Batas: belum menjalankan tes pada MariaDB aktual atau Hostinger; locking/concurrent retries pada MariaDB, beban 200–1.500 pengguna, Safari/Firefox, pembaca layar dan backup belum diverifikasi. Workflow CI tersedia tetapi belum dijalankan di GitHub dalam sesi ini. L2, impor, laporan server, CRUD dan email masih tahap berikutnya. Cara mengulang dan asumsi ada di [BACKEND.md](BACKEND.md).
+
+---
+
 # Verifikasi
 
 ## Dilakukan

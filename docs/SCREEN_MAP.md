@@ -1,3 +1,17 @@
+# Pemetaan backend tahap 1
+
+| Acuan V2 | Rute server | Status |
+| --- | --- | --- |
+| S02 | GET/POST /masuk; POST /keluar | Login session dan logout server |
+| S04 | GET /beranda (peserta) | Kepesertaan aktif dari database |
+| S05 | GET /kegiatan/{activity} | Detail kegiatan/sesi dengan policy |
+| S08 | GET/POST /sesi/{session}/l1 | Form L1, validasi, simpan final dan konfirmasi |
+| S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi |
+
+Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).
+
+---
+
 # Pemetaan layar
 
 Rute berbasis hash bekerja tanpa konfigurasi rewrite server. Misalnya `index.html#/beranda`. Alias `#/s01` sampai `#/s20` juga tersedia.

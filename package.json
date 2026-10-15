@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "assets:sync": "node scripts/sync-assets.mjs"
+  },
+  "dependencies": {
+    "alpinejs": "^3.15.0"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0",
+    "laravel-vite-plugin": "^3.1",
+    "playwright": "^1.64.1",
+    "vite": "^8.0.0"
+  }
+}

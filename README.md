@@ -1,62 +1,159 @@
-# LENTERA — website HTML/CSS responsif
+# LENTERA Management System
 
-Implementasi desain V2 yang disetujui: **20 layar desktop** dengan adaptasi responsif untuk semua halaman. Empat acuan mobile utama adalah beranda peserta, evaluasi L1, dashboard BI, dan dashboard mitra.
+LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank Indonesia, pengelola BI, dan mitra perguruan tinggi.
 
-## Membuka website
+**Status per 15 Oktober 2026:** backend tahap pertama sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta masuk → melihat kegiatan yang diikuti → mengisi L1 → menerima konfirmasi telah terhubung ke database. Prototype 20 layar tetap tersedia sebagai referensi desain V2. Aplikasi belum dinyatakan siap produksi.
 
-Website yang diterbitkan: https://lentera-learning.ardentchick33.chatgpt.site
+## Sudah dikerjakan
 
-Dalam source repository, buka `dist/index.html`. Dalam ZIP unduhan, buka `index.html` pada folder utama. HTML, CSS, JavaScript, font, ikon, ilustrasi, serta materi PDF disertakan lokal; tidak perlu proses build atau CDN.
+| Area | Hasil implementasi |
+| --- | --- |
+| Fondasi | Laravel 13, target PHP 8.4, Blade, Alpine.js, Vite, serta lockfile Composer/npm. |
+| Tampilan V2 | Layout, navigasi, komponen validasi, login, beranda peserta, detail kegiatan/sesi, form L1, konfirmasi, dan ringkasan agregat BI/mitra memakai CSS, font, logo, serta aset V2 yang sudah ada. |
+| Autentikasi | Login email/kata sandi, password hashing, session server, rotasi session ID, logout, CSRF, pembatasan percobaan login, dan penolakan akun nonaktif. |
+| Peran dan akses | Peserta hanya mengakses kepesertaan aktifnya. BI dibatasi KPwBI akun. Mitra hanya menerima agregat institusinya tanpa identitas, jawaban, atau masukan individu. Izin diperiksa server. |
+| Database | Migrasi untuk KPwBI, institusi, pengguna/profil dasar, kegiatan, sesi, kepesertaan, versi instrumen L1, dan respons L1; tabel session, cache, dan antrean database juga tersedia. |
+| Data contoh | Seeder sintetis untuk tiga institusi, tiga peran, satu kegiatan/sesi, satu kepesertaan, dan instrumen L1. Seeder hanya diizinkan pada lingkungan local/testing dengan flag demo aktif. |
+| Evaluasi L1 | Lima butir skala 1–6, masukan opsional, validasi/jadwal/versi diperiksa server, dan rata-rata dihitung dari lima jawaban yang sah. |
+| Integritas respons | Transaksi, penguncian, dan constraint unik kepesertaan+sesi mencegah respons ganda. Retry final mempertahankan respons pertama dan mengembalikan konfirmasi. |
+| Riwayat | Kepesertaan menyimpan konteks institusi/kategori historis. Respons menyimpan snapshot instrumen, versi, skala, dan narasumber. Model membatasi perubahan konteks historis dan respons final. |
+| Ringkasan | Agregat L1 dari database sesuai cakupan BI/mitra, dipisahkan per sesi, instrumen, dan institusi historis, dengan jumlah respons serta periode. |
+| Deployment/CI | Workflow Pages dibatasi ke allowlist prototype dan dijalankan manual. Workflow pemeriksaan backend tersedia untuk build, tes, dan format kode; belum melakukan deployment Laravel. |
+| Dokumentasi | Keputusan stack, cara menjalankan, asumsi bisnis, pemetaan layar backend, hasil QA, dan batas implementasi telah ditulis. |
 
-Untuk membuka melalui server lokal milik Anda (opsional), jalankan `python3 -m http.server 8000` di direktori yang berisi `index.html`, lalu buka `http://localhost:8000`. Pembaca PDF dan perilaku penyimpanan dapat berbeda ketika memakai alamat `file://`.
+**Aturan sementara:** satu peran per akun, akun disediakan pengelola, satu narasumber dan satu respons L1 final per peserta per sesi. Redaksi L1 memakai salinan kerja DESIGN V2; redaksi resmi dan aturan multi-narasumber belum final. Detail ada di [docs/BACKEND.md](docs/BACKEND.md).
 
-Gunakan **Demo · 20 layar** di footer untuk membuka katalog halaman, berpindah peran, memperbesar teks, atau menghapus data demo. Menu seluler juga menyediakan akses ke katalog. Tidak diperlukan kredensial.
+## Belum dikerjakan
 
-## File yang dapat diedit
+| Area | Pekerjaan berikutnya |
+| --- | --- |
+| Akun dan profil | UI penyuntingan profil, pengelolaan akun/peran, undangan, aktivasi/verifikasi email, pemulihan kata sandi, serta audit perubahan. |
+| Pengelolaan | CRUD institusi/KPwBI, kegiatan, sesi, kepesertaan, narasumber, instrumen, dan aturan penerbitan melalui UI pengelola. |
+| Materi dan panduan | Unggah, versi, penyimpanan privat, pemeriksaan izin baca/unduh PDF, dan panduan eksternal final. PDF prototype belum menjadi modul materi backend. |
+| L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
+| Evaluasi L2 | Instrumen pretest/post-test per pertemuan, versi soal, attempt, draf, penilaian server, pasangan pre/post, dan kebijakan publikasi hasil. |
+| Impor historis | Staging Excel, pemetaan alias institusi, validasi, penanganan baris ringkasan, deteksi duplikat, dan rekonsiliasi data sumber. |
+| Analisis/laporan | Filter periode lengkap, dashboard tahunan, Chart.js, ekspor PDF/XLSX server menggunakan Dompdf/PhpSpreadsheet, dan arsip laporan. Paket laporan belum dipasang. |
+| Pekerjaan latar/email | Job bertahap, penjadwalan cron yang terverifikasi, anti-overlap, SMTP/API transaksional, dan pemantauan kegagalan. Tabel antrean sudah ada, job aplikasi belum tersedia. |
+| Integrasi | SSO BI dan ERP-HRIS menunggu spesifikasi serta akses nyata. |
+| Produksi | Verifikasi MariaDB/PHP/ekstensi/cron akun Hostinger, deployment dengan document root public, backup/pemulihan, dan konfigurasi produksi. |
+| Kapasitas/QA lanjutan | Pengujian konkurensi pada MariaDB, uji beban 200–1.500 pengguna, Safari/Firefox, pembaca layar, dan audit visual seluruh layar backend. |
 
-| File | Tanggung jawab |
-|---|---|
-| `index.html` | Kerangka HTML dan pemuatan aset lokal |
-| `styles.css` | Design token, layout desktop, breakpoint, mobile, cetak |
-| `data.js` | Pemetaan 20 layar, data agregat contoh, komponen kecil |
-| `pages-participant.js` | Pengenalan, login, profil, sesi, PDF, tes, L1, panduan |
-| `pages-admin.js` | Pengelolaan BI, analisis, mitra, laporan, konfigurasi |
-| `app.js` | Router hash, formulir, state lokal, dialog, ekspor PDF/XLSX |
-| `assets/` | Logo, tiga ilustrasi, font, ikon, pustaka ekspor, materi PDF |
-| `docs/DESIGN.md` | Spesifikasi desain V2 yang menjadi acuan |
-| `docs/SCREEN_MAP.md` | Pemetaan 20 desktop + 4 mobile dan interaksinya |
-| `docs/brand-spec.md` | Token, aset, dan aturan identitas visual |
-| `docs/QA.md` | Pemeriksaan yang dilakukan dan batasannya |
+Fitur pada prototype seperti wizard kegiatan, tes L2, impor CSV, dan ekspor PDF/XLSX masih menggunakan data browser. Keberadaannya di prototype tidak berarti backend fitur tersebut sudah tersedia. Data localStorage tidak otomatis dimigrasikan ke database.
 
-## Fitur yang bisa dicoba
+## Menjalankan backend dari checkout baru
 
-- Navigasi seluruh halaman, pergantian peran demo, menu seluler, dialog, serta pencarian panduan.
-- Profil dengan validasi, penyimpanan lokal, dan reset data.
-- Pembaca PDF 11 halaman, pemilihan halaman/perbesaran sesuai dukungan browser, buka tab baru, dan unduh materi.
-- Lima soal contoh pretest dan post-test: pilihan jawaban, navigasi soal, draf, validasi, serta konfirmasi.
-- Evaluasi L1: lima pertanyaan × enam pilihan, tanpa pilihan otomatis; masukan opsional; hitungan isian; ringkasan error; simpan draf dan kirim demo.
-- Dashboard BI dan analisis L1: data contoh terverifikasi, filter, serta kondisi kosong ketika tidak ada data.
-- Wizard kegiatan empat tahap, simpan draf, penerbitan demo, penambahan narasumber, versi instrumen, dan konfigurasi contoh.
-- Master institusi, pratinjau pemetaan, dan pembacaan header/jumlah baris CSV lokal hingga 2 MB.
-- Ekspor **PDF asli** dan **Excel `.xlsx` asli**, dengan pilihan komponen laporan dan riwayat lokal.
-- Dashboard mitra dengan cakupan baca dan kondisi agregat belum tersedia.
+Diperlukan PHP 8.4, Composer 2, Node 22.12+ dan ekstensi PHP yang dijelaskan di [panduan backend](docs/BACKEND.md). Jalankan dari root repository, bukan folder assets.
 
-## Status implementasi
+Contoh untuk PowerShell dan database SQLite lokal:
 
-Ini adalah front-end interaktif. Akun, undangan email, SSO, database, unggah materi server, penilaian L2, dan otorisasi server belum dihubungkan. Pilihan peran di katalog merupakan pratinjau, bukan mekanisme keamanan.
+```powershell
+composer install
+Copy-Item .env.example .env
+php artisan key:generate
+New-Item -ItemType File database/database.sqlite
+php artisan migrate
+npm ci --ignore-scripts
+npm run assets:sync
+npm run build
+```
 
-Login produksi sengaja tidak menerima email atau kata sandi. Tombol **Masuk demo** langsung membuka alur contoh. Gunakan data contoh ketika mengisi formulir. `localStorage` hanya berlaku pada browser yang sama; jika tidak tersedia, state bertahan selama tab terbuka. Perubahan lokal tidak memengaruhi snapshot data sumber.
+Untuk mencoba data sintetis, ubah `LENTERA_DEMO_ENABLED=true` di `.env`, lalu:
 
-Pretest berstatus selesai pada beranda awal mengikuti rancangan contoh yang disetujui. Halaman post-test awal memperlihatkan pratinjau konfirmasi; **Coba alur post-test** membuka tes interaktif. Tidak ada nilai L2 yang dibuat-buat.
+```powershell
+php artisan db:seed --class=DemoSeeder
+php artisan serve --host=127.0.0.1 --port=8000
+```
 
-## Data dan sumber
+Buka **http://127.0.0.1:8000/masuk**.
 
-Snapshot L1: 7 April 2026, 141 respons bertanggal valid; satu baris ringkasan dikecualikan. Rata-rata 5,30/6. Lima aspek: 5,28; 5,30; 5,23; 5,23; 5,46. Narasumber: Triani Susanti. Data tahunan lengkap, pasangan pre/post, dan agregat per institusi tidak tersedia pada prototipe.
+| Peran contoh | Email | Kata sandi |
+| --- | --- | --- |
+| Peserta | peserta@example.test | Lentera-Demo-2026! |
+| Pengelola BI | pengelola@example.test | Lentera-Demo-2026! |
+| Mitra | mitra@example.test | Lentera-Demo-2026! |
 
-Nama, NIM, email, dan jawaban individual dari sumber Excel tidak disertakan. Materi PDF disertakan sebagai salinan terkompresi untuk web; sumber asli tidak diubah.
+Akun tersebut hanya untuk demo lokal. Seeder default produksi kosong; database lokal, .env, dependency terpasang, hasil build, dan artefak QA tidak masuk Git. Checkout baru harus melakukan instalasi/build sendiri.
 
-## Pengujian pengembang
+Pada mesin Windows yang sudah disiapkan dalam sesi pengembangan, runtime portabel dan database contoh tersedia. Jalankan:
 
-`tests/smoke.cjs` menggunakan jsdom 26.1.0 untuk memeriksa 20 rute dan interaksi DOM. Pasang jsdom di lingkungan pengujian, lalu jalankan `node tests/smoke.cjs`; atau arahkan `LENTERA_JSDOM_PATH` ke paket yang sudah terpasang. Pengujian menghasilkan PDF/XLSX sementara di `tests/outputs/`.
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/serve-local.ps1
+```
 
-Pengujian DOM bukan pengujian render browser. Pemeriksaan visual di Chrome/Safari/Firefox dan perangkat mobile masih perlu dilakukan sebelum produksi.
+Jika npm mengalami error filesystem pada Google Drive, bangun dependency pada disk lokal dengan:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build-local.ps1
+```
+
+Script menyalin hasil build ke public/build dan menyinkronkan aset V2. Lokasi runtime portabel, konfigurasi MariaDB, dan langkah Hostinger dijelaskan di [docs/BACKEND.md](docs/BACKEND.md).
+
+## Pemeriksaan dan hasil
+
+```powershell
+php artisan test
+php vendor/bin/pint --test
+composer validate --strict
+composer check-platform-reqs
+php artisan view:cache
+npm run build
+node tests/smoke.cjs
+npx playwright install chromium
+node tests/browser.cjs
+```
+
+Hasil lokal terakhir:
+
+- **17 tes PHPUnit, 99 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- Pint, validasi Composer, pemeriksaan kebutuhan platform, kompilasi Blade, dan Vite production build lulus.
+- Smoke test seluruh 20 rute prototype dan ekspor PDF/XLSX lulus.
+- Chromium berhasil menguji login, kegiatan, pengisian L1, penyimpanan, konfirmasi setelah reload, logout, dan agregat BI/mitra.
+- Browser menolak CSRF tidak sah (419) dan payload evaluasi tidak sah (422).
+- Form L1 diperiksa pada lebar 375, 768, dan 1.440 px tanpa overflow horizontal; target radio mobile minimal 44 px.
+
+Browser test memerlukan server lokal yang berjalan dan database demo. Pada database demo baru, tes menyimpan satu respons sintetis bernilai 5,00/6. Artefak berada di tests/outputs dan diabaikan Git. Pengulangan pada respons yang sudah final memeriksa konfirmasinya; pemeriksaan awal form/CSRF memerlukan database demo baru.
+
+**Belum diverifikasi:** MariaDB aktual/Hostinger, konkurensi pada MariaDB, kapasitas 1.500 pengguna, serta browser/perangkat di luar cakupan QA di atas. Workflow CI belum dijalankan di GitHub pada saat hasil lokal ini dicatat. Rincian ada di [docs/QA.md](docs/QA.md).
+
+## Prototype 20 layar
+
+Buka index.html di root repository, atau gunakan server statis pada port terpisah:
+
+```powershell
+python -m http.server 8080
+```
+
+Buka http://localhost:8080/index.html. Gunakan **Demo · 20 layar** di footer untuk katalog dan pergantian peran contoh. Prototype memakai router hash dan localStorage; tidak membutuhkan login backend.
+
+Referensi prototype yang pernah diterbitkan: https://lentera-learning.ardentchick33.chatgpt.site. Versi yang diterbitkan tidak otomatis mencerminkan perubahan repository atau menjadi aplikasi Laravel.
+
+Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-rata 5,30/6**. Baris ringkasan tidak dihitung; identitas responden dari workbook tidak disertakan. Snapshot ini terpisah dari respons sintetis database backend.
+
+## Struktur utama
+
+| Lokasi | Fungsi |
+| --- | --- |
+| app/ | Controller, middleware, model, dan policy backend. |
+| routes/web.php | Rute autentikasi, kegiatan, L1, dan ringkasan. |
+| database/migrations/ | Skema database. |
+| database/seeders/ | Seeder default kosong dan DemoSeeder eksplisit. |
+| resources/views/ | Layout, komponen, dan halaman Blade. |
+| resources/css/ dan resources/js/ | Tambahan CSS backend dan interaksi Alpine melalui Vite. |
+| public/ | Satu-satunya document root untuk deployment Laravel. |
+| styles.css dan assets/ | Sumber CSS/token/aset V2; aset backend disinkronkan oleh scripts/sync-assets.mjs. |
+| index.html, data.js, app.js, pages-*.js | Prototype 20 layar yang dipertahankan. |
+| scripts/ | Sinkronisasi aset, build lokal Windows, dan server lokal. |
+| tests/ | PHPUnit, smoke test prototype, dan browser QA. |
+
+## Dokumentasi acuan dan urutan selanjutnya
+
+- [TECH_STACK.md](docs/TECH_STACK.md): kajian kebutuhan, keputusan stack, batas hosting, dan urutan migrasi.
+- [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.
+- [DESIGN.md](docs/DESIGN.md): desain V2.
+- [SCREEN_MAP.md](docs/SCREEN_MAP.md): pemetaan layar backend dan prototype.
+- [QA.md](docs/QA.md): hasil pemeriksaan serta batas verifikasi.
+
+Prioritas berikutnya: CRUD kegiatan/sesi dan kepesertaan beserta audit, materi privat dan undangan akun, lalu instrumen/penilaian L2. Impor historis, analisis periode, laporan server, dan uji beban dilanjutkan setelah alur tersebut stabil.
+
+Hosting tujuan tetap Hostinger Unlimited. Deployment Laravel harus mengekspos hanya public; source, .env, vendor, dan storage privat berada di luar root web. Jangan mengasumsikan tersedia root access, Supervisor, Redis, atau daemon permanen. Workflow Pages hanya menerbitkan prototype statis secara manual.

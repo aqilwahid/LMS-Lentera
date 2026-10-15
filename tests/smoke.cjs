@@ -256,7 +256,10 @@ const blobBytes = (blob) =>
   );
   d.querySelector('[name="report-l1"]').checked = true;
   submit("report-form");
-  await new Promise((r) => setTimeout(r, 100));
+  // Export is asynchronous; wait for its observable result instead of a fixed 100ms.
+  for (let attempt = 0; downloads.length === 0 && attempt < 100; attempt++) {
+    await new Promise((r) => setTimeout(r, 50));
+  }
   assert(downloads.length === 1);
   assert.equal(w.L.demo.getState().reports.length, 1);
   click('[data-action="catalog"]');

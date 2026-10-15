@@ -1,0 +1,26 @@
+/* V2 base is copied without modification from styles.css by assets:sync. */
+[x-cloak] { display:none !important; }
+.server-header { flex-wrap:wrap; height:auto; min-height:80px; gap:16px; padding:16px 24px; }
+.server-header nav { display:flex; align-items:center; flex-wrap:wrap; gap:16px; }
+.server-header .bi-logo { width:180px; height:auto; object-fit:contain; }
+.server-main { padding-top:32px; padding-bottom:48px; min-height:75vh; }
+.server-main .panel { padding:24px; margin-bottom:24px; }
+.server-form { max-width:760px; margin:auto; }
+.server-form fieldset { min-width:0; }
+.server-form textarea { width:100%; min-height:120px; }
+.server-error { border:2px solid #9f1239; padding:16px; margin-bottom:24px; border-radius:12px; }
+.server-status { padding:16px; background:var(--accent-soft,#EAF1F6); margin-bottom:24px; border-radius:12px; }
+.server-context { overflow-wrap:anywhere; }
+.server-main .login-layout { min-height:600px; }
+.server-main .login-form-side { padding:32px; }
+.server-list { display:grid; gap:16px; }
+.server-list article { border-bottom:1px solid #E2E8F0; padding:16px 0; }
+.server-main nav[aria-label="Pagination Navigation"] svg { width:24px; }
+@media(max-width:760px) {
+ .server-header { padding:16px; }
+ .server-header .brand-logo { max-width:150px; }
+ .server-header .bi-logo { width:125px; display:block; }
+ .server-main .panel { padding:20px; }
+ .server-main .login-form-side { padding:20px; }
+ .server-main .rating-options { grid-template-columns:1fr; }
+}

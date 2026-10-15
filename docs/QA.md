@@ -1,3 +1,17 @@
+# Verifikasi materi PDF privat — 15 Oktober 2026
+
+- Migrasi materials/material_versions berhasil pada SQLite lokal. File disimpan di disk privat di luar public.
+- **58 tes PHPUnit, 525 assertion lulus.** Tambahan tes mencakup PDF draft/terbit/tersembunyi, hash, validasi file/ukuran/nonce, unggahan retry, versi baru yang tidak mengganti versi terbit otomatis, versi yang tidak sesuai, izin role/KPwBI/kelas, kepesertaan dicabut, QR nonaktif, file hilang, metadata immutable, serta pembersihan file dan rollback jika audit gagal.
+- Chromium menguji sesi baru → unggah PDF sintetis → draft tidak dapat diakses peserta → terbit → pratinjau/unduh → versi kedua dan retry tanpa versi ketiga → terbit V2 → sembunyikan → terbitkan kembali. SHA-256 byte respons HTTP dan hasil unduhan browser cocok dengan PDF sumber uji.
+- Permintaan unggah dengan token CSRF salah dan origin tidak dipercaya ditolak 419. Akses QR saja ditolak 403; materi belum terbit/tersembunyi ditolak 404. Link versi yang telah berganti ditolak 409, bukan diam-diam melayani file dengan versi berbeda.
+- Halaman pratinjau pada 375, 768 dan 1440 px tidak memiliki overflow horizontal. Link tab baru/unduh tersedia. Screenshot native PDF pada mode headless tidak membuktikan rendering isi dokumen; uji pembaca PDF manual Chrome/Safari/Firefox dan perangkat fisik tetap diperlukan.
+- Script Windows diperbaiki dengan --no-reload agar variabel TEMP/TMP diteruskan. Sebelum perbaikan, multipart gagal pada PHP startup karena temporary file tidak dapat dibuat. Setelah perbaikan, unggahan dan byte PDF berhasil diuji.
+- Pint --test, Composer validate --strict dan kompilasi Blade lulus. Browser test baru: tests/materials-browser.cjs; artefak di tests/outputs/materials, diabaikan Git.
+
+Batas: belum menguji MariaDB/Hostinger, beban unduhan 1.500 pengguna, antivirus/parser penuh PDF, rekonsiliasi orphan, retensi otomatis dan pemulihan backup. Batas unggahan mengikuti PHP aktual; runtime lokal masih membatasi sekitar 2 MB. Dokumen dan panduan ada di [MATERIALS.md](MATERIALS.md). Catatan di bawah merupakan riwayat pemeriksaan tahap sebelumnya.
+
+---
+
 # Verifikasi master dan kepesertaan — 15 Oktober 2026
 
 - Migrasi master narasumber, status/revision institusi, speaker_id sesi, serta pemetaan/revision kepesertaan berhasil pada SQLite lokal tanpa menghapus data sebelumnya.

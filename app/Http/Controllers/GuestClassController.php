@@ -7,41 +7,14 @@ use App\Models\Enrollment;
 use App\Models\Institution;
 use App\Models\L1Response;
 use App\Models\LearningSession;
+use App\Models\Material;
+use App\Services\GuestClassAccess;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class GuestClassController extends Controller
 {
-    private function classSession(string $token): LearningSession
-    {
-        return LearningSession::where('join_token', $token)->where('join_enabled', true)->with(['activity', 'instrument'])->firstOrFail();
-    }
-
-    private function secret(Request $request, LearningSession $session): string
-    {
-        $key = 'guest_classes.'.$session->id;
-        if (! $request->session()->has($key)) {
-            $request->session()->put($key, Str::random(64));
-        }
-
-        return $request->session()->get($key);
-    }
-
-    private function accessHash(string $secret, LearningSession $session): string
-    {
-        return hash_hmac('sha256', $session->id.'|'.$secret, config('app.key'));
-    }
-
-    private function findEnrollment(Request $request, LearningSession $session): ?Enrollment
-    {
-        $secret = $request->session()->get('guest_classes.'.$session->id);
-        if (! $secret) {
-            return null;
-        }
-
-        return Enrollment::where('guest_access_hash', $this->accessHash($secret, $session))->where('joined_session_id', $session->id)->where('status', 'active')->first();
-    }
+    public function __construct(private GuestClassAccess $access) {}
 
     private function joinIsOpen(LearningSession $session): bool
     {
@@ -50,11 +23,11 @@ class GuestClassController extends Controller
 
     public function create(Request $request, string $token)
     {
-        $session = $this->classSession($token);
-        if ($this->findEnrollment($request, $session)) {
+        $session = $this->access->session($token);
+        if ($this->access->enrollment($request, $session)) {
             return redirect()->route('class.show', $token);
         }
-        $this->secret($request, $session);
+        $this->access->secret($request, $session);
 
         return view('classes.join', [
             'session' => $session, 'joinOpen' => $this->joinIsOpen($session),
@@ -64,8 +37,8 @@ class GuestClassController extends Controller
 
     public function store(Request $request, string $token)
     {
-        $session = $this->classSession($token);
-        if ($this->findEnrollment($request, $session)) {
+        $session = $this->access->session($token);
+        if ($this->access->enrollment($request, $session)) {
             return redirect()->route('class.show', $token);
         }
         abort_unless($this->joinIsOpen($session), 403, 'Pendaftaran kelas belum dibuka atau sudah ditutup.');
@@ -82,7 +55,7 @@ class GuestClassController extends Controller
             'identity_number' => 'NIP/NIM/NPM', 'department' => 'Jurusan/Program Studi',
             'faculty' => 'Fakultas', 'phone' => 'No. HP', 'participant_category' => 'Kategori', 'email' => 'Email',
         ]);
-        $hash = $this->accessHash($this->secret($request, $session), $session);
+        $hash = $this->access->hash($this->access->secret($request, $session), $session);
         DB::transaction(function () use ($session, $data, $hash) {
             $locked = LearningSession::whereKey($session->id)->lockForUpdate()->firstOrFail();
             abort_unless($locked->join_enabled && $locked->join_token === $session->join_token && $this->joinIsOpen($locked), 403);
@@ -101,19 +74,21 @@ class GuestClassController extends Controller
 
     public function show(Request $request, string $token)
     {
-        $session = $this->classSession($token);
-        $enrollment = $this->findEnrollment($request, $session);
+        $session = $this->access->session($token);
+        $enrollment = $this->access->enrollment($request, $session);
         if (! $enrollment) {
             return redirect()->route('class.join', $token);
         }
 
-        return view('classes.show', compact('session', 'enrollment'));
+        $materials = Material::where('learning_session_id', $session->id)->where('is_visible', true)->whereNotNull('current_version_id')->with('currentVersion')->orderBy('title')->paginate(10, ['*'], 'materials_page');
+
+        return response()->view('classes.show', compact('session', 'enrollment', 'materials'))->header('Cache-Control', 'private, no-store');
     }
 
     public function edit(Request $request, string $token)
     {
-        $session = $this->classSession($token);
-        $enrollment = $this->findEnrollment($request, $session);
+        $session = $this->access->session($token);
+        $enrollment = $this->access->enrollment($request, $session);
         if (! $enrollment) {
             return redirect()->route('class.join', $token);
         }
@@ -127,8 +102,8 @@ class GuestClassController extends Controller
 
     public function submit(Request $request, string $token, SubmitL1 $action)
     {
-        $session = $this->classSession($token);
-        $enrollment = $this->findEnrollment($request, $session);
+        $session = $this->access->session($token);
+        $enrollment = $this->access->enrollment($request, $session);
         abort_unless($enrollment, 403, 'Isi formulir peserta melalui tautan kelas pada browser ini terlebih dahulu.');
         $action->handle($request, $enrollment, $session);
 

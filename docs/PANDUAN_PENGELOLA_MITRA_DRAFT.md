@@ -96,7 +96,7 @@ Periksa dampaknya sebelum menekan tombol. Jika peserta masih memakai perangkat d
 2. Periksa jenis perubahan, nama petugas, dan waktu.
 3. Pilih **Lihat perubahan** untuk membandingkan informasi sebelum dan sesudah.
 
-Riwayat ini mencatat perubahan kegiatan, sesi, QR, master serta status/pemetaan kepesertaan dalam cakupan KPwBI akun Anda. Riwayat login atau koreksi data peserta belum menjadi bagian fitur ini.
+Riwayat ini mencatat perubahan kegiatan, sesi, QR, master, materi serta status/pemetaan kepesertaan dalam cakupan KPwBI akun Anda. Riwayat login atau koreksi data peserta belum menjadi bagian fitur ini.
 
 > Ruang gambar A08: riwayat perubahan dan rincian sebelum/sesudah.
 
@@ -127,6 +127,28 @@ Contoh pesan untuk peserta:
 > Bapak/Ibu peserta kegiatan **[nama kegiatan]**, silakan membuka **[tautan kelas]** atau memindai QR terlampir. Isi data diri Anda, lalu tekan **Gabung kelas**. Peserta tidak perlu login atau membuat akun. Pendaftaran dibuka **[jadwal]**. Bantuan: **[kontak panitia]**.
 
 Bagian dalam tanda kurung siku diisi panitia sebelum pesan dibagikan. Jangan membagikan kata sandi akun pengelola kepada peserta.
+
+## Mengunggah dan menerbitkan materi PDF
+
+1. Buka **Kelola kegiatan**, pilih kegiatan, lalu pilih **Atur sesi: [nama sesi]**.
+2. Pilih **Kelola materi PDF**.
+3. Isi **Judul materi** dan keterangan jika diperlukan.
+4. Pilih **Berkas PDF** dari perangkat Anda. Perhatikan batas ukuran yang tertulis pada formulir.
+5. Tekan **Unggah PDF** dan tunggu konfirmasi.
+6. Periksa judul dan berkas melalui **Unduh versi 1**.
+7. Jika sudah sesuai, tekan **Terbitkan versi 1**.
+8. Peserta yang sudah bergabung dapat membuka materi dari halaman kelasnya.
+
+PDF yang baru diunggah belum terlihat oleh peserta. Jika pengisian gagal, perbaiki sesuai pesan dan pilih ulang berkas sebelum mencoba lagi.
+
+Untuk mengganti isi materi, buka **Kelola materi: [judul]**, pilih **Berkas PDF versi baru**, lalu tekan **Unggah versi baru**. Periksa berkasnya, kemudian pilih **Terbitkan versi [nomor]** yang sesuai. Versi yang sedang terbit tetap digunakan sampai Anda menerbitkan penggantinya.
+
+Untuk menghentikan akses, tekan **Sembunyikan materi**. Riwayat versi tetap tersimpan dan dapat diterbitkan lagi. Berkas yang sebelumnya sudah diunduh peserta tetap berada pada perangkat mereka.
+
+Materi terikat pada sesi; belum tersedia pembagian materi ke akun mitra. Judul/keterangan ditetapkan saat membuat materi dan belum mempunyai halaman penyuntingan tersendiri.
+
+> Ruang gambar A13: unggah PDF dan batas ukuran. Ruang gambar A14: riwayat versi, Terbitkan versi, dan Sembunyikan materi.
+
 
 ## Membaca ringkasan L1 — BI dan mitra
 
@@ -172,7 +194,7 @@ Lakukan langkah ini terutama jika menggunakan komputer bersama. Peserta yang men
 
 ## Bagian yang akan ditambahkan setelah fiturnya tersedia
 
-Koreksi identitas peserta; unggah materi; instrumen tes; impor historis; filter periode; grafik; serta ekspor laporan PDF/Excel.
+Koreksi identitas peserta; instrumen tes; impor historis; filter periode; grafik; serta ekspor laporan PDF/Excel.
 
 Langkah, nama tombol, dan gambar untuk bagian tersebut mengikuti implementasi final. Panduan ini belum menyediakan langkah pengoperasian fitur yang baru berupa rencana.
 

@@ -6,4 +6,5 @@ if (-not (Get-Command php -ErrorAction SilentlyContinue)) {
     if (Test-Path "$portablePhp/php.exe") { $env:PATH = "$portablePhp;$env:PATH" }
 }
 Push-Location $projectRoot
-try { & php artisan serve --host=127.0.0.1 --port=$Port } finally { Pop-Location }
+# Preserve Windows TEMP/TMP for multipart uploads; restart manually after .env changes.
+try { & php artisan serve --host=127.0.0.1 --port=$Port --no-reload } finally { Pop-Location }

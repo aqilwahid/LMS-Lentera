@@ -6,6 +6,7 @@ use App\Http\Controllers\GuestClassController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ParticipantManagementController;
 use App\Http\Middleware\EnsureActiveUser;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +17,21 @@ Route::post('/kelas/{token}', [GuestClassController::class, 'store'])->middlewar
 Route::get('/kelas/{token}/kegiatan', [GuestClassController::class, 'show'])->name('class.show');
 Route::get('/kelas/{token}/l1', [GuestClassController::class, 'edit'])->name('class.l1.edit');
 Route::post('/kelas/{token}/l1', [GuestClassController::class, 'submit'])->middleware('throttle:class-forms')->name('class.l1.store');
+Route::get('/kelas/{token}/materi/{material}', [MaterialController::class, 'preview'])->name('class.material.preview');
+Route::get('/kelas/{token}/materi/{material}/pdf', [MaterialController::class, 'guestFile'])->name('class.material.file');
+Route::get('/kelas/{token}/materi/{material}/unduh', [MaterialController::class, 'guestFile'])->name('class.material.download');
 Route::middleware('guest')->group(function () {
     Route::get('/masuk', [AuthController::class, 'create'])->name('login');
     Route::post('/masuk', [AuthController::class, 'store'])->middleware('throttle:30,1');
 });
 Route::post('/keluar', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
+    Route::get('/pengelola/sesi/{session}/materi', [MaterialController::class, 'index'])->name('materials.index');
+    Route::post('/pengelola/sesi/{session}/materi', [MaterialController::class, 'store'])->name('materials.store');
+    Route::get('/pengelola/materi/{material}', [MaterialController::class, 'show'])->name('materials.show');
+    Route::post('/pengelola/materi/{material}/versi', [MaterialController::class, 'version'])->name('materials.version');
+    Route::post('/pengelola/materi/{material}/terbit', [MaterialController::class, 'publish'])->name('materials.publish');
+    Route::get('/pengelola/materi/{material}/versi/{version}/unduh', [MaterialController::class, 'adminFile'])->name('materials.admin.download');
     Route::get('/pengelola/master/{kind}', [MasterController::class, 'index'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.index');
     Route::get('/pengelola/master/{kind}/buat', [MasterController::class, 'create'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.create');
     Route::post('/pengelola/master/{kind}', [MasterController::class, 'store'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.store');

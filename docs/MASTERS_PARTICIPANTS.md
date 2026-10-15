@@ -65,4 +65,4 @@ Suite lokal: **47 tes, 424 assertion lulus**, termasuk pembatasan peran/KPwBI, d
 
 SQLite dan Chromium lokal telah diuji. MariaDB/Hostinger, konkurensi aktual dan beban 1.500 pengguna belum diuji. Hasil rinci ada di [QA.md](QA.md).
 
-Berikutnya: materi PDF privat beserta versi/izin unggah-baca-unduh, lalu pengelolaan instrumen dan penilaian L2. Panduan awam tetap berupa sketsa Markdown; finalisasi PDF dilaksanakan belakangan.
+Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Berikutnya pengelolaan instrumen dan penilaian L2. Panduan awam tetap berupa sketsa Markdown; finalisasi PDF dilaksanakan belakangan.

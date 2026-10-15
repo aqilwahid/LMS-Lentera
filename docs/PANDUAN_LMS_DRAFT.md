@@ -4,7 +4,7 @@
 
 Panduan ini membantu Anda mengikuti kelas LENTERA melalui HP atau komputer. **Peserta tidak perlu membuat akun, login, atau menyiapkan kata sandi.** Cukup buka QR atau tautan kelas dari panitia, lalu isi formulir.
 
-Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan akan dilengkapi sebelum panduan dibagikan kepada peserta. Langkah di bawah mengikuti fitur yang sudah tersedia; rencana materi dan tes dijelaskan terpisah di bagian akhir.
+Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan akan dilengkapi sebelum panduan dibagikan kepada peserta. Langkah di bawah mengikuti fitur yang sudah tersedia; rencana tes dijelaskan terpisah di bagian akhir.
 
 ## Daftar isi
 
@@ -12,10 +12,11 @@ Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan a
 2. [Buka kelas dari QR atau tautan](#buka-kelas-dari-qr-atau-tautan)
 3. [Isi formulir peserta](#isi-formulir-peserta)
 4. [Periksa halaman kelas](#periksa-halaman-kelas)
-5. [Isi evaluasi L1](#isi-evaluasi-l1)
-6. [Pastikan evaluasi sudah terkirim](#pastikan-evaluasi-sudah-terkirim)
-7. [Jika mengalami kendala](#jika-mengalami-kendala)
-8. [Materi dan tes pada pengembangan berikutnya](#materi-dan-tes-pada-pengembangan-berikutnya)
+5. [Baca materi PDF](#baca-materi-pdf)
+6. [Isi evaluasi L1](#isi-evaluasi-l1)
+7. [Pastikan evaluasi sudah terkirim](#pastikan-evaluasi-sudah-terkirim)
+8. [Jika mengalami kendala](#jika-mengalami-kendala)
+9. [Tes pada pengembangan berikutnya](#tes-pada-pengembangan-berikutnya)
 
 ## Sebelum mulai
 
@@ -88,6 +89,25 @@ Jika muncul keterangan bahwa materi atau tes belum tersedia, ikuti arahan paniti
 
 > Ruang gambar P03: halaman kelas, ucapan selamat datang, jadwal, dan tombol “Buka evaluasi L1”.
 
+## Baca materi PDF
+
+1. Pada halaman kelas, cari bagian **Materi kelas**.
+2. Periksa judul dan nomor versi materi.
+3. Tekan **Baca materi: [judul]**.
+4. Baca dokumen pada area pratinjau. Gunakan pengatur perbesaran pembaca PDF jika tersedia.
+5. Jika pratinjau kosong atau sulit dibaca, pilih **Buka PDF di tab baru**.
+6. Jika ingin menyimpan berkas, pilih **Unduh PDF**.
+7. Setelah selesai, pilih **Kembali ke kelas**.
+
+Anda juga dapat memilih **Unduh PDF: [judul]** langsung dari halaman kelas. Cara membuka berkas yang sudah diunduh mengikuti aplikasi PDF pada perangkat Anda.
+
+Jika belum ada materi yang diterbitkan, tanyakan kepada panitia. Membuka materi tidak otomatis mengirim evaluasi L1. Jika panitia mengganti versi atau muncul pesan versi telah berganti, kembali ke kelas lalu buka materi lagi.
+
+Gunakan perangkat dan aplikasi internet yang sama dengan saat bergabung. Tautan materi tidak menggantikan pendaftaran kelas; orang lain yang hanya menerima tautannya belum tentu mempunyai akses.
+
+> Ruang gambar P07: daftar materi, nomor versi, Baca materi dan Unduh PDF. Ruang gambar P08: halaman baca dan pilihan jika pratinjau tidak tampil.
+
+
 ## Isi evaluasi L1
 
 L1 adalah formulir umpan balik tentang penyampaian materi dan pengalaman belajar Anda. **L1 bukan tes pengetahuan.**
@@ -147,13 +167,12 @@ Untuk meminta bantuan, sampaikan nama kegiatan, sesi, kendala yang dialami, dan 
 
 **Kontak panitia:** [nama petugas, nomor/kanal bantuan, dan jam layanan akan diisi sebelum panduan diterbitkan].
 
-## Materi dan tes pada pengembangan berikutnya
+## Tes pada pengembangan berikutnya
 
 Bagian ini adalah rencana isi panduan final. Langkah operasionalnya baru ditulis setelah fiturnya tersedia.
 
 | Rencana bagian | Isi yang akan dijelaskan nanti |
 | --- | --- |
-| Membuka materi | Cara membaca dan mengunduh PDF dari kelas yang diikuti. |
 | Pretest | Cara mengikuti tes awal sesuai instruksi kegiatan. |
 | Post-test atau evaluasi L2 | Cara mengikuti tes pengetahuan setelah pembelajaran. |
 | Melihat hasil tes | Cara membaca hasil jika pengelola sudah mengizinkan hasil ditampilkan. |

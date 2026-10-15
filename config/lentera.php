@@ -2,6 +2,7 @@
 
 return [
     'demo_enabled' => (bool) env('LENTERA_DEMO_ENABLED', false),
+    'material_max_kb' => max(1, (int) env('LENTERA_MATERIAL_MAX_KB', 10240)),
     // Suggestions only; participants may type another category.
     'participant_categories' => ['Mahasiswa', 'GenBI', 'Dosen', 'Akademisi', 'Pegawai', 'Lainnya'],
     // Working copy of DESIGN V2; official wording awaits approval.

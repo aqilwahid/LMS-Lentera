@@ -18,7 +18,7 @@ Jalankan migrasi tambahan pada database yang sudah ada:
 
 ```powershell
 php artisan migrate
-php artisan serve --host=127.0.0.1 --port=8000
+php artisan serve --host=127.0.0.1 --port=8000 --no-reload
 ```
 
 Pada mesin yang memakai runtime portabel, scripts/serve-local.ps1 juga dapat digunakan. Login pengelola contoh seperti dijelaskan di [BACKEND.md](BACKEND.md).
@@ -63,4 +63,4 @@ MariaDB aktual, operasi bersamaan pada hosting dan kapasitas 1.500 pengguna belu
 
 ## Berikutnya
 
-Master institusi/narasumber serta status/pemetaan kepesertaan kini tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Berikutnya materi privat, instrumen/L2, dan koreksi identitas yang diaudit. Penghapusan/arsip dan retensi data perlu aturan khusus sebelum disediakan. Panduan awam masih Markdown; PDF final tetap dikerjakan belakangan.
+Master institusi/narasumber serta status/pemetaan kepesertaan kini tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Berikutnya instrumen/L2 dan koreksi identitas yang diaudit. Penghapusan/arsip dan retensi data perlu aturan khusus sebelum disediakan. Panduan awam masih Markdown; PDF final tetap dikerjakan belakangan.

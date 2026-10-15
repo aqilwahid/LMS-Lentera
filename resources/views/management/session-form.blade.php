@@ -35,6 +35,7 @@
 @if(!$contextLocked && $instruments->isEmpty())<p>Belum ada instrumen L1 yang siap. Hubungi petugas instrumen sebelum membuat sesi.</p>@endif
 </form>
 @if($session->exists)
+<section class="panel"><h2>Materi pembelajaran</h2><p>Unggah PDF, simpan riwayat versi, dan terbitkan materi untuk peserta sesi ini.</p><a class="btn primary" href="{{ route('materials.index',$session) }}">Kelola materi PDF</a></section>
 <section class="panel"><h2>Akses QR kelas</h2><p>Status: <strong>{{ $session->join_enabled ? 'Aktif' : 'Nonaktif' }}</strong>. Pendaftaran tetap mengikuti jadwal.</p>
 @if($session->join_enabled)<p><a class="btn primary" href="{{ route('class.access',$session) }}">Lihat QR dan tautan</a></p>@endif
 <form method="post" action="{{ route('management.sessions.access',$session) }}">@csrf

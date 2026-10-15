@@ -27,7 +27,7 @@ Jumlah halaman dapat berubah saat tata letak final dibuat.
 | 8 | Konfirmasi dan bantuan saat koneksi bermasalah. |
 | 9 | Pertanyaan umum dan kontak bantuan. |
 
-Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masuk; membuat kegiatan/sesi; jadwal; siklus QR/tautan; membaca ringkasan/riwayat; keluar dan bantuan. Bab materi/L2 serta pengelolaan lanjutan ditambahkan ketika sudah berfungsi, bukan dipasang sebagai langkah aktif pada edisi awal.
+Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masuk; membuat kegiatan/sesi; jadwal; siklus QR/tautan; membaca ringkasan/riwayat; keluar dan bantuan. Bab L2 serta pengelolaan lanjutan ditambahkan ketika sudah berfungsi, bukan dipasang sebagai langkah aktif pada edisi awal.
 
 ## Daftar gambar yang disiapkan nanti
 
@@ -39,6 +39,7 @@ Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masu
 | P04 | Satu pertanyaan L1 lengkap | Keenam pilihan angka, satu jawaban per pertanyaan. |
 | P05 | Bagian akhir form L1 | Masukan opsional, tombol Kirim evaluasi. |
 | P06 | Konfirmasi L1 | Evaluasi sudah dikirim dan waktu penyimpanan. |
+| P07/P08 | Materi peserta | Daftar versi terbit, pratinjau dan fallback buka/unduh. |
 | A01 | Login pengelola/mitra | Email, kata sandi tersamarkan, Masuk. |
 | A02 | Ringkasan pengelola | Bagikan QR kelas dan tautan sesi. |
 | A03 | Halaman Bagikan kelas | QR, Tautan peserta, jadwal, Unduh QR SVG. |
@@ -49,6 +50,7 @@ Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masu
 | A08 | Riwayat perubahan | Pelaku, waktu, jenis perubahan dan nilai sebelum/sesudah. |
 | A09/A10 | Master dan pilihan narasumber | Nama, status dan pemilihan pada sesi. |
 | A11/A12 | Daftar/detail kepesertaan | Filter, isian asli, pemetaan institusi dan status. |
+| A13/A14 | Materi BI | Unggah PDF, batas ukuran, versi, terbit/sembunyikan. |
 
 Gunakan screenshot aplikasi final dengan data sintetis. Screenshot QA lokal tidak otomatis menjadi aset publik: pilih, periksa, dan samarkan data sebelum digunakan. Jangan menampilkan APP_KEY, kredensial, identitas asli, atau token kelas produksi. QR dalam dokumen contoh harus jelas diberi label contoh; QR kegiatan aktif dibagikan panitia secara terpisah.
 

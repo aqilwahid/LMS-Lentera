@@ -12,6 +12,11 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | S04 | GET /beranda (peserta) | Kepesertaan aktif dari database |
 | S05 | GET /kegiatan/{activity} | Detail kegiatan/sesi dengan policy |
 | S08 | GET/POST /sesi/{session}/l1 | Form L1, validasi, simpan final dan konfirmasi |
+| S11 (pengelola) | /pengelola/kegiatan dan /pengelola/sesi/{session}/ubah | Daftar, buat/ubah kegiatan dan sesi, jadwal, versi instrumen terbit |
+| Akses QR (pengelola) | POST /pengelola/sesi/{session}/akses | Aktifkan, nonaktifkan atau ganti QR dengan pemeriksaan versi formulir |
+| Audit (pengelola) | GET /pengelola/riwayat | Riwayat kegiatan, sesi dan QR sesuai KPwBI |
+| S12/S16 (master BI) | /pengelola/master/institusi dan /pengelola/master/narasumber | Daftar, tambah/ubah serta status master sesuai KPwBI |
+| S16 (kepesertaan BI) | /pengelola/kepesertaan dan /{enrollment} | Filter/detail, pemetaan instansi dan status kepesertaan; hanya BI berizin |
 | S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi |
 
 Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).

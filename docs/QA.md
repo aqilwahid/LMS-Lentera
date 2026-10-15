@@ -1,3 +1,30 @@
+# Verifikasi master dan kepesertaan — 15 Oktober 2026
+
+- Migrasi master narasumber, status/revision institusi, speaker_id sesi, serta pemetaan/revision kepesertaan berhasil pada SQLite lokal tanpa menghapus data sebelumnya.
+- **47 tes PHPUnit, 424 assertion lulus.** Tambahan tes mencakup master sesuai KPwBI, nama duplikat, formulir lama, narasumber yang ditentukan server, snapshot setelah master diubah, master nonaktif, pemetaan yang memengaruhi agregat mitra, data asli yang tetap utuh, status, privasi halaman, pembatasan peran, dan rollback audit.
+- Chromium berhasil menguji master → sesi dengan narasumber dari master → pendaftaran dan L1 tanpa akun → pencarian/detail peserta → pemetaan dan penonaktifan → akses peserta ditolak → pengaktifan → L1 sebelumnya tetap tampil.
+- Detail peserta diperiksa pada 375, 768 dan 1440 px tanpa overflow horizontal. Screenshot mobile diperiksa. Tidak ada error JavaScript pada alur tersebut.
+- Halaman daftar/detail peserta memakai Cache-Control private, no-store; mitra tidak mendapat data individual. Audit perubahan kepesertaan tidak menyalin identitas peserta.
+- Pint --test, Composer validate --strict dan kompilasi Blade lulus.
+- Browser test: tests/masters-browser.cjs. Artefak di tests/outputs/masters diabaikan Git; database demo bertambah data sintetis pada setiap run.
+
+Batas: MariaDB/Hostinger, collation dan konkurensi nyata, kapasitas 1.500 pengguna, verifikasi identitas, pemulihan akses lintas browser dan koreksi identitas/final L1 belum diuji/disediakan. Detail aturan ada di [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Catatan tahap sebelumnya di bawah adalah riwayat verifikasi.
+
+---
+
+# Verifikasi pengelolaan kegiatan/sesi dan QR — 15 Oktober 2026
+
+- Migrasi revision kegiatan/sesi dan tabel audit_entries berhasil pada database SQLite lokal, tanpa menghapus data awal.
+- **36 tes PHPUnit, 313 assertion lulus.** Tambahan tes mencakup pembuatan kegiatan/sesi, pembatasan role/KPwBI, penolakan payload yang mengganti cakupan, jadwal tidak sah, instrumen draft/tidak lengkap, konteks terkunci setelah pendaftaran, konflik versi formulir, siklus QR, serta rollback jika audit gagal.
+- Chromium berhasil menjalankan: pengelola membuat kegiatan/sesi → mengaktifkan QR → peserta mendaftar dan mengirim L1 tanpa akun → pengelola mengganti QR → tautan lama ditolak → peserta pada browser yang sama tetap melihat respons melalui tautan baru → nonaktifkan/aktifkan → respons tetap ada → audit terbaca.
+- Form sesi pada 375, 768 dan 1440 px tidak memiliki overflow horizontal. Screenshot mobile diperiksa. Tidak ada error JavaScript pada alur browser ini.
+- Kompilasi Blade, Pint --test dan Composer validate --strict lulus.
+- Browser test baru: tests/management-browser.cjs; hasil screenshot di tests/outputs/management. Tes menambah data dan audit sintetis pada database demo lokal, bukan akun peserta.
+
+Batas: belum menguji MariaDB/Hostinger, race condition nyata pada database produksi, browser selain Chromium, retensi/arsip, dan beban 1.500 pengguna. Audit tahap ini mencakup perubahan kegiatan, sesi dan QR, belum semua operasi aplikasi. Panduan ada di [MANAGEMENT.md](MANAGEMENT.md). Hasil tahap sebelumnya di bawah merupakan riwayat verifikasi.
+
+---
+
 # Verifikasi alur QR tanpa akun — 15 Oktober 2026
 
 Alur ini mengikuti koreksi kebutuhan pengguna: peserta mengisi formulir melalui QR kelas tanpa login; autentikasi hanya untuk BI/mitra.

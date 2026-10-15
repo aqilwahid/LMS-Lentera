@@ -10,6 +10,26 @@ class Enrollment extends Model
 
     protected $hidden = ['guest_access_hash'];
 
+    protected function casts(): array
+    {
+        return ['revision' => 'integer'];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function joinedSession()
+    {
+        return $this->belongsTo(LearningSession::class, 'joined_session_id');
+    }
+
+    public function mappedInstitution()
+    {
+        return $this->belongsTo(Institution::class, 'mapped_institution_id');
+    }
+
     public function activity()
     {
         return $this->belongsTo(Activity::class);

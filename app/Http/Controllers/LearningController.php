@@ -23,7 +23,7 @@ class LearningController extends Controller
         $query = DB::table('l1_responses as r')->join('enrollments as e', 'e.id', '=', 'r.enrollment_id')->join('activities as a', 'a.id', '=', 'e.activity_id');
         if ($user->role === 'partner') {
             abort_unless($user->institution_id, 403);
-            $query->where('e.institution_id', $user->institution_id);
+            $query->whereRaw('COALESCE(e.institution_id, e.mapped_institution_id) = ?', [$user->institution_id]);
         } else {
             abort_unless($user->office_id, 403);
             $query->where('a.office_id', $user->office_id);

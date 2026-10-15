@@ -7,7 +7,7 @@ Status: sketsa Markdown untuk peninjauan; belum membuat PDF, gambar baru, atau h
 | Berkas | Sasaran | Isi |
 | --- | --- | --- |
 | [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) | Peserta awam, terutama pengguna HP | QR/tautan, seluruh isian identitas, kelas, L1, konfirmasi, dan bantuan. |
-| [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) | Pegawai BI dan mitra yang belum terbiasa dengan LMS | Login, pembagian QR sesuai izin, membaca ringkasan, keluar, dan bantuan. |
+| [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) | Pegawai BI dan mitra yang belum terbiasa dengan LMS | Login, kegiatan/sesi, pengaturan QR, membaca ringkasan/riwayat, keluar, dan bantuan. |
 | Dokumen ini | Penyusun panduan dan tim implementasi | Rencana halaman, gambar, status fitur, dan pemeriksaan sebelum terbit. |
 
 Panduan peserta menjadi dokumen utama. Panduan pengelola/mitra dipisahkan agar peserta tidak mengira harus memiliki akun.
@@ -27,7 +27,7 @@ Jumlah halaman dapat berubah saat tata letak final dibuat.
 | 8 | Konfirmasi dan bantuan saat koneksi bermasalah. |
 | 9 | Pertanyaan umum dan kontak bantuan. |
 
-Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 4–6 halaman: masuk; QR/tautan; membaca ringkasan; keluar dan bantuan. Bab materi/L2 serta pengelolaan lanjutan ditambahkan ketika sudah berfungsi, bukan dipasang sebagai langkah aktif pada edisi awal.
+Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masuk; membuat kegiatan/sesi; jadwal; siklus QR/tautan; membaca ringkasan/riwayat; keluar dan bantuan. Bab materi/L2 serta pengelolaan lanjutan ditambahkan ketika sudah berfungsi, bukan dipasang sebagai langkah aktif pada edisi awal.
 
 ## Daftar gambar yang disiapkan nanti
 
@@ -43,6 +43,12 @@ Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 4–6 halaman: masu
 | A02 | Ringkasan pengelola | Bagikan QR kelas dan tautan sesi. |
 | A03 | Halaman Bagikan kelas | QR, Tautan peserta, jadwal, Unduh QR SVG. |
 | A04 | Ringkasan L1 BI/mitra | Cakupan, periode, jumlah respons, rata-rata, kondisi kosong. |
+| A05 | Formulir kegiatan | Nama/deskripsi, Simpan kegiatan, Tambah sesi. |
+| A06 | Formulir sesi | Narasumber, instrumen, jadwal dan keterangan konteks terkunci. |
+| A07 | Akses QR kelas | Aktifkan/nonaktifkan dan Ganti QR dan tautan beserta dampaknya. |
+| A08 | Riwayat perubahan | Pelaku, waktu, jenis perubahan dan nilai sebelum/sesudah. |
+| A09/A10 | Master dan pilihan narasumber | Nama, status dan pemilihan pada sesi. |
+| A11/A12 | Daftar/detail kepesertaan | Filter, isian asli, pemetaan institusi dan status. |
 
 Gunakan screenshot aplikasi final dengan data sintetis. Screenshot QA lokal tidak otomatis menjadi aset publik: pilih, periksa, dan samarkan data sebelum digunakan. Jangan menampilkan APP_KEY, kredensial, identitas asli, atau token kelas produksi. QR dalam dokumen contoh harus jelas diberi label contoh; QR kegiatan aktif dibagikan panitia secara terpisah.
 

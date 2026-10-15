@@ -61,7 +61,7 @@ Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk 
 - Respons final tidak dapat diedit/dihapus lewat model. Koreksi administratif dan audit koreksi belum disediakan.
 - Login memakai session Laravel, rotasi session ID, CSRF, password hashing dan pembatasan percobaan per email/IP. Logout menghapus session. Pendaftaran kelas terbuka bagi pemegang tautan QR selama jadwalnya aktif, tanpa membuat akun. Reset email otomatis, SSO dan HRIS belum tersedia.
 - Mitra hanya menerima agregat institusi historisnya, tanpa identitas/jawaban/feedback individu; tidak dapat membuka detail kegiatan peserta atau mengekspor. BI melihat agregat KPwBI akun. Agregat dipisahkan per sesi, instrumen dan konteks institusi, disertai jumlah respons/periode.
-- L1 tidak mensyaratkan L2/membaca PDF. Materi privat, draft server, CRUD pengelola dan laporan belum dihubungkan.
+- L1 tidak mensyaratkan L2/membaca PDF. Pengelolaan kegiatan/sesi, jadwal dan QR beserta audit sudah tersedia; lihat [MANAGEMENT.md](MANAGEMENT.md). Materi privat, draft server, laporan belum dihubungkan. Master institusi/narasumber dan pemetaan/status kepesertaan sudah tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md).
 
 ## Pemeriksaan
 
@@ -75,6 +75,8 @@ npm run build
 node tests/smoke.cjs
 npx playwright install chromium
 node tests/browser.cjs
+node tests/management-browser.cjs
+node tests/masters-browser.cjs
 ```
 
 Tes PHPUnit memakai database SQLite in-memory, terpisah dari database lokal. Browser test masuk sebagai pengelola contoh untuk memperoleh QR, lalu memakai browser context terpisah untuk mendaftar dan mengirim L1 tanpa akun. Setiap run membuat satu kepesertaan dan respons sintetis baru 5/6. Tes menolak lingkungan tanpa banner contoh. Jangan gunakan database berisi data produksi.
@@ -99,8 +101,12 @@ SESSION_DRIVER=database, CACHE_STORE=database dan QUEUE_CONNECTION=database suda
 
 Jangan aktifkan cron sebelum memastikan job bounded dan mekanisme anti-overlap sesuai kemampuan akun. Belum ada job aplikasi tahap ini. Tidak mengasumsikan root, Redis, Supervisor atau daemon. Email lokal memakai log, SMTP/API nyata dikonfigurasi saat akses tersedia.
 
+## Pengelolaan tahap berikutnya yang sudah tersedia
+
+Kegiatan/sesi dapat dibuat dan diubah melalui menu Kelola kegiatan. QR sesi baru nonaktif sampai pengelola mengaktifkannya. Jadwal dan siklus QR dapat diatur, dengan pemeriksaan versi formulir dan riwayat audit. Migrasi tambahan menambah revision dan audit_entries. Panduan operasional, asumsi, batas, dan cara menguji ada di [MANAGEMENT.md](MANAGEMENT.md).
+
 ## Tahap selanjutnya
 
 Sketsa panduan untuk pengguna awam tersedia di [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) untuk peserta dan [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) untuk BI/mitra. [PANDUAN_LMS_RENCANA.md](PANDUAN_LMS_RENCANA.md) memuat rencana gambar dan finalisasi. Statusnya naskah Markdown; belum membuat PDF atau menghubungkan halaman panduan pada backend.
 
-CRUD kegiatan/sesi, kepesertaan dan narasumber beserta audit; materi privat; pengelolaan QR dan pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.
+Materi PDF privat beserta versi/izin; pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.

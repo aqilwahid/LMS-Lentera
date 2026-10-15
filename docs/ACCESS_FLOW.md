@@ -8,7 +8,7 @@ Pengelola BI login → buka QR dan tautan sesi → bagikan QR/tautan → peserta
 
 Formulir memuat Nama Lengkap; Instansi/Perguruan Tinggi; NIP/NIM/NPM; Jurusan/Program Studi; Fakultas; No. HP; Kategori; Nama Narasumber; dan Email. Delapan isian identitas wajib; nama narasumber diambil dari sesi yang dibagikan, tampil hanya baca dan selalu ditetapkan server. Satu sesi masih mempunyai satu narasumber. Nomor identitas dan HP tetap teks, sehingga angka nol di depan tidak hilang.
 
-Instansi menyediakan saran dari master KPwBI kelas, tetapi tetap menerima nama instansi lain. Pemetaan hanya dilakukan ke nama master yang cocok pada KPwBI itu; nama yang belum dikenali disimpan apa adanya dengan institution_id=null untuk pemetaan administratif berikutnya. Tidak ada tebakan alias. Kategori menerima teks dengan saran yang dapat diubah di config/lentera.php. Peserta nonkampus dapat mengisi nama unit kerja pada jurusan/fakultas.
+Instansi menyediakan saran dari master KPwBI kelas, tetapi tetap menerima nama instansi lain. Pemetaan hanya dilakukan ke nama master yang cocok pada KPwBI itu; nama yang belum dikenali disimpan apa adanya dengan institution_id=null. Pengelola kini dapat mengisi mapped_institution_id secara terpisah, tanpa menulis ulang isian asli; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Tidak ada tebakan alias. Kategori menerima teks dengan saran yang dapat diubah di config/lentera.php. Peserta nonkampus dapat mengisi nama unit kerja pada jurusan/fakultas.
 
 ## Penyimpanan dan akses
 
@@ -17,7 +17,7 @@ Instansi menyediakan saran dari master KPwBI kelas, tetapi tetap menerima nama i
 - Token QR hanya mengizinkan membuka pendaftaran, bukan membaca semua peserta. Respons pribadi diakses melalui rahasia acak pada session browser; database menyimpan hash HMAC rahasia itu. Email/NIP atau enrollment_id dari request tidak dapat dipakai untuk mengambil alih respons.
 - Retry pendaftaran dalam browser yang sama memakai kunci unik yang sama. Retry L1 mempertahankan respons final pertama. Data peserta dan respons final tidak ditimpa oleh retry.
 - Pembatasan pengiriman formulir memakai sesi browser, agar peserta berbeda yang memakai IP internet kampus yang sama tidak berbagi kuota 30 request/menit.
-- BI melihat agregat KPwBI akun dan dapat membuka/unduh QR SVG untuk sesi dalam cakupannya. Mitra hanya mendapat agregat institusinya dan tidak dapat mengelola QR. QR dibuat lokal oleh endroid/qr-code, tanpa mengirim URL atau data peserta ke layanan pembuat QR eksternal.
+- BI melihat agregat KPwBI akun dan dapat membuka/unduh QR SVG untuk sesi dalam cakupannya. Mitra mendapat agregat berdasarkan institusi saat pendaftaran, atau pemetaan yang ditetapkan BI untuk instansi yang semula belum dikenali; mitra tetap hanya mendapat cakupan institusinya dan tidak dapat mengelola QR. QR dibuat lokal oleh endroid/qr-code, tanpa mengirim URL atau data peserta ke layanan pembuat QR eksternal.
 - Login email/kata sandi tetap tersedia hanya untuk BI/mitra. Akun participant dari implementasi awal tetap menjadi data/fixture regresi tetapi login participant ditolak. Endpoint peserta lama tidak ditautkan pada alur QR baru.
 
 ## Batas dan pekerjaan lanjutan
@@ -28,7 +28,7 @@ Akses mengikuti session browser Laravel (SESSION_LIFETIME, default 120 menit tid
 
 Pendaftaran dan evaluasi L1 mempunyai jadwal terpisah. Peserta yang sudah mendaftar dapat mengakses kelas setelah pendaftaran ditutup selama tautan tetap aktif, tetapi pengiriman L1 mengikuti jadwal evaluasi. Menonaktifkan atau merotasi token kelas memutus akses melalui tautan lama.
 
-Seeder contoh menerbitkan token untuk sesi demo yang sudah ada; menjalankan seeder ulang tidak merotasi token atau mengubah jadwal. UI membuat kelas, mengubah masa berlaku, merotasi/menonaktifkan QR, koreksi identitas, audit, kebijakan privasi final, dan pemulihan akses masih pekerjaan berikutnya. Materi privat serta L2 belum diimplementasikan.
+Seeder contoh menerbitkan token untuk sesi demo yang sudah ada; menjalankan seeder ulang tidak merotasi token atau mengubah jadwal. UI membuat/mengubah kegiatan dan sesi, mengatur masa berlaku, serta mengganti/menonaktifkan QR sudah tersedia bagi BI sesuai KPwBI dan dicatat dalam riwayat perubahan; lihat [MANAGEMENT.md](MANAGEMENT.md). Koreksi identitas, audit operasi lain, kebijakan privasi final, dan pemulihan akses masih pekerjaan berikutnya. Materi privat serta L2 belum diimplementasikan.
 
 QR memakai URL aplikasi yang sedang dibuka. Alamat localhost hanya berlaku pada komputer server; sebelum membagikan QR kepada peserta, deploy aplikasi pada alamat HTTPS yang dapat dijangkau peserta dan pastikan APP_URL benar. Kapasitas MariaDB/Hostinger serta 1.500 pengguna belum diuji.
 

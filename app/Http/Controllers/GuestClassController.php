@@ -58,7 +58,7 @@ class GuestClassController extends Controller
 
         return view('classes.join', [
             'session' => $session, 'joinOpen' => $this->joinIsOpen($session),
-            'institutions' => Institution::where('office_id', $session->activity->office_id)->orderBy('name')->get(),
+            'institutions' => Institution::where('office_id', $session->activity->office_id)->where('is_active', true)->orderBy('name')->get(),
         ]);
     }
 
@@ -87,7 +87,7 @@ class GuestClassController extends Controller
             $locked = LearningSession::whereKey($session->id)->lockForUpdate()->firstOrFail();
             abort_unless($locked->join_enabled && $locked->join_token === $session->join_token && $this->joinIsOpen($locked), 403);
             // Resolve exact master names in this KPwBI only; unknown names remain unmapped.
-            $institution = Institution::where('office_id', $session->activity->office_id)->where('name', $data['institution_name'])->first();
+            $institution = Institution::where('office_id', $session->activity->office_id)->where('is_active', true)->where('name', $data['institution_name'])->first();
             $enrollment = Enrollment::firstOrCreate(['guest_access_hash' => $hash], [
                 ...$data, 'email' => strtolower($data['email']), 'user_id' => null, 'status' => 'active',
                 'activity_id' => $session->activity_id, 'joined_session_id' => $session->id,

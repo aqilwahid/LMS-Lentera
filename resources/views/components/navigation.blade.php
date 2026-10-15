@@ -6,6 +6,13 @@
         @endif
         @auth
             <a href="{{ route('dashboard') }}">Beranda</a>
+            @if(auth()->user()->role === 'bi_admin')
+                <a href="{{ route('management.activities.index') }}">Kelola kegiatan</a>
+                <a href="{{ route('masters.index','institusi') }}">Institusi</a>
+                <a href="{{ route('masters.index','narasumber') }}">Narasumber</a>
+                <a href="{{ route('participants.index') }}">Kepesertaan</a>
+                <a href="{{ route('management.audit') }}">Riwayat perubahan</a>
+            @endif
             <button class="btn secondary" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="account-menu">Akun</button>
             <div id="account-menu" x-show="open" x-cloak>
                 <span>{{ auth()->user()->name }} · {{ ['participant'=>'Peserta','bi_admin'=>'Pengelola BI','partner'=>'Mitra · Akses lihat'][auth()->user()->role] ?? 'Akun' }}</span>

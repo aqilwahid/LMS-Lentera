@@ -2,7 +2,7 @@
 
 LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank Indonesia, pengelola BI, dan mitra perguruan tinggi.
 
-**Status per 15 Oktober 2026:** backend tahap pertama sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
+**Status per 15 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, dan kepesertaan sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
 
 ## Sudah dikerjakan
 
@@ -12,7 +12,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Tampilan V2 | Layout, navigasi, komponen validasi, login, beranda peserta, detail kegiatan/sesi, form L1, konfirmasi, dan ringkasan agregat BI/mitra memakai CSS, font, logo, serta aset V2 yang sudah ada. |
 | Autentikasi pengelola/mitra | Login email/kata sandi, password hashing, session server, rotasi session ID, logout, CSRF, pembatasan percobaan login, dan penolakan akun nonaktif. |
 | Akses peserta dan pengelola | Peserta tanpa akun hanya mengakses kelas dan respons miliknya melalui sesi browser. Pendaftaran tidak membuat akun pengguna. BI dibatasi KPwBI akun. Mitra hanya menerima agregat institusinya tanpa identitas, jawaban, atau masukan individu. Izin diperiksa server. |
-| Database | Migrasi untuk KPwBI, institusi, pengguna/profil dasar, kegiatan, sesi, kepesertaan, versi instrumen L1, dan respons L1; tabel session, cache, dan antrean database juga tersedia. |
+| Database | Migrasi untuk KPwBI, institusi, narasumber, pengguna/profil dasar, kegiatan, sesi, kepesertaan/pemetaan, versi instrumen L1, respons L1, dan audit; tabel session, cache, dan antrean database juga tersedia. |
 | Data contoh | Seeder sintetis untuk tiga institusi, tiga peran, satu kegiatan/sesi, satu kepesertaan, dan instrumen L1. Seeder hanya diizinkan pada lingkungan local/testing dengan flag demo aktif. |
 | Pendaftaran melalui QR | Tautan acak per sesi, jadwal pendaftaran, formulir identitas tanpa login, serta tampilan/unduh QR SVG bagi BI sesuai KPwBI. |
 | Evaluasi L1 | Lima butir skala 1–6, masukan opsional, validasi/jadwal/versi diperiksa server, dan rata-rata dihitung dari lima jawaban yang sah. |
@@ -20,6 +20,8 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Riwayat | Kepesertaan menyimpan konteks institusi/kategori historis. Respons menyimpan snapshot instrumen, versi, skala, dan narasumber. Model membatasi perubahan konteks historis dan respons final. |
 | Ringkasan | Agregat L1 dari database sesuai cakupan BI/mitra, dipisahkan per sesi, instrumen, dan institusi historis, dengan jumlah respons serta periode. |
 | Deployment/CI | Workflow Pages dibatasi ke allowlist prototype dan dijalankan manual. Workflow pemeriksaan backend tersedia untuk build, tes, dan format kode; belum melakukan deployment Laravel. |
+| Pengelolaan BI | Buat/ubah kegiatan dan sesi, pilih instrumen L1 terbit, atur jadwal, serta aktifkan/nonaktifkan/ganti QR. Perubahan dibatasi KPwBI, memakai pemeriksaan versi formulir, dan dicatat pada riwayat audit. |
+| Master dan kepesertaan BI | Master institusi/narasumber sesuai KPwBI; pilihan narasumber pada sesi; daftar/detail dan pencarian peserta; pemetaan instansi terpisah dari sumber; penonaktifan/pengaktifan kepesertaan; audit. |
 | Dokumentasi | Keputusan stack, cara menjalankan, asumsi bisnis, pemetaan layar backend, hasil QA, dan batas implementasi telah ditulis. |
 
 **Alur peserta yang ditetapkan:** peserta tidak login atau membuat akun. Pengelola membagikan QR kelas, lalu peserta mengisi Nama Lengkap; Instansi/Perguruan Tinggi; NIP/NIM/NPM; Jurusan/Program Studi; Fakultas; No. HP; Kategori; Nama Narasumber; dan Email. Nama narasumber berasal dari sesi kelas dan tidak dapat diubah peserta.
@@ -31,7 +33,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Area | Pekerjaan berikutnya |
 | --- | --- |
 | Akun dan profil | UI pengelolaan akun/peran BI/mitra, pemulihan kata sandi pengelola/mitra, koreksi identitas peserta yang diaudit, serta pemulihan akses peserta lintas perangkat. |
-| Pengelolaan | CRUD institusi/KPwBI, kegiatan, sesi, kepesertaan, narasumber, instrumen, dan aturan penerbitan melalui UI pengelola. |
+| Pengelolaan | Pengaturan akun/KPwBI, instrumen, koreksi identitas/final L1, penghapusan/arsip dan aturan retensi. Kegiatan/sesi, master institusi/narasumber, pemetaan/status kepesertaan dan akses QR sudah tersedia. |
 | Materi dan panduan | Unggah, versi, penyimpanan privat, pemeriksaan izin baca/unduh PDF, serta finalisasi panduan awam menjadi PDF/halaman LMS. Sketsa Markdown sudah tersedia; PDF prototype belum menjadi modul materi backend. |
 | L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
 | Evaluasi L2 | Instrumen pretest/post-test per pertemuan, versi soal, attempt, draf, penilaian server, pasangan pre/post, dan kebijakan publikasi hasil. |
@@ -91,6 +93,19 @@ powershell -ExecutionPolicy Bypass -File scripts/build-local.ps1
 
 Script menyalin hasil build ke public/build dan menyinkronkan aset V2. Lokasi runtime portabel, konfigurasi MariaDB, dan langkah Hostinger dijelaskan di [docs/BACKEND.md](docs/BACKEND.md).
 
+## Memperbarui instalasi lokal yang sudah ada
+
+Setelah mengambil perubahan terbaru, jalankan migrasi tambahan. Pertahankan `.env`, APP_KEY, serta database yang sudah ada; tidak perlu membuat database baru atau mengulang seeder untuk memperoleh fitur pengelolaan.
+
+```powershell
+git pull --ff-only
+composer install
+php artisan migrate
+php artisan optimize:clear
+```
+
+Jika perlu membangun aset pada folder Google Drive, gunakan `scripts/build-local.ps1` seperti langkah di atas. Login pengelola lalu buka **Kelola kegiatan**, **Institusi**, **Narasumber**, atau **Kepesertaan**. Untuk produksi, ikuti pemeriksaan dan prosedur deployment di [BACKEND.md](docs/BACKEND.md).
+
 ## Pemeriksaan dan hasil
 
 ```powershell
@@ -103,18 +118,21 @@ npm run build
 node tests/smoke.cjs
 npx playwright install chromium
 node tests/browser.cjs
+node tests/management-browser.cjs
+node tests/masters-browser.cjs
 ```
 
 Hasil lokal terakhir:
 
-- **27 tes PHPUnit, 213 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- **47 tes PHPUnit, 424 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
 - Pint, validasi Composer, pemeriksaan kebutuhan platform, kompilasi Blade, dan Vite production build lulus.
 - Smoke test seluruh 20 rute prototype dan ekspor PDF/XLSX lulus.
-- Chromium berhasil menguji QR pengelola, pendaftaran dan pengisian L1 tanpa akun, konfirmasi setelah reload, retry final, serta isolasi akses pada browser lain.
+- Chromium juga berhasil menguji master narasumber/institusi, pilihan narasumber server, pemetaan/status kepesertaan serta respons yang tetap tersimpan setelah pengaktifan kembali.
+- Chromium berhasil menguji pembuatan kegiatan/sesi, siklus aktif/nonaktif/ganti QR, riwayat perubahan, serta QR pengelola, pendaftaran dan pengisian L1 tanpa akun, konfirmasi setelah reload, retry final, serta isolasi akses pada browser lain.
 - Browser menolak CSRF tidak sah (419) dan payload evaluasi tidak sah (422).
 - Form pendaftaran QR diperiksa pada lebar 375, 768, dan 1.440 px; form L1 juga diperiksa pada mobile tanpa overflow horizontal; target radio mobile minimal 44 px.
 
-Browser test memerlukan server lokal yang berjalan dan database demo. Setiap run membuat sesi browser peserta baru, satu kepesertaan sintetis dan respons L1 bernilai 5,00/6 tanpa membuat akun. Artefak berada di tests/outputs dan diabaikan Git.
+Browser test memerlukan server lokal yang berjalan dan database demo. Tes peserta membuat sesi browser baru, satu kepesertaan sintetis dan respons L1 bernilai 5,00/6 tanpa membuat akun. Tes pengelolaan juga menambah kegiatan, sesi, dan catatan audit sintetis. Artefak berada di tests/outputs dan diabaikan Git.
 
 **Belum diverifikasi:** MariaDB aktual/Hostinger, konkurensi pada MariaDB, kapasitas 1.500 pengguna, serta browser/perangkat di luar cakupan QA di atas. Workflow CI belum dijalankan di GitHub pada saat hasil lokal ini dicatat. Rincian ada di [docs/QA.md](docs/QA.md).
 
@@ -156,11 +174,13 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [Rencana finalisasi panduan](docs/PANDUAN_LMS_RENCANA.md): susunan halaman, daftar gambar, dan pemeriksaan sebelum terbit. PDF serta pemasangan panduan di LMS dikerjakan belakangan.
 - [TECH_STACK.md](docs/TECH_STACK.md): kajian kebutuhan, keputusan stack, batas hosting, dan urutan migrasi.
 - [ACCESS_FLOW.md](docs/ACCESS_FLOW.md): keputusan akses peserta tanpa login melalui QR kelas.
+- [MASTERS_PARTICIPANTS.md](docs/MASTERS_PARTICIPANTS.md): master, snapshot, pemetaan instansi, kepesertaan, privasi dan audit.
+- [MANAGEMENT.md](docs/MANAGEMENT.md): pengelolaan kegiatan/sesi, akses QR, audit, dan pemeriksaan versi formulir.
 - [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.
 - [DESIGN.md](docs/DESIGN.md): desain V2.
 - [SCREEN_MAP.md](docs/SCREEN_MAP.md): pemetaan layar backend dan prototype.
 - [QA.md](docs/QA.md): hasil pemeriksaan serta batas verifikasi.
 
-Prioritas berikutnya: CRUD kegiatan/sesi dan kepesertaan beserta audit, pengelolaan masa berlaku/rotasi QR, materi privat, lalu instrumen/penilaian L2. Impor historis, analisis periode, laporan server, dan uji beban dilanjutkan setelah alur tersebut stabil.
+Prioritas berikutnya: materi PDF privat dengan versi dan izin unggah/baca/unduh, lalu pengelolaan instrumen dan penilaian L2. Impor historis, analisis periode, laporan server, dan uji beban dilanjutkan setelah alur tersebut stabil.
 
 Hosting tujuan tetap Hostinger Unlimited. Deployment Laravel harus mengekspos hanya public; source, .env, vendor, dan storage privat berada di luar root web. Jangan mengasumsikan tersedia root access, Supervisor, Redis, atau daemon permanen. Workflow Pages hanya menerbitkan prototype statis secara manual.

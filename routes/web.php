@@ -4,6 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassAccessController;
 use App\Http\Controllers\GuestClassController;
 use App\Http\Controllers\LearningController;
+use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\ParticipantManagementController;
 use App\Http\Middleware\EnsureActiveUser;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +22,25 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('/keluar', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
+    Route::get('/pengelola/master/{kind}', [MasterController::class, 'index'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.index');
+    Route::get('/pengelola/master/{kind}/buat', [MasterController::class, 'create'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.create');
+    Route::post('/pengelola/master/{kind}', [MasterController::class, 'store'])->whereIn('kind', ['institusi', 'narasumber'])->name('masters.store');
+    Route::get('/pengelola/master/{kind}/{id}/ubah', [MasterController::class, 'edit'])->whereIn('kind', ['institusi', 'narasumber'])->whereNumber('id')->name('masters.edit');
+    Route::put('/pengelola/master/{kind}/{id}', [MasterController::class, 'update'])->whereIn('kind', ['institusi', 'narasumber'])->whereNumber('id')->name('masters.update');
+    Route::get('/pengelola/kepesertaan', [ParticipantManagementController::class, 'index'])->name('participants.index');
+    Route::get('/pengelola/kepesertaan/{enrollment}', [ParticipantManagementController::class, 'show'])->name('participants.show');
+    Route::put('/pengelola/kepesertaan/{enrollment}', [ParticipantManagementController::class, 'update'])->name('participants.update');
+    Route::get('/pengelola/kegiatan', [ManagementController::class, 'index'])->name('management.activities.index');
+    Route::get('/pengelola/kegiatan/buat', [ManagementController::class, 'create'])->name('management.activities.create');
+    Route::post('/pengelola/kegiatan', [ManagementController::class, 'store'])->name('management.activities.store');
+    Route::get('/pengelola/kegiatan/{activity}/ubah', [ManagementController::class, 'edit'])->name('management.activities.edit');
+    Route::put('/pengelola/kegiatan/{activity}', [ManagementController::class, 'update'])->name('management.activities.update');
+    Route::get('/pengelola/kegiatan/{activity}/sesi/buat', [ManagementController::class, 'createSession'])->name('management.sessions.create');
+    Route::post('/pengelola/kegiatan/{activity}/sesi', [ManagementController::class, 'storeSession'])->name('management.sessions.store');
+    Route::get('/pengelola/sesi/{session}/ubah', [ManagementController::class, 'editSession'])->name('management.sessions.edit');
+    Route::put('/pengelola/sesi/{session}', [ManagementController::class, 'updateSession'])->name('management.sessions.update');
+    Route::post('/pengelola/sesi/{session}/akses', [ManagementController::class, 'access'])->name('management.sessions.access');
+    Route::get('/pengelola/riwayat', [ManagementController::class, 'auditIndex'])->name('management.audit');
     Route::get('/pengelola/sesi/{session}/akses', [ClassAccessController::class, 'show'])->name('class.access');
     Route::get('/pengelola/sesi/{session}/qr', [ClassAccessController::class, 'qr'])->name('class.qr');
     Route::get('/beranda', [LearningController::class, 'dashboard'])->name('dashboard');

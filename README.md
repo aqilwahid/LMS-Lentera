@@ -32,7 +32,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | --- | --- |
 | Akun dan profil | UI pengelolaan akun/peran BI/mitra, pemulihan kata sandi pengelola/mitra, koreksi identitas peserta yang diaudit, serta pemulihan akses peserta lintas perangkat. |
 | Pengelolaan | CRUD institusi/KPwBI, kegiatan, sesi, kepesertaan, narasumber, instrumen, dan aturan penerbitan melalui UI pengelola. |
-| Materi dan panduan | Unggah, versi, penyimpanan privat, pemeriksaan izin baca/unduh PDF, dan panduan eksternal final. PDF prototype belum menjadi modul materi backend. |
+| Materi dan panduan | Unggah, versi, penyimpanan privat, pemeriksaan izin baca/unduh PDF, serta finalisasi panduan awam menjadi PDF/halaman LMS. Sketsa Markdown sudah tersedia; PDF prototype belum menjadi modul materi backend. |
 | L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
 | Evaluasi L2 | Instrumen pretest/post-test per pertemuan, versi soal, attempt, draf, penilaian server, pasangan pre/post, dan kebijakan publikasi hasil. |
 | Impor historis | Staging Excel, pemetaan alias institusi, validasi, penanganan baris ringkasan, deteksi duplikat, dan rekonsiliasi data sumber. |
@@ -150,6 +150,10 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 
 ## Dokumentasi acuan dan urutan selanjutnya
 
+- [Indeks dokumentasi](docs/README.md): peta panduan pengguna, keputusan terbaru, dan acuan pengembangan.
+- [Sketsa panduan peserta awam](docs/PANDUAN_LMS_DRAFT.md): QR, formulir identitas, kelas, evaluasi L1, konfirmasi, dan bantuan.
+- [Sketsa panduan pengelola BI/mitra](docs/PANDUAN_PENGELOLA_MITRA_DRAFT.md): login, membagikan QR, membaca ringkasan, dan keluar.
+- [Rencana finalisasi panduan](docs/PANDUAN_LMS_RENCANA.md): susunan halaman, daftar gambar, dan pemeriksaan sebelum terbit. PDF serta pemasangan panduan di LMS dikerjakan belakangan.
 - [TECH_STACK.md](docs/TECH_STACK.md): kajian kebutuhan, keputusan stack, batas hosting, dan urutan migrasi.
 - [ACCESS_FLOW.md](docs/ACCESS_FLOW.md): keputusan akses peserta tanpa login melalui QR kelas.
 - [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.

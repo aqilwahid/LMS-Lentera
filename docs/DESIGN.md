@@ -1,5 +1,7 @@
 # Design System: LENTERA Management System
 
+Catatan implementasi, 15 Oktober 2026: peserta kini masuk kelas melalui QR/tautan dan formulir identitas **tanpa login**; login hanya untuk BI/mitra. Keputusan ini menggantikan asumsi login peserta pada rancangan awal, sementara aturan visual V2 tetap berlaku. Rujuk [ACCESS_FLOW.md](ACCESS_FLOW.md) untuk alur terbaru dan [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) untuk sketsa panduan awam. Halaman/PDF panduan final belum diimplementasikan.
+
 Versi 2.0 · 10 Oktober 2026 · Bahasa antarmuka: Indonesia
 
 Redesain berdasarkan evaluasi versi pertama dan penerapan **UI UX Pro Max** dari `nextlevelbuilder/ui-ux-pro-max-skill`, commit sumber `50d8a7de0900119855614541f15a1a616691eb33`. Dokumen ini menggantikan arahan visual V1 untuk paket V2. Ketentuan bisnis, sumber, dan definisi data tetap mengikuti lampiran klien.

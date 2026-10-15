@@ -1,5 +1,7 @@
 # Pemetaan backend tahap 1
 
+Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia di [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) dan [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md); finalisasi PDF/halaman LMS dikerjakan belakangan.
+
 | Acuan V2 | Rute server | Status |
 | --- | --- | --- |
 | S02 (BI/mitra) | GET/POST /masuk; POST /keluar | Login session hanya untuk pengelola/mitra |

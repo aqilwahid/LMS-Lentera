@@ -33,3 +33,5 @@ Seeder contoh menerbitkan token untuk sesi demo yang sudah ada; menjalankan seed
 QR memakai URL aplikasi yang sedang dibuka. Alamat localhost hanya berlaku pada komputer server; sebelum membagikan QR kepada peserta, deploy aplikasi pada alamat HTTPS yang dapat dijangkau peserta dan pastikan APP_URL benar. Kapasitas MariaDB/Hostinger serta 1.500 pengguna belum diuji.
 
 Prototype hash 20 layar dipertahankan sebagai referensi visual. Alur login peserta pada prototype tersebut bukan aturan akses backend terbaru.
+
+Penjelasan untuk peserta awam disiapkan dalam [sketsa panduan peserta](PANDUAN_LMS_DRAFT.md). Panduan pengelola/mitra terpisah di [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md). Keduanya masih Markdown; gambar, PDF final, dan pemasangan pada aplikasi mengikuti [rencana finalisasi](PANDUAN_LMS_RENCANA.md).

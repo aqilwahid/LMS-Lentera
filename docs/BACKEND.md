@@ -101,4 +101,6 @@ Jangan aktifkan cron sebelum memastikan job bounded dan mekanisme anti-overlap s
 
 ## Tahap selanjutnya
 
+Sketsa panduan untuk pengguna awam tersedia di [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) untuk peserta dan [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) untuk BI/mitra. [PANDUAN_LMS_RENCANA.md](PANDUAN_LMS_RENCANA.md) memuat rencana gambar dan finalisasi. Statusnya naskah Markdown; belum membuat PDF atau menghubungkan halaman panduan pada backend.
+
 CRUD kegiatan/sesi, kepesertaan dan narasumber beserta audit; materi privat; pengelolaan QR dan pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.

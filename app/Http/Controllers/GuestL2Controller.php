@@ -26,8 +26,13 @@ class GuestL2Controller extends Controller
         // Explicit projection: never render the snapshot answer key or hidden scores to participants.
         $questions = $attempt ? L2Instrument::publicQuestions($attempt->instrument_snapshot['questions']) : [];
         $result = $attempt?->submitted_at && $assessment->results_visible ? $attempt->only(['correct_count', 'question_count', 'score_percent']) : null;
-        $delta = $assessment->results_visible && $attempts->get('pre')?->submitted_at && $attempts->get('post')?->submitted_at
-            ? (float) $attempts['post']->score_percent - (float) $attempts['pre']->score_percent : null;
+        $pre = $attempts->get('pre');
+        $post = $attempts->get('post');
+        $delta = $assessment->results_visible && $pre?->submitted_at && $post?->submitted_at
+            && $pre->l2_instrument_id === $post->l2_instrument_id && $pre->question_count === $post->question_count
+            && $pre->score_percent !== null && $post->score_percent !== null
+            && $pre->submitted_at->lessThanOrEqualTo($post->started_at)
+            ? (float) $post->score_percent - (float) $pre->score_percent : null;
         $state = $attempt ? ['revision' => $attempt->revision, 'answers' => $attempt->answers, 'submitted_at' => $attempt->submitted_at,
             'instructions' => $attempt->instrument_snapshot['instructions'], 'code' => $attempt->instrument_snapshot['code'], 'version' => $attempt->instrument_snapshot['version']] : null;
 

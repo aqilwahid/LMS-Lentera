@@ -86,13 +86,13 @@ Instrumen **L1-DEMO** dan teks awal adalah contoh atau salinan kerja, bukan reda
 8. Isi jadwal buka/tutup setiap tes. Tentukan apakah pretest wajib dikirim final sebelum post-test.
 9. Pilih **Aktif** pada **Status akses L2** setelah pengaturan benar, lalu **Simpan pengaturan L2**.
 
-Skor awalnya tidak dibuka kepada peserta. Saat sudah sesuai arahan kegiatan, pilih **Ya** pada **Tampilkan skor kepada peserta**, lalu simpan. Peserta memuat ulang halaman konfirmasi untuk melihat hasil. Membuka skor tidak menampilkan kunci jawaban.
+Skor dan agregat mitra awalnya belum dibuka. Saat sudah sesuai arahan kegiatan, pilih **Ya** pada **Buka skor peserta dan agregat mitra**, lalu simpan. Peserta memuat ulang halaman konfirmasi untuk melihat skor miliknya; mitra mendapat agregat institusinya melalui Analisis L2. Pilihan Tidak menutup keduanya. Kunci dan identitas peserta tidak dibagikan kepada mitra.
 
 Satu jawaban benar bernilai sama dengan soal lain. Skor dihitung dari jumlah benar dibagi jumlah soal, lalu dikalikan 100. Saat ini tidak ada timer, ambang lulus atau pengulangan tes. Jangan menjanjikan fitur tersebut kepada peserta.
 
 Setelah peserta mulai tes, versi instrumen dan prasyarat pretest terkunci, termasuk jika peserta baru menyimpan draf. Jadwal, status aktif dan publikasi skor masih dapat diubah. Menonaktifkan L2 menghentikan mulai/simpan/kirim tetapi mempertahankan jawaban yang tersimpan.
 
-Bagian **Ringkasan L2 sesi ini** menampilkan jumlah tes final dan pasangan pre/post lengkap. Rata-rata pasangan tidak memasukkan peserta yang baru mengirim salah satu tes sebagai nilai nol. Selisih ditulis dalam poin persentase dan bukan bukti dampak kegiatan. Mitra belum memiliki ringkasan L2 pada akunnya.
+Bagian **Ringkasan L2 sesi ini** menampilkan jumlah tes final dan pasangan pre/post yang sah. Pretest harus final sebelum post-test dimulai, dengan versi dan jumlah soal sama. Rata-rata pasangan tidak memasukkan peserta yang baru mengirim salah satu tes sebagai nilai nol. Selisih ditulis dalam poin persentase dan bukan bukti dampak kegiatan. BI dan mitra dapat membaca rincian sesuai cakupannya melalui **Analisis L2**.
 
 > Ruang gambar A17: formulir soal dan kunci L2. Ruang gambar A18: jadwal, publikasi dan ringkasan pasangan L2.
 
@@ -210,6 +210,23 @@ Jika muncul **Belum ada respons L1 pada cakupan Anda.**, belum ada respons yang 
 Ringkasan saat ini menampilkan periode yang tersedia pada setiap kelompok. Pemilihan periode lengkap, grafik tahunan, dan ekspor laporan belum tersedia. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
 
 > Ruang gambar A04: ringkasan dengan penanda pada cakupan, rata-rata, jumlah respons, dan periode. Jangan menampilkan hasil contoh sebagai hasil produksi.
+
+## Membaca analisis L2 — BI dan mitra
+
+1. Pilih **Analisis L2** pada menu atas.
+2. Isi **Tanggal awal** dan **Tanggal akhir**, lalu pilih kegiatan/sesi/versi jika diperlukan. Tampilan awal memakai tahun berjalan.
+3. Pengelola BI juga dapat memilih institusi. Mitra otomatis dibatasi institusinya.
+4. Tekan **Terapkan filter L2**.
+5. Periksa jumlah pretest final, post-test final dan pasangan sah sebelum membaca rata-rata/selisih.
+6. Baca rincian tiap sesi, versi dan isian institusi sumber. Gunakan **Kembali ke tahun berjalan** untuk menghapus filter.
+
+Mitra hanya melihat hasil yang sudah dibuka pengelola dan tidak mendapat identitas atau jawaban per peserta. Jika suatu sesi belum muncul, minta pengelola memeriksa publikasi hasil dan pemetaan institusi. Pilihan kegiatan/sesi juga mengikuti hasil final yang tersedia pada cakupan akun.
+
+Pasangan mengikuti tanggal pengiriman post-test. Pretest pasangan tersebut boleh berasal dari sebelum tanggal awal, sehingga jumlah pretest pada periode bisa lebih kecil daripada jumlah pasangan. Ini bukan berarti jawaban hilang.
+
+Jika kedua tes final tetapi post-test dimulai sebelum pretest selesai, skor tiap tes tetap tersimpan tetapi tidak dihitung sebagai pasangan sah. Jika belum ada pasangan, rata-rata tampil **belum tersedia**, bukan nol. Selisih post minus pre menggunakan poin persentase dan berbeda dari rata-rata L1.
+
+> Ruang gambar A19: filter Analisis L2. Ruang gambar A20: jumlah final/pasangan, rata-rata, dan batas akses mitra.
 
 ## Selesai menggunakan akun
 

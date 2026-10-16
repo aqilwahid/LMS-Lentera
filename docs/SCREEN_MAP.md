@@ -23,6 +23,7 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | S13 (soal L2 BI) | /pengelola/instrumen-l2; /buat; /{instrument}; /terbit; /versi | Draf soal/opsi/kunci pilihan ganda per KPwBI, versi terbit terkunci, retry dan audit. |
 | S07/S09 (peserta QR) | /kelas/{token}/l2/{pre atau post}; POST /{start atau save atau submit} | Mulai, draf manual server, final tahan retry, skor sesuai publikasi; kunci tidak dikirim. |
 | S11/S15 (L2 sesi BI) | GET/PUT /pengelola/sesi/{session}/l2 | Pilih versi, jadwal pre/post, prasyarat opsional, publikasi dan ringkasan pasangan lengkap. |
+| S15/S17 (analisis L2 BI/mitra) | GET /analisis/l2 | Filter tanggal/kegiatan/sesi/versi/institusi, jumlah final/pasangan dan rata-rata. Mitra hanya institusi sendiri dan hasil terbit, tanpa data individu. |
 | S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi |
 
 Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).

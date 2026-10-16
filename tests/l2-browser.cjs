@@ -106,7 +106,7 @@ const { chromium } = require(process.env.LENTERA_PLAYWRIGHT_PATH || 'playwright'
     await page.goto(settingsURL);
     assert(await page.getByText('Pasangan lengkap: 1', { exact: false }).count());
     assert.equal(await page.locator('input[name=l2_instrument_id]').inputValue(), instrumentID);
-    await page.getByLabel('Tampilkan skor kepada peserta', { exact: true }).selectOption('1');
+    await page.getByLabel('Buka skor peserta dan agregat mitra', { exact: true }).selectOption('1');
     await page.getByRole('button', { name: 'Simpan pengaturan L2', exact: true }).click();
     await page.getByText('Pengaturan L2 tersimpan. Peserta tetap mengikuti jadwal yang ditetapkan.', { exact: true }).waitFor();
     await guest.reload();

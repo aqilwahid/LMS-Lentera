@@ -65,4 +65,4 @@ Suite lokal: **47 tes, 424 assertion lulus**, termasuk pembatasan peran/KPwBI, d
 
 SQLite dan Chromium lokal telah diuji. MariaDB/Hostinger, konkurensi aktual dan beban 1.500 pengguna belum diuji. Hasil rinci ada di [QA.md](QA.md).
 
-Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Instrumen L1 kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 kini tersedia; lihat [L2.md](L2.md). Berikutnya analisis periode dan laporan. Panduan awam tetap berupa sketsa Markdown; finalisasi PDF dilaksanakan belakangan.
+Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Instrumen L1 kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 kini tersedia; lihat [L2.md](L2.md). Analisis L2 kini tersedia; lihat [ANALYTICS.md](ANALYTICS.md). Berikutnya impor historis, filter L1 dan laporan server. Panduan awam tetap berupa sketsa Markdown; finalisasi PDF dilaksanakan belakangan.

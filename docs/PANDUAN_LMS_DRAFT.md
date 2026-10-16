@@ -183,7 +183,7 @@ Jika panitia menyiapkan tes, halaman kelas menyediakan **Buka pretest** dan **Bu
 
 Jika internet terputus setelah mengirim, buka kembali tes yang sama dari kelas. Periksa konfirmasi sebelum mencoba lagi. Jika akses kelas meminta identitas dari awal, hubungi panitia sebelum mendaftar ulang.
 
-Skor belum terlihat sampai pengelola membukanya. Setelah dibuka, skor ditampilkan dari 0–100. Jika kedua tes sudah dikirim, selisih post-test dikurangi pretest juga dapat terlihat. Ini berbeda dari rata-rata evaluasi L1. Kunci jawaban tidak ditampilkan; aplikasi belum memberikan predikat lulus atau sertifikat.
+Skor belum terlihat sampai pengelola membukanya. Setelah dibuka, skor ditampilkan dari 0–100. Jika kedua tes sudah dikirim dengan versi/jumlah soal sama dan pretest selesai sebelum post-test dimulai, selisih post-test dikurangi pretest juga dapat terlihat. Ini berbeda dari rata-rata evaluasi L1. Kunci jawaban tidak ditampilkan; aplikasi belum memberikan predikat lulus atau sertifikat.
 
 Jika tombol Mulai tidak tersedia, periksa jadwal atau tanyakan kepada panitia. Pada kelas tertentu, pretest harus dikirim final sebelum post-test dapat dimulai. Draf pretest belum memenuhi syarat tersebut.
 

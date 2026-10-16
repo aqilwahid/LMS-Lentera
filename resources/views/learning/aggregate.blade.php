@@ -25,5 +25,5 @@
 @endforelse
 </div>{{ $activities->links() }}</section>
 @endif
-<section class="panel"><h2>Evaluasi L2</h2><p>Pretest dan post-test belum diimplementasikan pada tahap backend ini.</p></section>
+<section class="panel"><h2>Evaluasi L2</h2><p>Lihat hasil pretest/post-test dan pasangan sah menurut periode, sesi, versi serta institusi dalam cakupan akun Anda.</p><a class="btn primary" href="{{ route('analytics.l2') }}">Buka analisis L2</a></section>
 @endsection

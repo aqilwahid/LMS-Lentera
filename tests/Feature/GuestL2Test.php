@@ -155,6 +155,18 @@ class GuestL2Test extends TestCase
         $this->assertDatabaseCount('l2_attempts', 1);
     }
 
+    public function test_post_before_pre_keeps_individual_scores_but_does_not_show_a_paired_delta(): void
+    {
+        $this->register();
+        $this->assessment->update(['results_visible' => true]);
+        $this->start('post');
+        $this->post($this->url('post', 'submit'), ['revision' => 1, 'answers' => [0, 1, 2]])->assertRedirect();
+        $this->travel(1)->minutes();
+        $this->start('pre');
+        $this->post($this->url('pre', 'submit'), ['revision' => 1, 'answers' => [3, 3, 3]])->assertRedirect();
+        $this->get($this->url('post'))->assertOk()->assertSee('100,00 / 100')->assertDontSee('Selisih post-test minus pretest Anda');
+    }
+
     public function test_lower_authoring_limit_does_not_invalidate_existing_published_version_or_grading(): void
     {
         config(['lentera.l2_max_questions' => 1]);

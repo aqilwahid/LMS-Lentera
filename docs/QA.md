@@ -1,3 +1,19 @@
+# Verifikasi analisis L2 BI/mitra — 16 Oktober 2026
+
+- **100 tes PHPUnit, 1.090 assertion lulus**, memakai SQLite in-memory. Tidak ada migrasi atau dependency baru pada tahap ini.
+- Tambahan tes mencakup rata-rata berbobot tiap pasangan, filter tanggal/hari penuh, pretest sebelum periode, hasil nol/selisih negatif, draf/tanpa pasangan/urutan terbalik/jumlah soal atau versi berbeda, konteks enrollment tidak sesuai sesi, cakupan KPwBI/institusi, publikasi mitra, pemetaan yang diaudit, histori kepesertaan nonaktif, filter yang dimanipulasi, kombinasi sesi/kegiatan, default tahun, kondisi kosong dan pagination kelompok.
+- Filter ID institusi dinormalkan menjadi integer sebelum membandingkan COALESCE, sehingga ID dari URL bekerja konsisten di SQLite. Perilaku MariaDB aktual belum diverifikasi.
+- Aturan pasangan disamakan pada analisis, ringkasan pengaturan sesi dan selisih peserta: pretest harus final sebelum post-test dimulai, dengan versi/jumlah soal yang sama. Tes urutan terbalik memastikan skor individu tetap ada tanpa menampilkan selisih berpasangan.
+- Chromium menguji BI → sesi baru → QR peserta → pre/post final → analisis dengan filter → sesi belum terbit tidak tampak pada mitra → publikasi → agregat mitra institusi sendiri. Filter institusi yang dimanipulasi ditolak 422. Nama/nomor identitas/email peserta, jawaban, snapshot/kunci dan secret tidak dirender pada halaman analisis.
+- Halaman mitra pada 375, 768 dan 1440 px tidak memiliki overflow horizontal. Screenshot mobile diperiksa, termasuk hasil 0,00 yang sah. Tidak ada error JavaScript pada alur browser.
+- Label publikasi diperjelas menjadi **Buka skor peserta dan agregat mitra**, beserta dampaknya pada kedua peran. Browser test L2 yang lama disesuaikan dengan label ini.
+- Pint --test, kompilasi Blade, sintaks test JavaScript, pemeriksaan tautan dokumentasi dan git diff --check lulus. Tidak mengubah aset CSS/JS Vite; memakai komponen/build V2 yang sudah tersedia.
+- Browser test baru: tests/l2-analytics-browser.cjs. Memerlukan instrumen sintetis terbit dari tests/l2-browser.cjs. Setiap run menambah sesi, kepesertaan, pre/post dan audit sintetis; artefak di tests/outputs/l2-analytics diabaikan Git.
+
+Batas: SQLite/Chromium lokal, bukan bukti konkurensi MariaDB, query plan data besar atau kapasitas 1.500 pengguna. Ekspor server, grafik tahunan, impor historis, filter L1, Safari/Firefox, pembaca layar dan kebijakan publikasi mitra terpisah belum tersedia/diverifikasi. Definisi periode, denominator, pasangan dan cakupan ada di [ANALYTICS.md](ANALYTICS.md). Catatan di bawah merupakan riwayat tahap sebelumnya.
+
+---
+
 # Verifikasi pretest/post-test L2 — 16 Oktober 2026
 
 - Migrasi l2_instruments/l2_assessments/l2_attempts berhasil pada SQLite lokal. Data instrumen/respons L1 yang sudah ada dipertahankan.

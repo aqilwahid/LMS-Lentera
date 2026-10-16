@@ -82,6 +82,7 @@ node tests/masters-browser.cjs
 node tests/materials-browser.cjs
 node tests/instruments-browser.cjs
 node tests/l2-browser.cjs
+node tests/l2-analytics-browser.cjs
 ```
 
 Tes PHPUnit memakai database SQLite in-memory, terpisah dari database lokal. Browser test masuk sebagai pengelola contoh untuk memperoleh QR, lalu memakai browser context terpisah untuk mendaftar dan mengirim L1 tanpa akun. Setiap run membuat satu kepesertaan dan respons sintetis baru 5/6. Tes menolak lingkungan tanpa banner contoh. Jangan gunakan database berisi data produksi.
@@ -114,4 +115,4 @@ Kegiatan/sesi dapat dibuat dan diubah melalui menu Kelola kegiatan. QR sesi baru
 
 Sketsa panduan untuk pengguna awam tersedia di [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) untuk peserta dan [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) untuk BI/mitra. [PANDUAN_LMS_RENCANA.md](PANDUAN_LMS_RENCANA.md) memuat rencana gambar dan finalisasi. Statusnya naskah Markdown; belum membuat PDF atau menghubungkan halaman panduan pada backend.
 
-Pengelolaan instrumen L1 per KPwBI kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 pilihan ganda, draf manual dan penilaian server tersedia; lihat [L2.md](L2.md). Tahap berikutnya analisis periode, impor/laporan dan aturan L2 lanjutan; pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; autosave dan jenis soal L2 lanjutan; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.
+Pengelolaan instrumen L1 per KPwBI kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 pilihan ganda, draf manual dan penilaian server tersedia; lihat [L2.md](L2.md). Analisis L2 BI/mitra per institusi/periode tersedia; lihat [ANALYTICS.md](ANALYTICS.md). Tahap berikutnya filter L1, impor/laporan dan aturan L2 lanjutan; pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; autosave dan jenis soal L2 lanjutan; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.

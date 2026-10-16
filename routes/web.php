@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassAccessController;
 use App\Http\Controllers\GuestClassController;
 use App\Http\Controllers\GuestL2Controller;
 use App\Http\Controllers\InstrumentController;
+use App\Http\Controllers\L2AnalyticsController;
 use App\Http\Controllers\L2InstrumentController;
 use App\Http\Controllers\L2ManagementController;
 use App\Http\Controllers\LearningController;
@@ -32,6 +33,7 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('/keluar', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
+    Route::get('/analisis/l2', [L2AnalyticsController::class, 'index'])->name('analytics.l2');
     Route::get('/pengelola/instrumen-l2', [L2InstrumentController::class, 'index'])->name('l2.instruments.index');
     Route::get('/pengelola/instrumen-l2/buat', [L2InstrumentController::class, 'create'])->name('l2.instruments.create');
     Route::post('/pengelola/instrumen-l2', [L2InstrumentController::class, 'store'])->name('l2.instruments.store');

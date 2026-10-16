@@ -2,7 +2,7 @@
 
 LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank Indonesia, pengelola BI, dan mitra perguruan tinggi.
 
-**Status per 16 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1 berversi, serta pretest/post-test L2 sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
+**Status per 16 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1 berversi, pretest/post-test, serta analisis L2 BI/mitra sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
 
 ## Sudah dikerjakan
 
@@ -25,6 +25,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Materi PDF privat | Unggah per sesi, riwayat versi, terbit/sembunyikan, baca/unduh sesuai kepesertaan aktif, retry tanpa versi ganda, serta audit. File berada di luar public. |
 | Instrumen L1 | Seri per KPwBI, draf lima butir, pratinjau/penerbitan, versi terbit terkunci, versi baru, retry dan audit. Pemilihan versi pada sesi diperiksa server. |
 | Evaluasi L2 | Soal pilihan ganda dan kunci berversi per KPwBI, assignment/jadwal per sesi, pre/post tanpa login, draf manual server, pengiriman final, skor server, publikasi skor dan ringkasan pasangan lengkap. |
+| Analisis L2 | Filter tanggal/kegiatan/sesi/versi/institusi, pasangan sah dan rata-rata berbobot jumlah pasangan. BI dibatasi KPwBI; mitra hanya agregat institusinya dari hasil yang sudah dibuka. |
 | Dokumentasi | Keputusan stack, cara menjalankan, asumsi bisnis, pemetaan layar backend, hasil QA, dan batas implementasi telah ditulis. |
 
 **Alur peserta yang ditetapkan:** peserta tidak login atau membuat akun. Pengelola membagikan QR kelas, lalu peserta mengisi Nama Lengkap; Instansi/Perguruan Tinggi; NIP/NIM/NPM; Jurusan/Program Studi; Fakultas; No. HP; Kategori; Nama Narasumber; dan Email. Nama narasumber berasal dari sesi kelas dan tidak dapat diubah peserta.
@@ -41,7 +42,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
 | L2 lanjutan | Autosave, navigasi satu soal, jenis soal/bobot lain, retake/timer/nilai lulus, pembahasan, koreksi final dan kebijakan resmi. Pilihan ganda, draf manual, skor server dan publikasi sudah tersedia. |
 | Impor historis | Staging Excel, pemetaan alias institusi, validasi, penanganan baris ringkasan, deteksi duplikat, dan rekonsiliasi data sumber. |
-| Analisis/laporan | Analisis L2 per institusi/periode dan agregat L2 mitra, filter periode lengkap, dashboard tahunan, Chart.js, ekspor PDF/XLSX server menggunakan Dompdf/PhpSpreadsheet, dan arsip laporan. Paket laporan belum dipasang. |
+| Analisis/laporan | Filter periode L1, dashboard/grafik tahunan, analisis butir L2, ekspor PDF/XLSX server menggunakan Dompdf/PhpSpreadsheet, dan arsip laporan. Filter/agregat L2 BI/mitra sudah tersedia. Paket laporan belum dipasang. |
 | Pekerjaan latar/email | Job bertahap, penjadwalan cron yang terverifikasi, anti-overlap, SMTP/API transaksional, dan pemantauan kegagalan. Tabel antrean sudah ada, job aplikasi belum tersedia. |
 | Integrasi | SSO BI dan ERP-HRIS menunggu spesifikasi serta akses nyata. |
 | Produksi | Verifikasi MariaDB/PHP/ekstensi/cron akun Hostinger, deployment dengan document root public, backup/pemulihan, dan konfigurasi produksi. |
@@ -128,14 +129,16 @@ node tests/masters-browser.cjs
 node tests/materials-browser.cjs
 node tests/instruments-browser.cjs
 node tests/l2-browser.cjs
+node tests/l2-analytics-browser.cjs
 ```
 
 Hasil lokal terakhir:
 
-- **88 tes PHPUnit, 947 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- **100 tes PHPUnit, 1.090 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
 - Pint, validasi Composer, pemeriksaan kebutuhan platform, kompilasi Blade, dan Vite production build lulus.
 - Chromium menguji draf/terbit/versi instrumen L1, pemilihan pada sesi, L1 tanpa akun, retry, formulir lama, dan riwayat V1 yang tetap utuh setelah V2 terbit. Pemeriksaan terbaru 16 Oktober 2026 tidak mengubah dependency/aset; hasil build/Composer di atas berasal dari tahap sebelumnya.
 - Chromium menguji soal/kunci L2 → jadwal sesi → QR peserta → draf/reload → final pre/post → publikasi skor dan pasangan → versi baru yang tidak mengubah nilai lama. Skor sintetis 66,67/100 dan 100,00/100, selisih 33,33 poin persentase; kunci dan skor sebelum publikasi tidak dirender pada halaman peserta.
+- Chromium menguji analisis L2 BI dengan filter periode/sesi, sesi belum terbit yang tidak terlihat oleh mitra, pembukaan agregat mitra sesuai institusi, penolakan filter institusi lain, serta halaman 375/768/1.440 px tanpa overflow. Rata-rata keseluruhan, pasangan lintas periode, urutan tes, nilai nol/negatif dan pagination diverifikasi di PHPUnit.
 - Smoke test seluruh 20 rute prototype dan ekspor PDF/XLSX lulus.
 - Chromium menguji unggah/terbit/sembunyikan dan versi materi; byte PDF serta hasil unduhan diverifikasi dengan SHA-256. Rendering isi PDF native pada screenshot headless belum dianggap terbukti; tersedia fallback tab baru/unduh.
 - Chromium juga berhasil menguji master narasumber/institusi, pilihan narasumber server, pemetaan/status kepesertaan serta respons yang tetap tersimpan setelah pengaktifan kembali.
@@ -188,6 +191,7 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [MATERIALS.md](docs/MATERIALS.md): file privat, versi, publikasi, batas upload, hak baca/unduh, dan pengujian.
 - [INSTRUMENTS.md](docs/INSTRUMENTS.md): draf/versi instrumen L1, cakupan KPwBI, penerbitan, retry, audit dan riwayat respons.
 - [L2.md](docs/L2.md): soal/kunci, pre/post, draf server, skor, publikasi, pasangan dan aturan awal L2.
+- [ANALYTICS.md](docs/ANALYTICS.md): analisis L2 BI/mitra, periode berdasarkan post-test, cakupan institusi, pasangan sah, denominator dan privasi.
 - [MASTERS_PARTICIPANTS.md](docs/MASTERS_PARTICIPANTS.md): master, snapshot, pemetaan instansi, kepesertaan, privasi dan audit.
 - [MANAGEMENT.md](docs/MANAGEMENT.md): pengelolaan kegiatan/sesi, akses QR, audit, dan pemeriksaan versi formulir.
 - [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.
@@ -195,6 +199,6 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [SCREEN_MAP.md](docs/SCREEN_MAP.md): pemetaan layar backend dan prototype.
 - [QA.md](docs/QA.md): hasil pemeriksaan serta batas verifikasi.
 
-Prioritas berikutnya: analisis L2 per institusi/periode, impor historis dan laporan server. Kebijakan L2 lanjutan, autosave, integrasi MariaDB/Hostinger serta uji beban tetap perlu diselesaikan sebelum produksi.
+Prioritas berikutnya: impor historis melalui staging dan laporan server. Analisis L2 per institusi/periode kini tersedia. Kebijakan L2 lanjutan, autosave, integrasi MariaDB/Hostinger serta uji beban tetap perlu diselesaikan sebelum produksi.
 
 Hosting tujuan tetap Hostinger Unlimited. Deployment Laravel harus mengekspos hanya public; source, .env, vendor, dan storage privat berada di luar root web. Jangan mengasumsikan tersedia root access, Supervisor, Redis, atau daemon permanen. Workflow Pages hanya menerbitkan prototype statis secara manual.

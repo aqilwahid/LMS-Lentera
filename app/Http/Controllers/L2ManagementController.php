@@ -31,6 +31,8 @@ class L2ManagementController extends Controller
             $join->on('pre.l2_assessment_id', '=', 'post.l2_assessment_id')->on('pre.enrollment_id', '=', 'post.enrollment_id')->on('pre.l2_instrument_id', '=', 'post.l2_instrument_id');
         })->where('pre.l2_assessment_id', $assessment->id)->where('pre.stage', 'pre')->where('post.stage', 'post')
             ->whereNotNull('pre.submitted_at')->whereNotNull('post.submitted_at')
+            ->whereColumn('pre.submitted_at', '<=', 'post.started_at')->whereColumn('pre.question_count', 'post.question_count')
+            ->whereBetween('pre.score_percent', [0, 100])->whereBetween('post.score_percent', [0, 100])
             ->selectRaw('COUNT(*) as total, AVG(pre.score_percent) as pre_mean, AVG(post.score_percent) as post_mean, AVG(post.score_percent - pre.score_percent) as delta')->first();
 
         return response()->view('l2.settings', ['session' => $session, 'assessment' => $assessment,

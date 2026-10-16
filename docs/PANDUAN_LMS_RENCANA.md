@@ -54,6 +54,7 @@ Panduan pengelola/mitra disusun terpisah: masuk; master/kepesertaan; kegiatan/se
 | A13/A14 | Materi BI | Unggah PDF, batas ukuran, versi, terbit/sembunyikan. |
 | A15/A16 | Instrumen L1 BI | Lima butir, simpan draf, pratinjau, terbit dan riwayat versi. |
 | A17/A18 | Instrumen/pengaturan L2 BI | Soal/kunci, versi, jadwal, prasyarat, publikasi dan pasangan pre/post. |
+| A19/A20 | Analisis L2 BI/mitra | Filter tanggal/cakupan, denominator, pasangan sah dan privasi mitra. |
 
 Gunakan screenshot aplikasi final dengan data sintetis. Screenshot QA lokal tidak otomatis menjadi aset publik: pilih, periksa, dan samarkan data sebelum digunakan. Jangan menampilkan APP_KEY, kredensial, identitas asli, atau token kelas produksi. QR dalam dokumen contoh harus jelas diberi label contoh; QR kegiatan aktif dibagikan panitia secara terpisah.
 

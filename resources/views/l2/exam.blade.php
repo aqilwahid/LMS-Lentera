@@ -8,7 +8,7 @@
 <p>Instrumen {{ $state['code'] }} · versi {{ $state['version'] }}.</p>
 @if($result)
 <p>Skor Anda: {{ number_format($result['score_percent'],2,',','.') }} / 100.</p><p>Jawaban benar: {{ $result['correct_count'] }} dari {{ $result['question_count'] }} soal.</p>
-@if($delta !== null)<p>Selisih post-test minus pretest Anda: {{ number_format($delta,2,',','.') }} poin persentase.</p>@endif
+@if($delta !== null)<p>Selisih post-test minus pretest Anda: {{ number_format($delta,2,',','.') }} poin persentase.</p>@else<p>Selisih berpasangan tersedia setelah kedua tes final, dengan versi dan jumlah soal sama serta pretest final sebelum post-test dimulai.</p>@endif
 @else<p>Skor belum dibuka oleh pengelola. Jawaban final sudah tersimpan.</p>@endif
 </section>
 @elseif(!$state)

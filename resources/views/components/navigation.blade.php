@@ -6,6 +6,7 @@
         @endif
         @auth
             <a href="{{ route('dashboard') }}">Beranda</a>
+            @if(in_array(auth()->user()->role,['bi_admin','partner']))<a href="{{ route('analytics.l2') }}">Analisis L2</a>@endif
             @if(auth()->user()->role === 'bi_admin')
                 <a href="{{ route('management.activities.index') }}">Kelola kegiatan</a>
                 <a href="{{ route('masters.index','institusi') }}">Institusi</a>

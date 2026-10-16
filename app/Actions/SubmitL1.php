@@ -23,7 +23,7 @@ class SubmitL1
             }
             $session = LearningSession::whereKey($session->id)->lockForUpdate()->firstOrFail();
             $instrument = $session->instrument;
-            abort_unless($instrument->published_at && count($instrument->questions) === 5, 409, 'Instrumen belum siap.');
+            abort_unless($instrument->published_at && $instrument->hasValidQuestions(), 409, 'Instrumen belum siap.');
             abort_unless(now()->betweenIncluded($session->l1_opens_at, $session->l1_closes_at), 403, 'Evaluasi belum dibuka atau sudah ditutup.');
             $data = $request->validate([
                 'instrument_id' => ['required', 'integer', 'in:'.$instrument->id],

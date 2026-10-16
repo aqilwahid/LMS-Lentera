@@ -1,6 +1,6 @@
 # Panduan Pengelola BI dan Mitra LENTERA
 
-**Sketsa isi · versi 0.1 · 15 Oktober 2026**
+**Sketsa isi · versi 0.2 · 16 Oktober 2026**
 
 Panduan ini ditujukan kepada pegawai BI yang membagikan kelas dan pemantau perguruan tinggi yang melihat hasil kegiatan. Peserta menggunakan panduan terpisah dan **tidak perlu login**.
 
@@ -53,6 +53,48 @@ Identitas pribadi dan jawaban final tidak dapat disunting dari halaman ini. Guna
 
 > Ruang gambar A11: daftar/filter kepesertaan. Ruang gambar A12: detail, status dan pemetaan institusi.
 
+
+## Menyiapkan instrumen L1 — khusus pengelola BI
+
+Instrumen adalah daftar lima pertanyaan yang dinilai peserta dengan angka 1–6.
+
+1. Pilih **Instrumen L1** pada menu atas.
+2. Pilih **Buat instrumen L1**, isi nama yang mudah dikenali, lalu periksa kelima butir.
+3. Tekan **Simpan draf**. Draf belum dapat dipilih untuk kelas.
+4. Jika perlu mengubah butir, ubah teksnya lalu tekan **Simpan perubahan draf**.
+5. Periksa bagian **Lihat lima butir yang akan diterbitkan**. Bagian ini menunjukkan isi yang sudah disimpan.
+6. Setelah redaksi disetujui petugas yang berwenang, tekan **Terbitkan versi 1**.
+7. Pilih nama instrumen dan nomor versinya saat menyiapkan sesi kelas.
+
+Versi terbit tidak dapat diubah. Jika perlu perbaikan, buka versi itu dan pilih **Buat draf versi baru**, perbaiki butir, simpan, periksa, lalu terbitkan. Versi baru tidak otomatis mengganti instrumen kelas lama. Jawaban peserta yang sudah tersimpan tetap menggunakan versi sebelumnya.
+
+Jika muncul pesan **Draf telah berubah**, muat ulang halaman, periksa isi terbaru, lalu lakukan kembali perubahan yang masih diperlukan. Pesan ini mencegah perubahan dari tab lain tertimpa.
+
+Instrumen **L1-DEMO** dan teks awal adalah contoh atau salinan kerja, bukan redaksi resmi. Jangan langsung menggunakannya untuk kegiatan nyata tanpa pemeriksaan. Instrumen referensi bersama hanya dapat dibaca atau disalin melalui **Salin sebagai instrumen baru**. Pengelola hanya mengelola instrumen KPwBI sendiri.
+
+> Ruang gambar A15: daftar dan draf instrumen. Ruang gambar A16: pratinjau, terbit, dan riwayat versi.
+
+## Menyiapkan soal dan jadwal L2 — khusus pengelola BI
+
+1. Pilih **Instrumen L2 → Buat instrumen L2**.
+2. Tentukan **Jumlah soal**, lalu tekan **Siapkan formulir** sebelum mengisi. Menyiapkan ulang formulir mengosongkan isian yang belum disimpan.
+3. Isi nama instrumen, petunjuk bila diperlukan, teks setiap soal, empat opsi A–D dan satu kunci yang benar.
+4. Tekan **Simpan draf L2**, periksa bagian **Pratinjau soal tersimpan**, lalu simpan perbaikan jika perlu.
+5. Setelah soal dan kunci diperiksa petugas berwenang, tekan **Terbitkan L2 versi 1**. Versi terbit tidak dapat diubah; gunakan **Buat draf versi L2 baru** untuk perbaikan berikutnya.
+6. Buka **Kelola kegiatan → Atur sesi → Atur evaluasi L2**.
+7. Pilih **Versi instrumen L2**. Pretest dan post-test pada sesi ini memakai versi yang sama.
+8. Isi jadwal buka/tutup setiap tes. Tentukan apakah pretest wajib dikirim final sebelum post-test.
+9. Pilih **Aktif** pada **Status akses L2** setelah pengaturan benar, lalu **Simpan pengaturan L2**.
+
+Skor awalnya tidak dibuka kepada peserta. Saat sudah sesuai arahan kegiatan, pilih **Ya** pada **Tampilkan skor kepada peserta**, lalu simpan. Peserta memuat ulang halaman konfirmasi untuk melihat hasil. Membuka skor tidak menampilkan kunci jawaban.
+
+Satu jawaban benar bernilai sama dengan soal lain. Skor dihitung dari jumlah benar dibagi jumlah soal, lalu dikalikan 100. Saat ini tidak ada timer, ambang lulus atau pengulangan tes. Jangan menjanjikan fitur tersebut kepada peserta.
+
+Setelah peserta mulai tes, versi instrumen dan prasyarat pretest terkunci, termasuk jika peserta baru menyimpan draf. Jadwal, status aktif dan publikasi skor masih dapat diubah. Menonaktifkan L2 menghentikan mulai/simpan/kirim tetapi mempertahankan jawaban yang tersimpan.
+
+Bagian **Ringkasan L2 sesi ini** menampilkan jumlah tes final dan pasangan pre/post lengkap. Rata-rata pasangan tidak memasukkan peserta yang baru mengirim salah satu tes sebagai nilai nol. Selisih ditulis dalam poin persentase dan bukan bukti dampak kegiatan. Mitra belum memiliki ringkasan L2 pada akunnya.
+
+> Ruang gambar A17: formulir soal dan kunci L2. Ruang gambar A18: jadwal, publikasi dan ringkasan pasangan L2.
 
 ## Membuat kegiatan dan sesi — khusus pengelola BI
 
@@ -194,7 +236,7 @@ Lakukan langkah ini terutama jika menggunakan komputer bersama. Peserta yang men
 
 ## Bagian yang akan ditambahkan setelah fiturnya tersedia
 
-Koreksi identitas peserta; instrumen tes; impor historis; filter periode; grafik; serta ekspor laporan PDF/Excel.
+Koreksi identitas peserta; jenis soal/aturan L2 lanjutan; impor historis; filter periode; grafik; serta ekspor laporan PDF/Excel.
 
 Langkah, nama tombol, dan gambar untuk bagian tersebut mengikuti implementasi final. Panduan ini belum menyediakan langkah pengoperasian fitur yang baru berupa rencana.
 

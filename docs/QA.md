@@ -1,3 +1,31 @@
+# Verifikasi pretest/post-test L2 — 16 Oktober 2026
+
+- Migrasi l2_instruments/l2_assessments/l2_attempts berhasil pada SQLite lokal. Data instrumen/respons L1 yang sudah ada dipertahankan.
+- **88 tes PHPUnit, 947 assertion lulus.** Tambahan mencakup soal/opsi/kunci, authoring dan publikasi versi, pemilihan KPwBI, nonce/retry, revisi tab lama, rollback audit, draf parsial/kosong, skor server dan pembulatan, final/retry setelah jadwal ditutup, prasyarat pretest opsional, isolasi browser/kelas, kepesertaan nonaktif, QR berganti, freeze assignment, snapshot/final immutable, serta constraint unik attempt.
+- Menurunkan batas jumlah soal untuk authoring tidak membatalkan versi terbit atau mengubah penilaian dari snapshot lama; tercakup tes regresi.
+- Chromium berhasil menguji authoring soal/kunci → terbit → penetapan jadwal/prasyarat → QR dan identitas tanpa akun → pretest, simpan draf dan reload → final pre/post → pembukaan skor → pasangan lengkap → versi baru dengan kunci berbeda. Skor sintetis 66,67/100 dan 100,00/100, selisih 33,33 poin persentase; versi kedua tidak mengubah hasil pertama.
+- Kunci tidak dirender pada HTML peserta. Skor/selisih tidak dirender sebelum publikasi. CSRF salah ditolak 419; draf dengan revision lama ditolak 422; final retry mempertahankan hasil pertama. Browser lain diarahkan ke pendaftaran, tanpa membuka attempt sebelumnya.
+- Form tes pada 375, 768 dan 1440 px tidak memiliki overflow horizontal; tinggi target pilihan minimal 44 px. Screenshot 375 px diperiksa dan tidak ada error JavaScript pada alur ini.
+- Pint --test, kompilasi Blade, sintaks JavaScript test, pemeriksaan tautan dokumentasi yang diubah dan git diff --check lulus. Tidak mengubah dependency atau sumber aset CSS/JS Vite; memakai build lokal yang sudah tersedia.
+- Browser test: tests/l2-browser.cjs. Setiap run menambah instrumen/versi, sesi, kepesertaan, attempt dan audit sintetis. Artefak di tests/outputs/l2 diabaikan Git.
+
+Batas: tes memakai SQLite dan Chromium lokal, bukan MariaDB/Hostinger atau bukti kapasitas 1.500 pengguna. Draf L2 disimpan manual, belum autosave. Navigasi satu soal, tipe soal lain, timer, nilai lulus, retake, analisis L2 per institusi/periode, Safari/Firefox dan pembaca layar belum tersedia/diverifikasi. Panduan final/PDF tetap ditunda sesuai arahan pengguna. Rincian aturan awal ada di [L2.md](L2.md). Catatan di bawah adalah riwayat QA tahap sebelumnya.
+
+---
+
+# Verifikasi instrumen L1 — 16 Oktober 2026
+
+- Migrasi seri/kepemilikan/revision/kunci retry berhasil pada SQLite lokal tanpa mengganti instrumen atau respons sebelumnya.
+- **70 tes PHPUnit, 674 assertion lulus.** Tambahan mencakup pembuatan draf lima butir, payload identitas yang diabaikan, validasi teks/indeks/nonce, retry pembuatan, formulir lama, publikasi idempotent, versi baru, referensi bersama hanya baca, role/KPwBI, akun nonaktif, pemilihan sesi, L1 peserta tanpa akun, snapshot versi lama, serta rollback pada kegagalan audit untuk setiap operasi tulis instrumen.
+- Chromium berhasil menguji draf → terbit V1 → pilihan instrumen pada sesi → QR dan pendaftaran tanpa akun → L1 → draf/ubah/terbit V2. Sesi dan konfirmasi peserta tetap memakai V1; V2 tersedia untuk sesi baru. Retry pembuatan seri/versi kembali ke catatan yang sama; formulir lama ditolak 422 dan CSRF tidak sah ditolak 419.
+- Halaman versi terbit pada 375, 768 dan 1440 px tidak memiliki overflow horizontal. Screenshot 375 px diperiksa; tipografi/aset/komponen V2 tetap digunakan. Tidak ada error JavaScript dalam alur browser ini.
+- Pint --test, kompilasi Blade, dan git diff --check lulus. Tidak ada perubahan dependency atau sumber CSS/JS Vite pada tahap ini; memakai build lokal yang sudah tersedia.
+- Browser test baru: tests/instruments-browser.cjs. Artefak di tests/outputs/instruments diabaikan Git. Setiap run menambah instrumen/versi, sesi, kepesertaan, respons L1 dan audit sintetis.
+
+Batas: SQLite dan Chromium lokal; belum menguji MariaDB/Hostinger, konkurensi nyata, beban 1.500 pengguna, Safari/Firefox, atau pembaca layar. Pengelolaan instrumen L1 tersedia; instrumen/penilaian L2 dan alur persetujuan redaksi belum tersedia. Panduan final tetap ditunda sesuai arahan pengguna. Rincian ada di [INSTRUMENTS.md](INSTRUMENTS.md). Catatan di bawah merupakan riwayat pemeriksaan tahap sebelumnya.
+
+---
+
 # Verifikasi materi PDF privat — 15 Oktober 2026
 
 - Migrasi materials/material_versions berhasil pada SQLite lokal. File disimpan di disk privat di luar public.

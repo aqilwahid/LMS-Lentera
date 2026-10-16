@@ -3,6 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassAccessController;
 use App\Http\Controllers\GuestClassController;
+use App\Http\Controllers\GuestL2Controller;
+use App\Http\Controllers\InstrumentController;
+use App\Http\Controllers\L2InstrumentController;
+use App\Http\Controllers\L2ManagementController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\MasterController;
@@ -17,6 +21,8 @@ Route::post('/kelas/{token}', [GuestClassController::class, 'store'])->middlewar
 Route::get('/kelas/{token}/kegiatan', [GuestClassController::class, 'show'])->name('class.show');
 Route::get('/kelas/{token}/l1', [GuestClassController::class, 'edit'])->name('class.l1.edit');
 Route::post('/kelas/{token}/l1', [GuestClassController::class, 'submit'])->middleware('throttle:class-forms')->name('class.l1.store');
+Route::get('/kelas/{token}/l2/{stage}', [GuestL2Controller::class, 'show'])->whereIn('stage', ['pre', 'post'])->name('class.l2.show');
+Route::post('/kelas/{token}/l2/{stage}/{operation}', [GuestL2Controller::class, 'mutate'])->whereIn('stage', ['pre', 'post'])->whereIn('operation', ['start', 'save', 'submit'])->middleware('throttle:class-forms')->name('class.l2.mutate');
 Route::get('/kelas/{token}/materi/{material}', [MaterialController::class, 'preview'])->name('class.material.preview');
 Route::get('/kelas/{token}/materi/{material}/pdf', [MaterialController::class, 'guestFile'])->name('class.material.file');
 Route::get('/kelas/{token}/materi/{material}/unduh', [MaterialController::class, 'guestFile'])->name('class.material.download');
@@ -26,6 +32,22 @@ Route::middleware('guest')->group(function () {
 });
 Route::post('/keluar', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
+    Route::get('/pengelola/instrumen-l2', [L2InstrumentController::class, 'index'])->name('l2.instruments.index');
+    Route::get('/pengelola/instrumen-l2/buat', [L2InstrumentController::class, 'create'])->name('l2.instruments.create');
+    Route::post('/pengelola/instrumen-l2', [L2InstrumentController::class, 'store'])->name('l2.instruments.store');
+    Route::get('/pengelola/instrumen-l2/{instrument}', [L2InstrumentController::class, 'show'])->name('l2.instruments.show');
+    Route::put('/pengelola/instrumen-l2/{instrument}', [L2InstrumentController::class, 'update'])->name('l2.instruments.update');
+    Route::post('/pengelola/instrumen-l2/{instrument}/terbit', [L2InstrumentController::class, 'publish'])->name('l2.instruments.publish');
+    Route::post('/pengelola/instrumen-l2/{instrument}/versi', [L2InstrumentController::class, 'version'])->name('l2.instruments.version');
+    Route::get('/pengelola/sesi/{session}/l2', [L2ManagementController::class, 'edit'])->name('l2.settings.edit');
+    Route::put('/pengelola/sesi/{session}/l2', [L2ManagementController::class, 'update'])->name('l2.settings.update');
+    Route::get('/pengelola/instrumen', [InstrumentController::class, 'index'])->name('instruments.index');
+    Route::get('/pengelola/instrumen/buat', [InstrumentController::class, 'create'])->name('instruments.create');
+    Route::post('/pengelola/instrumen', [InstrumentController::class, 'store'])->name('instruments.store');
+    Route::get('/pengelola/instrumen/{instrument}', [InstrumentController::class, 'show'])->name('instruments.show');
+    Route::put('/pengelola/instrumen/{instrument}', [InstrumentController::class, 'update'])->name('instruments.update');
+    Route::post('/pengelola/instrumen/{instrument}/terbit', [InstrumentController::class, 'publish'])->name('instruments.publish');
+    Route::post('/pengelola/instrumen/{instrument}/versi', [InstrumentController::class, 'version'])->name('instruments.version');
     Route::get('/pengelola/sesi/{session}/materi', [MaterialController::class, 'index'])->name('materials.index');
     Route::post('/pengelola/sesi/{session}/materi', [MaterialController::class, 'store'])->name('materials.store');
     Route::get('/pengelola/materi/{material}', [MaterialController::class, 'show'])->name('materials.show');

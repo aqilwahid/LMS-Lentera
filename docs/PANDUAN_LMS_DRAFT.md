@@ -1,10 +1,10 @@
 # Panduan Peserta LENTERA
 
-**Sketsa isi · versi 0.1 · 15 Oktober 2026**
+**Sketsa isi · versi 0.2 · 16 Oktober 2026**
 
 Panduan ini membantu Anda mengikuti kelas LENTERA melalui HP atau komputer. **Peserta tidak perlu membuat akun, login, atau menyiapkan kata sandi.** Cukup buka QR atau tautan kelas dari panitia, lalu isi formulir.
 
-Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan akan dilengkapi sebelum panduan dibagikan kepada peserta. Langkah di bawah mengikuti fitur yang sudah tersedia; rencana tes dijelaskan terpisah di bagian akhir.
+Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan akan dilengkapi sebelum panduan dibagikan kepada peserta. Langkah di bawah mengikuti fitur yang sudah tersedia, termasuk pretest/post-test jika disiapkan panitia.
 
 ## Daftar isi
 
@@ -16,7 +16,7 @@ Naskah ini masih berupa draf. Gambar layar, alamat website, dan kontak bantuan a
 6. [Isi evaluasi L1](#isi-evaluasi-l1)
 7. [Pastikan evaluasi sudah terkirim](#pastikan-evaluasi-sudah-terkirim)
 8. [Jika mengalami kendala](#jika-mengalami-kendala)
-9. [Tes pada pengembangan berikutnya](#tes-pada-pengembangan-berikutnya)
+9. [Mengikuti pretest dan post-test](#mengikuti-pretest-dan-post-test)
 
 ## Sebelum mulai
 
@@ -167,17 +167,27 @@ Untuk meminta bantuan, sampaikan nama kegiatan, sesi, kendala yang dialami, dan 
 
 **Kontak panitia:** [nama petugas, nomor/kanal bantuan, dan jam layanan akan diisi sebelum panduan diterbitkan].
 
-## Tes pada pengembangan berikutnya
+## Mengikuti pretest dan post-test
 
-Bagian ini adalah rencana isi panduan final. Langkah operasionalnya baru ditulis setelah fiturnya tersedia.
+Jika panitia menyiapkan tes, halaman kelas menyediakan **Buka pretest** dan **Buka post-test**. Pretest adalah tes awal; post-test adalah tes setelah pembelajaran. Ikuti jadwal dan arahan panitia.
 
-| Rencana bagian | Isi yang akan dijelaskan nanti |
-| --- | --- |
-| Pretest | Cara mengikuti tes awal sesuai instruksi kegiatan. |
-| Post-test atau evaluasi L2 | Cara mengikuti tes pengetahuan setelah pembelajaran. |
-| Melihat hasil tes | Cara membaca hasil jika pengelola sudah mengizinkan hasil ditampilkan. |
+1. Pada halaman kelas, pilih **Buka pretest** atau **Buka post-test** sesuai arahan panitia.
+2. Baca jadwal dan petunjuk, lalu tekan **Mulai pretest** atau **Mulai post-test**.
+3. Pilih satu jawaban A, B, C, atau D untuk setiap soal.
+4. Jika belum selesai atau ingin meninggalkan halaman, tekan **Simpan draf** dan tunggu pesan **Draf jawaban tersimpan di server.**
+5. Untuk melanjutkan, buka kembali tes dari kelas menggunakan perangkat dan aplikasi internet yang sama.
+6. Setelah seluruh soal terjawab, periksa jawaban lalu tekan **Kirim final**.
+7. Pastikan muncul **Pretest sudah dikirim.** atau **Post-test sudah dikirim.** beserta waktu penyimpanan.
 
-L1 tetap merupakan umpan balik yang terpisah dari tes pengetahuan. Panduan ini belum menjanjikan sertifikat, jumlah percobaan tes, batas waktu tes, nilai kelulusan, atau urutan wajib karena ketentuannya belum ditetapkan.
+**Simpan draf** menyimpan sementara, bukan mengirim final. Isian yang belum disimpan tidak otomatis tersimpan. Jika muncul pesan jawaban berubah pada tab lain, muat ulang dan periksa draf terbaru sebelum melanjutkan. Jawaban final hanya dikirim satu kali dan tidak dapat diperbaiki sendiri.
+
+Jika internet terputus setelah mengirim, buka kembali tes yang sama dari kelas. Periksa konfirmasi sebelum mencoba lagi. Jika akses kelas meminta identitas dari awal, hubungi panitia sebelum mendaftar ulang.
+
+Skor belum terlihat sampai pengelola membukanya. Setelah dibuka, skor ditampilkan dari 0–100. Jika kedua tes sudah dikirim, selisih post-test dikurangi pretest juga dapat terlihat. Ini berbeda dari rata-rata evaluasi L1. Kunci jawaban tidak ditampilkan; aplikasi belum memberikan predikat lulus atau sertifikat.
+
+Jika tombol Mulai tidak tersedia, periksa jadwal atau tanyakan kepada panitia. Pada kelas tertentu, pretest harus dikirim final sebelum post-test dapat dimulai. Draf pretest belum memenuhi syarat tersebut.
+
+> Ruang gambar P09: pretest/post-test dan Simpan draf. Ruang gambar P10: konfirmasi final dan skor yang sudah dibuka.
 
 ---
 

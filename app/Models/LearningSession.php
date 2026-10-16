@@ -23,6 +23,11 @@ class LearningSession extends Model
         return $this->belongsTo(L1Instrument::class, 'l1_instrument_id');
     }
 
+    public function l2Assessment()
+    {
+        return $this->hasOne(L2Assessment::class);
+    }
+
     protected static function booted(): void
     {
         static::updating(function ($session) {

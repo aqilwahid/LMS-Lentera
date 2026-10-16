@@ -53,7 +53,7 @@ Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk 
 ## Data dan aturan sementara
 
 - Login hanya untuk bi_admin dan partner. Peserta memakai kepesertaan tamu dengan user_id=null dan akses sesi browser. Data/endpoint participant dari fondasi awal dipertahankan untuk kompatibilitas dan regresi; bukan jalur pendaftaran baru. Pengelola BI dibatasi office_id; mitra pada institution_id. Akun nonaktif ditolak pada setiap request terautentikasi.
-- Master offices/institutions, users, activities, learning_sessions, enrollments, l1_instruments dan l1_responses. Nomor identitas berupa teks.
+- Master offices/institutions, users, activities, learning_sessions, enrollments, l1_instruments/l1_responses, serta l2_instruments/l2_assessments/l2_attempts. Nomor identitas berupa teks.
 - Institusi ID/nama dan kategori pada enrollment adalah snapshot saat pendaftaran; perubahan profil tidak mengubahnya. Model menolak perubahan konteks enrollment, tetapi status dapat dicabut.
 - Satu respons final per enrollment+sesi. Sesi tahap ini mempunyai satu narasumber, satu versi L1 dan jendela pengisian. Multi-narasumber memerlukan assignment terpisah sebelum dipakai dalam kegiatan nyata.
 - Redaksi kerja lima butir dari DESIGN V2 ada di config/lentera.php dan disalin ke versi instrumen saat pembuatan. Label verbal angka 1–6 tidak dikarang. Redaksi resmi masih menunggu persetujuan.
@@ -63,7 +63,7 @@ Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk 
 - Respons final tidak dapat diedit/dihapus lewat model. Koreksi administratif dan audit koreksi belum disediakan.
 - Login memakai session Laravel, rotasi session ID, CSRF, password hashing dan pembatasan percobaan per email/IP. Logout menghapus session. Pendaftaran kelas terbuka bagi pemegang tautan QR selama jadwalnya aktif, tanpa membuat akun. Reset email otomatis, SSO dan HRIS belum tersedia.
 - Mitra hanya menerima agregat institusi historisnya, tanpa identitas/jawaban/feedback individu; tidak dapat membuka detail kegiatan peserta atau mengekspor. BI melihat agregat KPwBI akun. Agregat dipisahkan per sesi, instrumen dan konteks institusi, disertai jumlah respons/periode.
-- L1 tidak mensyaratkan L2/membaca PDF. Pengelolaan kegiatan/sesi, jadwal dan QR beserta audit sudah tersedia; lihat [MANAGEMENT.md](MANAGEMENT.md). Materi PDF privat beserta versi/izin kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Draf evaluasi server dan laporan belum dihubungkan. Master institusi/narasumber dan pemetaan/status kepesertaan sudah tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md).
+- L1 tidak mensyaratkan L2/membaca PDF. Pengelolaan kegiatan/sesi, jadwal dan QR beserta audit sudah tersedia; lihat [MANAGEMENT.md](MANAGEMENT.md). Materi PDF privat beserta versi/izin kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Draf L2 manual di server, skor dan publikasi sudah tersedia; lihat [L2.md](L2.md). Draf/autosave L1 dan laporan belum dihubungkan. Master institusi/narasumber dan pemetaan/status kepesertaan sudah tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md).
 
 ## Pemeriksaan
 
@@ -80,6 +80,8 @@ node tests/browser.cjs
 node tests/management-browser.cjs
 node tests/masters-browser.cjs
 node tests/materials-browser.cjs
+node tests/instruments-browser.cjs
+node tests/l2-browser.cjs
 ```
 
 Tes PHPUnit memakai database SQLite in-memory, terpisah dari database lokal. Browser test masuk sebagai pengelola contoh untuk memperoleh QR, lalu memakai browser context terpisah untuk mendaftar dan mengirim L1 tanpa akun. Setiap run membuat satu kepesertaan dan respons sintetis baru 5/6. Tes menolak lingkungan tanpa banner contoh. Jangan gunakan database berisi data produksi.
@@ -112,4 +114,4 @@ Kegiatan/sesi dapat dibuat dan diubah melalui menu Kelola kegiatan. QR sesi baru
 
 Sketsa panduan untuk pengguna awam tersedia di [PANDUAN_LMS_DRAFT.md](PANDUAN_LMS_DRAFT.md) untuk peserta dan [PANDUAN_PENGELOLA_MITRA_DRAFT.md](PANDUAN_PENGELOLA_MITRA_DRAFT.md) untuk BI/mitra. [PANDUAN_LMS_RENCANA.md](PANDUAN_LMS_RENCANA.md) memuat rencana gambar dan finalisasi. Statusnya naskah Markdown; belum membuat PDF atau menghubungkan halaman panduan pada backend.
 
-Pengelolaan instrumen dan penilaian L2; pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; instrumen L2 per pertemuan dan penilaian server; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.
+Pengelolaan instrumen L1 per KPwBI kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 pilihan ganda, draf manual dan penilaian server tersedia; lihat [L2.md](L2.md). Tahap berikutnya analisis periode, impor/laporan dan aturan L2 lanjutan; pemulihan akun pengelola/mitra; multi-narasumber dan aturan L1 resmi; autosave dan jenis soal L2 lanjutan; impor historis; grafik dan laporan menggunakan Chart.js/PhpSpreadsheet/Dompdf. Paket laporan belum dipasang karena fitur itu belum masuk alur tahap 1. Setelah itu uji MariaDB, browser lintas platform, backup, serta k6 bertahap 200–1.500 pengguna sebelum menetapkan kapasitas produksi.

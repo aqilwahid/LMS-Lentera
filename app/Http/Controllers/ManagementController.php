@@ -100,23 +100,24 @@ class ManagementController extends Controller
         return Enrollment::where('joined_session_id', $session->id)->exists() || L1Response::where('learning_session_id', $session->id)->exists();
     }
 
-    private function instruments()
+    private function instruments(Request $request)
     {
-        return L1Instrument::whereNotNull('published_at')->orderBy('code')->orderByDesc('version')->get()->filter(fn ($i) => count($i->questions) === 5);
+        return L1Instrument::with('set')->availableToOffice($request->user()->office_id)->whereNotNull('published_at')
+            ->orderBy('code')->orderByDesc('version')->get()->filter(fn ($i) => $i->hasValidQuestions());
     }
 
     public function createSession(Request $request, Activity $activity)
     {
         $this->activityPermission($request, $activity);
 
-        return view('management.session-form', ['activity' => $activity, 'session' => new LearningSession, 'instruments' => $this->instruments(), 'contextLocked' => false, 'speakers' => Speaker::where('office_id', $activity->office_id)->where('is_active', true)->orderBy('name')->get()]);
+        return view('management.session-form', ['activity' => $activity, 'session' => new LearningSession, 'instruments' => $this->instruments($request), 'contextLocked' => false, 'speakers' => Speaker::where('office_id', $activity->office_id)->where('is_active', true)->orderBy('name')->get()]);
     }
 
     public function editSession(Request $request, LearningSession $session)
     {
         $this->activityPermission($request, $session->activity);
 
-        return view('management.session-form', ['activity' => $session->activity, 'session' => $session, 'instruments' => $this->instruments(), 'contextLocked' => $this->contextLocked($session), 'speakers' => Speaker::where('office_id', $session->activity->office_id)->where(fn ($q) => $q->where('is_active', true)->orWhere('id', $session->speaker_id))->orderBy('name')->get()]);
+        return view('management.session-form', ['activity' => $session->activity, 'session' => $session, 'instruments' => $this->instruments($request), 'contextLocked' => $this->contextLocked($session), 'speakers' => Speaker::where('office_id', $session->activity->office_id)->where(fn ($q) => $q->where('is_active', true)->orWhere('id', $session->speaker_id))->orderBy('name')->get()]);
     }
 
     private function sessionData(Request $request, ?LearningSession $existing = null): array
@@ -140,7 +141,10 @@ class ManagementController extends Controller
             'starts_at' => 'Waktu sesi', 'join_opens_at' => 'Pembukaan pendaftaran', 'join_closes_at' => 'Penutupan pendaftaran',
             'l1_opens_at' => 'Pembukaan L1', 'l1_closes_at' => 'Penutupan L1',
         ]);
-        $instrument = L1Instrument::findOrFail($data['l1_instrument_id']);
+        $instrument = L1Instrument::availableToOffice($request->user()->office_id)->find($data['l1_instrument_id']);
+        if (! $instrument) {
+            throw ValidationException::withMessages(['l1_instrument_id' => 'Pilih instrumen terbit dalam cakupan KPwBI Anda.']);
+        }
         if (! empty($data['speaker_id'])) {
             $speaker = Speaker::where('office_id', $request->user()->office_id)->find($data['speaker_id']);
             if (! $speaker || (! $speaker->is_active && $existing?->speaker_id !== $speaker->id)) {
@@ -150,7 +154,7 @@ class ManagementController extends Controller
         } else {
             $data['speaker_id'] = null;
         }
-        if (count($instrument->questions) !== 5) {
+        if (! $instrument->hasValidQuestions()) {
             throw ValidationException::withMessages(['l1_instrument_id' => 'Instrumen L1 harus memiliki lima butir.']);
         }
         foreach (['starts_at', 'join_opens_at', 'join_closes_at', 'l1_opens_at', 'l1_closes_at'] as $field) {

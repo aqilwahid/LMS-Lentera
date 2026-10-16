@@ -1,6 +1,6 @@
 # Rencana finalisasi panduan LMS
 
-Status: sketsa Markdown untuk peninjauan; belum membuat PDF, gambar baru, atau halaman panduan aplikasi. Tanggal: 15 Oktober 2026.
+Status: sketsa Markdown untuk peninjauan; belum membuat PDF, gambar panduan final, atau halaman panduan aplikasi. Tanggal: 16 Oktober 2026.
 
 ## Berkas dan sasaran pembaca
 
@@ -27,7 +27,7 @@ Jumlah halaman dapat berubah saat tata letak final dibuat.
 | 8 | Konfirmasi dan bantuan saat koneksi bermasalah. |
 | 9 | Pertanyaan umum dan kontak bantuan. |
 
-Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masuk; membuat kegiatan/sesi; jadwal; siklus QR/tautan; membaca ringkasan/riwayat; keluar dan bantuan. Bab L2 serta pengelolaan lanjutan ditambahkan ketika sudah berfungsi, bukan dipasang sebagai langkah aktif pada edisi awal.
+Panduan pengelola/mitra disusun terpisah: masuk; master/kepesertaan; kegiatan/sesi; materi; instrumen L1/L2; jadwal dan publikasi skor; QR; ringkasan/riwayat; keluar dan bantuan. Sesuaikan jumlah halaman setelah gambar final tersedia. Pretest/post-test sudah masuk sketsa; fitur lanjutan yang belum tersedia tetap ditandai rencana.
 
 ## Daftar gambar yang disiapkan nanti
 
@@ -40,6 +40,7 @@ Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masu
 | P05 | Bagian akhir form L1 | Masukan opsional, tombol Kirim evaluasi. |
 | P06 | Konfirmasi L1 | Evaluasi sudah dikirim dan waktu penyimpanan. |
 | P07/P08 | Materi peserta | Daftar versi terbit, pratinjau dan fallback buka/unduh. |
+| P09/P10 | Tes L2 peserta | Mulai, pilihan jawaban, Simpan draf, Kirim final, konfirmasi dan skor sesuai publikasi. |
 | A01 | Login pengelola/mitra | Email, kata sandi tersamarkan, Masuk. |
 | A02 | Ringkasan pengelola | Bagikan QR kelas dan tautan sesi. |
 | A03 | Halaman Bagikan kelas | QR, Tautan peserta, jadwal, Unduh QR SVG. |
@@ -51,6 +52,8 @@ Panduan pengelola/mitra dapat disusun terpisah dalam sekitar 6–8 halaman: masu
 | A09/A10 | Master dan pilihan narasumber | Nama, status dan pemilihan pada sesi. |
 | A11/A12 | Daftar/detail kepesertaan | Filter, isian asli, pemetaan institusi dan status. |
 | A13/A14 | Materi BI | Unggah PDF, batas ukuran, versi, terbit/sembunyikan. |
+| A15/A16 | Instrumen L1 BI | Lima butir, simpan draf, pratinjau, terbit dan riwayat versi. |
+| A17/A18 | Instrumen/pengaturan L2 BI | Soal/kunci, versi, jadwal, prasyarat, publikasi dan pasangan pre/post. |
 
 Gunakan screenshot aplikasi final dengan data sintetis. Screenshot QA lokal tidak otomatis menjadi aset publik: pilih, periksa, dan samarkan data sebelum digunakan. Jangan menampilkan APP_KEY, kredensial, identitas asli, atau token kelas produksi. QR dalam dokumen contoh harus jelas diberi label contoh; QR kegiatan aktif dibagikan panitia secara terpisah.
 

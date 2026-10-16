@@ -23,10 +23,10 @@
 <input id="l1_instrument_id" value="{{ $session->instrument->code }} · versi {{ $session->instrument->version }}" readonly>
 @else
 <select id="l1_instrument_id" name="l1_instrument_id" required><option value="">Pilih instrumen terbit</option>
-@foreach($instruments as $instrument)<option value="{{ $instrument->id }}" @selected((string)old('l1_instrument_id',$session->l1_instrument_id)===(string)$instrument->id)>{{ $instrument->code }} · versi {{ $instrument->version }}</option>@endforeach
+@foreach($instruments as $instrument)<option value="{{ $instrument->id }}" @selected((string)old('l1_instrument_id',$session->l1_instrument_id)===(string)$instrument->id)>{{ $instrument->set?->name ?? $instrument->code }} · versi {{ $instrument->version }}</option>@endforeach
 </select>
 @endif
-<p>Hanya instrumen terbit dengan lima pertanyaan yang dapat digunakan. Instrumen contoh digunakan hanya untuk pemeriksaan lokal.</p></div>
+<p>Hanya instrumen terbit dengan lima pertanyaan dalam cakupan Anda yang dapat digunakan. Instrumen contoh digunakan hanya untuk pemeriksaan lokal. <a href="{{ route('instruments.index') }}">Kelola instrumen L1</a>.</p></div>
 @foreach(['starts_at'=>'Waktu sesi','join_opens_at'=>'Pembukaan pendaftaran','join_closes_at'=>'Penutupan pendaftaran','l1_opens_at'=>'Pembukaan evaluasi L1','l1_closes_at'=>'Penutupan evaluasi L1'] as $field=>$label)
 <div class="field"><label for="{{ $field }}">{{ $label }}</label><input type="datetime-local" id="{{ $field }}" name="{{ $field }}" value="{{ old($field,$session->$field?->format('Y-m-d\TH:i')) }}" required></div>
 @endforeach
@@ -35,6 +35,7 @@
 @if(!$contextLocked && $instruments->isEmpty())<p>Belum ada instrumen L1 yang siap. Hubungi petugas instrumen sebelum membuat sesi.</p>@endif
 </form>
 @if($session->exists)
+<section class="panel"><h2>Pretest dan post-test L2</h2><p>Pilih versi soal, atur jadwal tiap tahap dan publikasi skor peserta. L1 tetap terpisah dari nilai tes.</p><a class="btn primary" href="{{ route('l2.settings.edit',$session) }}">Atur evaluasi L2</a></section>
 <section class="panel"><h2>Materi pembelajaran</h2><p>Unggah PDF, simpan riwayat versi, dan terbitkan materi untuk peserta sesi ini.</p><a class="btn primary" href="{{ route('materials.index',$session) }}">Kelola materi PDF</a></section>
 <section class="panel"><h2>Akses QR kelas</h2><p>Status: <strong>{{ $session->join_enabled ? 'Aktif' : 'Nonaktif' }}</strong>. Pendaftaran tetap mengikuti jadwal.</p>
 @if($session->join_enabled)<p><a class="btn primary" href="{{ route('class.access',$session) }}">Lihat QR dan tautan</a></p>@endif

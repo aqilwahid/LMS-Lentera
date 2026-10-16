@@ -6,7 +6,7 @@ Pembaruan 15 Oktober 2026. Fitur ini melanjutkan fondasi backend dan alur pesert
 
 Pengelola BI dapat membuka **Kelola kegiatan**, membuat kegiatan, mengubah judul/deskripsi, menambahkan sesi, mengubah jadwal, dan mengaktifkan/menonaktifkan atau mengganti QR. Mitra dan peserta tidak mempunyai izin pengelolaan.
 
-Setiap sesi memuat nama sesi, satu nama narasumber, satu versi L1 terbit, waktu sesi, jadwal pendaftaran, serta jadwal evaluasi L1. Nama narasumber tetap menjadi snapshot sesi; master narasumber kini dapat dipilih secara opsional. Nama dari master ditentukan server dan perubahan master tidak menulis ulang snapshot sesi. Instrumen tersedia harus terbit dan memuat lima butir; UI membuat/menerbitkan instrumen belum tersedia.
+Setiap sesi memuat nama sesi, satu nama narasumber, satu versi L1 terbit, waktu sesi, jadwal pendaftaran, serta jadwal evaluasi L1. Nama narasumber tetap menjadi snapshot sesi; master narasumber kini dapat dipilih secara opsional. Nama dari master ditentukan server dan perubahan master tidak menulis ulang snapshot sesi. Instrumen harus terbit, memuat lima butir valid dan berada dalam cakupan KPwBI atau referensi bersama. UI membuat/menerbitkan instrumen L1 kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md).
 
 Sesi baru memiliki token acak tetapi QR **nonaktif**. Pengelola memeriksa data, menyimpan, lalu memilih **Aktifkan akses kelas**. Mengaktifkan QR tidak melewati jadwal pendaftaran.
 
@@ -63,4 +63,4 @@ MariaDB aktual, operasi bersamaan pada hosting dan kapasitas 1.500 pengguna belu
 
 ## Berikutnya
 
-Master institusi/narasumber serta status/pemetaan kepesertaan kini tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Berikutnya instrumen/L2 dan koreksi identitas yang diaudit. Penghapusan/arsip dan retensi data perlu aturan khusus sebelum disediakan. Panduan awam masih Markdown; PDF final tetap dikerjakan belakangan.
+Master institusi/narasumber serta status/pemetaan kepesertaan kini tersedia; lihat [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md). Materi PDF privat kini tersedia; lihat [MATERIALS.md](MATERIALS.md). Instrumen L1 kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 kini tersedia; lihat [L2.md](L2.md). Berikutnya analisis/laporan dan koreksi identitas yang diaudit. Penghapusan/arsip dan retensi data perlu aturan khusus sebelum disediakan. Panduan awam masih Markdown; PDF final tetap dikerjakan belakangan.

@@ -10,5 +10,9 @@
 @forelse($materials as $material)
 <article><h3>{{ $material->title }}</h3><p>{{ $material->description }}</p><p>PDF · versi {{ $material->currentVersion?->version_number }}</p><a class="btn primary" href="{{ route('class.material.preview',[$session->join_token,$material]) }}">Baca materi: {{ $material->title }}</a> <a href="{{ route('class.material.download',[$session->join_token,$material,'version'=>$material->current_version_id]) }}">Unduh PDF: {{ $material->title }}</a></article>
 @empty <p>Belum ada materi yang diterbitkan untuk sesi ini.</p>@endforelse{{ $materials->links() }}
-</section><section class="panel"><h2>Evaluasi L2</h2><p>Pretest dan post-test belum dihubungkan pada tahap backend ini.</p></section></div>
+</section><section class="panel"><h2>Evaluasi L2</h2>
+@if($session->l2Assessment)
+<p>Pretest dan post-test mengikuti jadwal yang ditentukan pengelola. Skor tampil setelah pengelola membukanya.</p><p><a class="btn secondary" href="{{ route('class.l2.show',[$session->join_token,'pre']) }}">Buka pretest</a> <a class="btn secondary" href="{{ route('class.l2.show',[$session->join_token,'post']) }}">Buka post-test</a></p>
+@else<p>Pretest dan post-test belum disiapkan untuk sesi ini.</p>@endif
+</section></div>
 @endsection

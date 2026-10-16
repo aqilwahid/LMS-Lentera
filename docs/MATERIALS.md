@@ -64,8 +64,8 @@ Script Windows sekarang memakai artisan serve --no-reload agar TEMP/TMP tetap di
 
 Browser test memerlukan demo aktif, Playwright dan Chromium. Tes menghasilkan dua PDF sintetis kecil, menambah sesi/pendaftaran/materi/versi/audit, serta menguji publikasi, retry, byte unduhan, sembunyikan dan terbit ulang. Tidak mengunggah dokumen klien. Artefak ada di tests/outputs/materials.
 
-Suite lokal: **58 tes, 525 assertion lulus**; batas validasi, role/KPwBI, sesi browser, materi draft/tersembunyi, versi asing, retry, file hilang dan rollback audit diperiksa. Hasil browser terbaru serta batas pembuktian rendering PDF dicatat di [QA.md](QA.md).
+Suite lokal tahap materi (15 Oktober 2026): **58 tes, 525 assertion lulus**; batas validasi, role/KPwBI, sesi browser, materi draft/tersembunyi, versi asing, retry, file hilang dan rollback audit diperiksa. Hasil suite terbaru serta batas pembuktian rendering PDF dicatat di [QA.md](QA.md).
 
 ## Berikutnya
 
-Pengelolaan instrumen dan penilaian L2, lalu impor/laporan dan pengujian integrasi MariaDB/hosting. Pemulihan akses peserta, pemindai PDF, rekonsiliasi file, retensi/arsip dan kebijakan berbagi materi mitra masih terpisah. Kapasitas 1.500 pengguna belum diuji. Panduan final/PDF panduan tetap dikerjakan belakangan; materi kelas ini berbeda dari finalisasi panduan.
+Pengelolaan instrumen L1 kini tersedia; lihat [INSTRUMENTS.md](INSTRUMENTS.md). L2 kini tersedia; lihat [L2.md](L2.md). Berikutnya impor/laporan dan pengujian integrasi MariaDB/hosting. Pemulihan akses peserta, pemindai PDF, rekonsiliasi file, retensi/arsip dan kebijakan berbagi materi mitra masih terpisah. Kapasitas 1.500 pengguna belum diuji. Panduan final/PDF panduan tetap dikerjakan belakangan; materi kelas ini berbeda dari finalisasi panduan.

@@ -143,6 +143,22 @@ Setelah konfirmasi muncul, Anda tidak perlu mengirim ulang. Anda dapat menekan *
 
 Jawaban yang sudah dikirim belum dapat diubah sendiri. Jika ada kesalahan, hubungi panitia untuk mendapatkan arahan; perubahan belum dapat dilakukan langsung melalui halaman peserta.
 
+## Saat muncul antrean
+
+Saat layanan ramai, LENTERA dapat menampilkan ruang tunggu sebelum membuka halaman atau mengirim formulir.
+
+1. Biarkan tab tetap terbuka. Giliran diperiksa otomatis; tidak perlu menekan kirim berkali-kali.
+2. Perhatikan posisi yang terakhir diperiksa. Angka tersebut bukan perkiraan menit sampai masuk.
+3. Jika ingin selingan, tekan **Main tic-tac-toe**. Anda bermain sebagai X melawan komputer. Menang atau kalah tidak memengaruhi giliran.
+4. Tekan **Kembali ke antrean** untuk menutup permainan. Ketika giliran tersedia, aplikasi akan melanjutkan proses otomatis.
+5. Jika membatalkan antrean formulir, isian tetap di halaman yang sama. Periksa isian sebelum mencoba lagi.
+
+**Menunggu belum berarti jawaban tersimpan.** Jangan memuat ulang atau menutup tab formulir. Tunggu konfirmasi **Evaluasi sudah dikirim.**, **Pretest sudah dikirim.**, **Post-test sudah dikirim.**, atau pesan draf tersimpan sesuai tindakan Anda.
+
+Jika internet terputus sebelum pengiriman, sambungkan kembali dan tetap buka tab. Jika aplikasi menyatakan konfirmasi pengiriman belum diterima, periksa status melalui kelas sebelum mengirim lagi. Jadwal tutup tetap berlaku; hubungi panitia apabila giliran tertahan sampai jadwal berakhir.
+
+> Ruang gambar P11: posisi antrean dan tombol permainan. Ruang gambar P12: permainan dan tombol kembali. Gunakan data sintetis.
+
 ## Jika mengalami kendala
 
 | Yang Anda alami | Yang dapat dilakukan |

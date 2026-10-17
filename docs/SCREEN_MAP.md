@@ -6,6 +6,7 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | --- | --- | --- |
 | S02 (BI/mitra) | GET/POST /masuk; POST /keluar | Login session hanya untuk pengelola/mitra |
 | Pendaftaran peserta | GET/POST /kelas/{token} | Form identitas tanpa akun melalui QR |
+| Ruang tunggu | /waiting-room.html dan POST /admission.php | Antrean sebelum Laravel; posisi/pesan, tic-tac-toe lokal, lanjut saat tersedia. Dialog pada halaman menjaga isian POST selama menunggu. |
 | Kelas peserta | GET /kelas/{token}/kegiatan | Kelas sesuai pendaftaran dan sesi browser |
 | S08 (peserta QR) | GET/POST /kelas/{token}/l1 | L1 tanpa akun, hanya respons browser peserta sendiri |
 | QR pengelola | GET /pengelola/sesi/{session}/akses dan /qr | Tampilan tautan dan QR SVG sesuai cakupan KPwBI |

@@ -23,5 +23,6 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run assets:sync && npm run build
       - run: php artisan test
+      - run: php tests/admission-concurrency.php
       - run: vendor/bin/pint --test
       - run: node tests/smoke.cjs

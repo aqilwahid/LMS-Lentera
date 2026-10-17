@@ -50,6 +50,19 @@ Script server Windows memakai --no-reload untuk mempertahankan TEMP/TMP bagi ung
 
 Script membangun di LOCALAPPDATA, lalu menyalin hasilnya ke public/build. Untuk perubahan PHP tidak perlu build ulang. Untuk perubahan styles.css/aset, jalankan assets:sync atau build-local.ps1. CSS V2 asli menjadi sumber public/styles-v2.css; hanya logo, font dan ilustrasi yang diizinkan disalin, bukan PDF atau pustaka ekspor prototype.
 
+## Antrean akses — 17 Oktober 2026
+
+Gerbang ringan di `public/index.php` membatasi request sebelum Composer, session dan database. Endpoint `public/admission.php` memeriksa tiket tanpa Laravel/database; ruang tunggu dan tic-tac-toe memakai aset statis. Pembatas awal delapan request aktif/delapan pemberian giliran per detik dapat diatur, dan belum membuktikan kapasitas Hostinger.
+
+```powershell
+php artisan lentera:admission --enable
+php artisan lentera:admission --status
+```
+
+Aktivasi lokal tidak mengubah `.env`. Untuk deployment berulang, atur `LENTERA_ADMISSION_ENABLED=true`, perbarui config cache, lalu jalankan `php artisan lentera:admission`. Checkout baru tetap nonaktif sampai konfigurasi diterbitkan. `--disable` mempertahankan state dan melepas pembatas bagi request baru; gunakan ketika lalu lintas sudah terkendali.
+
+Salin seluruh file ruang tunggu di `public` saat deployment. Konfigurasi/state privat di `storage/framework` diabaikan Git dan tidak boleh dihapus saat request aktif. Tidak ada migrasi atau dependency baru. Detail filesystem, HTTPS, polling, isian formulir, validasi jadwal dan keterbatasan ada di [PERFORMANCE.md](PERFORMANCE.md).
+
 ## Data dan aturan sementara
 
 - Login hanya untuk bi_admin dan partner. Peserta memakai kepesertaan tamu dengan user_id=null dan akses sesi browser. Data/endpoint participant dari fondasi awal dipertahankan untuk kompatibilitas dan regresi; bukan jalur pendaftaran baru. Pengelola BI dibatasi office_id; mitra pada institution_id. Akun nonaktif ditolak pada setiap request terautentikasi.

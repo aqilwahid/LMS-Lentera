@@ -7,6 +7,8 @@
     <title>@yield('title', 'LENTERA')</title>
     <link rel="icon" href="{{ asset('assets/lentera-logo.png') }}">
     <link rel="stylesheet" href="{{ asset('styles-v2.css') }}">
+    <link rel="stylesheet" href="{{ asset('waiting-room.css') }}">
+    <script src="{{ asset('waiting-room.js') }}" defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="{{ auth()->user()?->role === 'participant' ? 'participant' : '' }}">

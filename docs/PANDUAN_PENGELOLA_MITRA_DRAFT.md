@@ -236,6 +236,14 @@ Jika kedua tes final tetapi post-test dimulai sebelum pretest selesai, skor tiap
 
 Lakukan langkah ini terutama jika menggunakan komputer bersama. Peserta yang mengikuti kelas melalui QR tidak menggunakan tombol keluar akun pengelola.
 
+## Saat layanan menampilkan antrean
+
+Antrean dapat muncul pada halaman pengelola, mitra maupun peserta. Biarkan tab terbuka dan tunggu giliran otomatis. Peserta dapat memilih **Main tic-tac-toe** sebagai selingan; permainan tidak mengubah giliran.
+
+Saat formulir sedang mengantre, isian tetap berada di tab dan belum tersimpan. Jangan meminta peserta memuat ulang atau menekan kirim berulang kali. Pastikan mereka memeriksa konfirmasi setelah mendapat giliran. Jika konfirmasi pengiriman belum diterima, periksa status pada kelas sebelum mencoba kembali.
+
+Atur waktu pengisian dengan ruang untuk antrean. Jadwal tutup tidak otomatis diperpanjang karena peserta sedang menunggu. Jika antrean berkepanjangan, hubungi tim sistem dan catat kegiatan, waktu kejadian serta pesan yang tampil. Penyetelan kapasitas dilakukan tim sistem berdasarkan pengujian; bukan melalui akun peserta/mitra.
+
 ## Jika membutuhkan bantuan
 
 | Kendala | Langkah yang dapat dilakukan |

@@ -1,3 +1,19 @@
+# Verifikasi antrean akses — 17 Oktober 2026
+
+- **112 tes PHPUnit, 1.158 assertion lulus**, termasuk sembilan tes gerbang dan tiga tes formulir asinkron baru. Database fitur tetap SQLite in-memory, terpisah dari demo.
+- Tes mencakup slot aktif, FIFO reservasi, tiket/slot ditinggalkan, kedaluwarsa, cancel, batas tiket, tiket salah cookie/metode/tujuan, replay, token bucket, penurunan kapasitas dengan request lama, kunci nonblocking, state rusak yang menolak akses, serta pembatasan alamat tujuan lokal.
+- Tes formulir membuktikan pendaftaran/L1 asinkron tetap menyimpan satu hasil, pesan berhasil/session login tetap tersedia, dan validasi/izin tetap ditegakkan server.
+- `php tests/admission-concurrency.php` lulus: 48 admissions pada 12 proses PHP terpisah, puncak tiga request aktif untuk batas tiga. Proses yang dihentikan paksa melepas slot langsung tanpa menunggu TTL. Ini uji mekanisme kunci, bukan uji kapasitas aplikasi/hosting.
+- Chromium `tests/admission-browser.cjs` lulus pada gerbang aktif: slot ditahan oleh proses CLI sintetis → formulir belum dikirim → posisi antrean/permainan → cancel dengan isian utuh → lanjut setelah slot dilepas → pendaftaran hanya satu POST → L1 antre/cancel/kirim → konfirmasi dan reload. Handler Alpine tidak mengunci tombol pada cancel. Antrean GET mempertahankan tiket dan tujuan setelah reload.
+- Permainan diperiksa pada lebar 375/768/1.440 px tanpa overflow; screenshot mobile ditinjau. Tidak ada error JavaScript. Endpoint ringan menolak content type sederhana (415) dan Origin lain (403).
+- Regresi `tests/l2-browser.cjs` lulus dengan antrean aktif: authoring/penerbitan/assignment → QR → draf pretest → final pre/post → publikasi → skor 66,67/100 dan 100,00/100, selisih 33,33 poin persentase → isolasi V2. `formaction` Kirim final, retry, revisi lama, CSRF dan kunci yang tidak dirender tetap terjaga.
+- Pint --test, kompilasi Blade, sintaks PHP/JavaScript dan git diff --check lulus. Tidak mengubah dependency atau bundle Vite; CSS/JS ruang tunggu berada langsung di `public`. CI ditambah uji konkurensi terisolasi; CI GitHub belum dijalankan pada tahap lokal ini.
+- Satu percobaan browser awal timeout menunggu posisi L1 saat pemeriksaan lain berjalan; pengulangan penuh dengan diagnostik lulus. Tidak dihitung sebagai bukti uji beban. Artefak sintetis ada di `tests/outputs/admission`, diabaikan Git; tes menambah sesi, kepesertaan, respons dan audit demo.
+
+**Batas:** belum menguji filesystem/PHP workers/MariaDB Hostinger, beban 200–1.500 pengguna, NFS/banyak node, pemantauan CPU otomatis, mitigasi serangan jaringan, Safari/Firefox atau pembaca layar. Polling tetap memakai PHP, dan gate tidak menjamin hosting tidak down. Nilai awal delapan slot/delapan giliran per detik harus ditentukan ulang dari uji staging. Detail aktivasi, deadline evaluasi, isian belum tersimpan dan rencana uji ada di [PERFORMANCE.md](PERFORMANCE.md).
+
+---
+
 # Verifikasi analisis L2 BI/mitra — 16 Oktober 2026
 
 - **100 tes PHPUnit, 1.090 assertion lulus**, memakai SQLite in-memory. Tidak ada migrasi atau dependency baru pada tahap ini.

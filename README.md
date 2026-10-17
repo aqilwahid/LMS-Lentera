@@ -2,7 +2,7 @@
 
 LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank Indonesia, pengelola BI, dan mitra perguruan tinggi.
 
-**Status per 16 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1 berversi, pretest/post-test, serta analisis L2 BI/mitra sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
+**Status per 17 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1 berversi, pretest/post-test, serta analisis L2 BI/mitra sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
 
 ## Sudah dikerjakan
 
@@ -26,6 +26,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Instrumen L1 | Seri per KPwBI, draf lima butir, pratinjau/penerbitan, versi terbit terkunci, versi baru, retry dan audit. Pemilihan versi pada sesi diperiksa server. |
 | Evaluasi L2 | Soal pilihan ganda dan kunci berversi per KPwBI, assignment/jadwal per sesi, pre/post tanpa login, draf manual server, pengiriman final, skor server, publikasi skor dan ringkasan pasangan lengkap. |
 | Analisis L2 | Filter tanggal/kegiatan/sesi/versi/institusi, pasangan sah dan rata-rata berbobot jumlah pasangan. BI dibatasi KPwBI; mitra hanya agregat institusinya dari hasil yang sudah dibuka. |
+| Antrean akses | Gerbang sebelum Laravel/database membatasi request aktif dan laju masuk. Ruang tunggu menampilkan posisi, pesan bergantian dan tic-tac-toe lokal. Isian formulir tetap di tab; pembatas dapat diaktifkan dan diatur melalui Artisan. |
 | Dokumentasi | Keputusan stack, cara menjalankan, asumsi bisnis, pemetaan layar backend, hasil QA, dan batas implementasi telah ditulis. |
 
 **Alur peserta yang ditetapkan:** peserta tidak login atau membuat akun. Pengelola membagikan QR kelas, lalu peserta mengisi Nama Lengkap; Instansi/Perguruan Tinggi; NIP/NIM/NPM; Jurusan/Program Studi; Fakultas; No. HP; Kategori; Nama Narasumber; dan Email. Nama narasumber berasal dari sesi kelas dan tidak dapat diubah peserta.
@@ -112,6 +113,15 @@ Jika perlu membangun aset pada folder Google Drive, gunakan `scripts/build-local
 
 ## Pemeriksaan dan hasil
 
+Antrean akses diaktifkan secara eksplisit. Nilai awal delapan request aktif dan delapan pemberian giliran per detik adalah pengaturan percobaan, bukan kapasitas Hostinger yang sudah terbukti:
+
+```powershell
+php artisan lentera:admission --enable
+php artisan lentera:admission --status
+```
+
+Gunakan `--disable` untuk menonaktifkan pembatas ketika lalu lintas sudah terkendali. Pengaturan ada di `.env.example` dan `config/admission.php`; setelah mengubahnya, bersihkan/perbarui config cache lalu terbitkan kembali melalui `php artisan lentera:admission`. Petunjuk deployment dan uji bertahap 200–1.500 pengguna ada di [PERFORMANCE.md](docs/PERFORMANCE.md). Aset ruang tunggu berada langsung di `public`; perubahan ini tidak memerlukan build Vite baru.
+
 Untuk mencoba tahap evaluasi terbaru, pengelola membuka **Instrumen L1** atau **Instrumen L2**, menyimpan draf dan menerbitkan versi. L1 dipilih pada pengaturan sesi; L2 diatur melalui **Kelola kegiatan → Atur sesi → Atur evaluasi L2**. Peserta tetap menggunakan QR tanpa login. Draf L2 disimpan manual dan skor awalnya tersembunyi; rincian ada di [L2.md](docs/L2.md).
 
 ```powershell
@@ -130,11 +140,15 @@ node tests/materials-browser.cjs
 node tests/instruments-browser.cjs
 node tests/l2-browser.cjs
 node tests/l2-analytics-browser.cjs
+php tests/admission-concurrency.php
+node tests/admission-browser.cjs
 ```
 
 Hasil lokal terakhir:
 
-- **100 tes PHPUnit, 1.090 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- **112 tes PHPUnit, 1.158 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- Uji antrean terisolasi menyelesaikan 48 request sintetis pada 12 proses PHP; jumlah aktif tertinggi tepat tiga untuk batas tiga, tanpa melampaui batas. Penghentian paksa proses melepas slot tanpa menunggu TTL. Hasil ini memeriksa mekanisme pembatas, bukan kapasitas hosting.
+- Chromium 17 Oktober 2026 menguji antrean aktif, isian tetap utuh, pembatalan, tic-tac-toe, reload ruang tunggu, pendaftaran satu POST dan konfirmasi L1 pada 375/768/1.440 px. Regresi L2 draf/final/skor/retry/versi juga lulus dengan antrean aktif. Detail dan batas hasil ada di [QA.md](docs/QA.md).
 - Pint, validasi Composer, pemeriksaan kebutuhan platform, kompilasi Blade, dan Vite production build lulus.
 - Chromium menguji draf/terbit/versi instrumen L1, pemilihan pada sesi, L1 tanpa akun, retry, formulir lama, dan riwayat V1 yang tetap utuh setelah V2 terbit. Pemeriksaan terbaru 16 Oktober 2026 tidak mengubah dependency/aset; hasil build/Composer di atas berasal dari tahap sebelumnya.
 - Chromium menguji soal/kunci L2 → jadwal sesi → QR peserta → draf/reload → final pre/post → publikasi skor dan pasangan → versi baru yang tidak mengubah nilai lama. Skor sintetis 66,67/100 dan 100,00/100, selisih 33,33 poin persentase; kunci dan skor sebelum publikasi tidak dirender pada halaman peserta.
@@ -192,6 +206,7 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [INSTRUMENTS.md](docs/INSTRUMENTS.md): draf/versi instrumen L1, cakupan KPwBI, penerbitan, retry, audit dan riwayat respons.
 - [L2.md](docs/L2.md): soal/kunci, pre/post, draf server, skor, publikasi, pasangan dan aturan awal L2.
 - [ANALYTICS.md](docs/ANALYTICS.md): analisis L2 BI/mitra, periode berdasarkan post-test, cakupan institusi, pasangan sah, denominator dan privasi.
+- [PERFORMANCE.md](docs/PERFORMANCE.md): antrean akses, tic-tac-toe, konfigurasi batas, deployment dan rencana uji kapasitas.
 - [MASTERS_PARTICIPANTS.md](docs/MASTERS_PARTICIPANTS.md): master, snapshot, pemetaan instansi, kepesertaan, privasi dan audit.
 - [MANAGEMENT.md](docs/MANAGEMENT.md): pengelolaan kegiatan/sesi, akses QR, audit, dan pemeriksaan versi formulir.
 - [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.
@@ -199,6 +214,6 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [SCREEN_MAP.md](docs/SCREEN_MAP.md): pemetaan layar backend dan prototype.
 - [QA.md](docs/QA.md): hasil pemeriksaan serta batas verifikasi.
 
-Prioritas berikutnya: impor historis melalui staging dan laporan server. Analisis L2 per institusi/periode kini tersedia. Kebijakan L2 lanjutan, autosave, integrasi MariaDB/Hostinger serta uji beban tetap perlu diselesaikan sebelum produksi.
+Prioritas kesiapan kapasitas: verifikasi batas akun Hostinger dan filesystem, lalu uji antrean pada staging MariaDB bertahap 200, 500, 1.000 dan 1.500 pengguna. Sesuaikan batas request serta jadwal evaluasi dari hasil pengukuran. Pemantauan antrean, penyesuaian otomatis berdasarkan beban dan ruang tunggu pada CDN/edge belum tersedia. Pengembangan fungsi berikutnya tetap mencakup impor historis melalui staging dan laporan server, kebijakan L2 lanjutan serta autosave.
 
 Hosting tujuan tetap Hostinger Unlimited. Deployment Laravel harus mengekspos hanya public; source, .env, vendor, dan storage privat berada di luar root web. Jangan mengasumsikan tersedia root access, Supervisor, Redis, atau daemon permanen. Workflow Pages hanya menerbitkan prototype statis secara manual.

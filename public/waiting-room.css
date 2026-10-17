@@ -1,0 +1,40 @@
+@font-face{font-family:"Lentera Waiting Work Sans";src:url("/assets/fonts/work-sans-400.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"Lentera Waiting Outfit";src:url("/assets/fonts/outfit-600.ttf") format("truetype");font-style:normal;font-weight:600;font-display:swap}
+.lr-page{margin:0;background:#f8fafc;color:#0f172a;font:400 16px/1.65 "Lentera Waiting Work Sans",Arial,sans-serif}
+.lr-page *,.lr-dialog *{box-sizing:border-box}
+.lr-landing{max-width:640px;margin:auto;padding:64px 24px}
+.lr-landing h1{font:600 clamp(28px,5vw,40px)/1.2 "Lentera Waiting Outfit",Arial,sans-serif;margin:40px 0 20px;letter-spacing:-.025em}
+.lr-brand{display:inline-block;color:#245d83;text-decoration:none;font:600 28px/1.2 "Lentera Waiting Outfit",Arial,sans-serif;letter-spacing:.08em}
+.lr-brand span{display:block;color:#475569;font:400 12px/1.5 "Lentera Waiting Work Sans",Arial,sans-serif;letter-spacing:0;margin-top:8px}
+.lr-brand img{display:block;width:180px;max-width:100%;height:auto}
+.lr-dialog{box-sizing:border-box;width:min(540px,calc(100% - 32px));max-height:calc(100dvh - 32px);padding:0;border:1px solid #e2e8f0;border-radius:24px;background:#fff;color:#0f172a;box-shadow:0 24px 80px #0f172a33;font:400 16px/1.6 "Lentera Waiting Work Sans",Arial,sans-serif;overflow:auto;overscroll-behavior:contain}
+.lr-dialog::backdrop{background:#0f172a99}
+.lr-content{padding:28px}
+.lr-eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#245d83;margin:0 0 16px}
+.lr-dialog h2{font:600 28px/1.2 "Lentera Waiting Outfit",Arial,sans-serif;letter-spacing:-.025em;margin:0 0 14px}
+.lr-dialog p{margin:0 0 16px;overflow-wrap:anywhere}
+.lr-dialog .lr-muted{color:#475569;font-size:14px}
+.lr-position{display:flex;align-items:center;gap:16px;padding:18px;background:#eaf1f6;border:1px solid #cbdde8;border-radius:16px;margin:20px 0}
+.lr-position strong{font:600 38px/1.1 "Lentera Waiting Outfit",Arial,sans-serif;color:#245d83}
+.lr-position span{font-size:14px;color:#334155}
+.lr-tip{padding:16px 18px;border-left:3px solid #245d83;background:#f8fafc;border-radius:0 12px 12px 0;font-size:14px}
+.lr-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.lr-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;padding:11px 16px;border-radius:12px;border:1px solid #245d83;background:#245d83;color:#fff;text-decoration:none;font:400 14px/1.4 "Lentera Waiting Work Sans",Arial,sans-serif;cursor:pointer;text-align:center}
+.lr-button:hover{background:#1d4c6b;color:#fff;text-decoration:none}
+.lr-button:focus-visible,.lr-cell:focus-visible,.lr-brand:focus-visible,.lr-error:focus-visible{outline:3px solid #c36c16;outline-offset:3px}
+.lr-secondary{background:#fff;color:#245d83;border-color:#cbd5e1}
+.lr-secondary:hover{background:#eaf1f6;color:#1d4c6b}
+.lr-button:disabled{opacity:.55;cursor:wait}
+.lr-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-width:300px;margin:20px auto}
+.lr-cell{display:grid;place-items:center;aspect-ratio:1;min-height:64px;border:1px solid #cbd5e1;border-radius:12px;background:#f8fafc;color:#245d83;font:600 36px/1 "Lentera Waiting Outfit",Arial,sans-serif;cursor:pointer}
+.lr-cell:hover:not(:disabled){background:#eaf1f6;border-color:#245d83}
+.lr-cell:disabled{cursor:default;opacity:1}
+.lr-cell[data-mark="O"]{color:#9a5717}
+.lr-cell.lr-winning{background:#e8f4ef;border-color:#16634b;color:#16634b}
+.lr-notice,.lr-error{padding:16px;border:2px solid #a52135;border-radius:12px;background:#fff;color:#0f172a;margin:0 0 20px;overflow-wrap:anywhere}
+.lr-error h2{font-size:20px;margin:0 0 12px}
+.lr-error ul{margin:0;padding-left:22px}
+.lr-error li+li{margin-top:6px}
+.lr-dialog [hidden],.lr-page [hidden]{display:none!important}
+@media(max-width:480px){.lr-content{padding:22px}.lr-dialog h2{font-size:25px}.lr-actions .lr-button{flex:1 1 130px}.lr-landing{padding-top:36px}}
+@media(prefers-reduced-motion:reduce){.lr-dialog,.lr-page{scroll-behavior:auto}}

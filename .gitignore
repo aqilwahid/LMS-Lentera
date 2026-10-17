@@ -30,3 +30,5 @@ Thumbs.db
 /tests/outputs/
 /playwright-report/
 /test-results/
+/storage/framework/admission/
+/storage/framework/admission-config.php*

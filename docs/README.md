@@ -1,8 +1,10 @@
 # Dokumentasi LENTERA
 
-Pembaruan: 16 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, dan riwayat perubahan tersedia untuk BI sesuai KPwBI. Analisis L2 per institusi/periode tersedia bagi BI dan mitra sesuai cakupan dan publikasi hasil. Prototype 20 layar dipertahankan sebagai referensi visual.
+Pembaruan: 17 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, dan riwayat perubahan tersedia untuk BI sesuai KPwBI. Analisis L2 per institusi/periode tersedia bagi BI dan mitra sesuai cakupan dan publikasi hasil. Prototype 20 layar dipertahankan sebagai referensi visual.
 
 ## Panduan untuk pengguna awam
+
+Antrean akses sebelum Laravel dan ruang tunggu dengan tic-tac-toe tersedia sebagai pembatas yang dapat dikonfigurasi. Aktivasi dan batas request diterbitkan melalui perintah Artisan; checkout baru belum otomatis mengaktifkannya. Kapasitas 1.000–1.500 pengguna tetap menunggu uji pada hosting tujuan; baca [PERFORMANCE.md](PERFORMANCE.md).
 
 | Dokumen | Status |
 | --- | --- |
@@ -22,6 +24,7 @@ Sketsa mengikuti fitur backend yang tersedia, termasuk materi PDF privat dan pre
 | [INSTRUMENTS.md](INSTRUMENTS.md) | Draf/publikasi/versi L1 per KPwBI, retry, audit dan pilihan sesi. L2 dijelaskan terpisah di L2.md. |
 | [L2.md](L2.md) | Instrumen/assignment L2, draf manual, final, skor server, publikasi dan pasangan pre/post. |
 | [ANALYTICS.md](ANALYTICS.md) | Filter/agregat L2 BI dan mitra, periode, pasangan sah, denominator serta privasi. |
+| [PERFORMANCE.md](PERFORMANCE.md) | Antrean sebelum Laravel, ruang tunggu/tic-tac-toe, konfigurasi, batas perlindungan dan uji kapasitas. |
 | [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md) | Master, snapshot, pemetaan, status kepesertaan dan privasi. |
 | [MANAGEMENT.md](MANAGEMENT.md) | Pengelolaan kegiatan/sesi, jadwal/QR, pemeriksaan versi dan audit. |
 | [BACKEND.md](BACKEND.md) | Konfigurasi, model data, asumsi, pengujian, dan hosting. |

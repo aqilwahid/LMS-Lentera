@@ -1,3 +1,14 @@
+# Verifikasi pengelolaan akun dan pemulihan kata sandi — 17 Oktober 2026
+
+- **117 tes PHPUnit, 1.192 assertion lulus**, menggunakan SQLite in-memory, termasuk suite pengujian `AccountManagementTest`.
+- Pengujian mencakup pembuatan akun staf BI dan mitra oleh pengelola, pengikatan peran dan institusi aktif dalam kantor perwakilan (KPwBI), pengiriman tautan token penetapan kata sandi via notifikasi email, serta pencatatan audit lengkap (`account.created`, `account.updated`, `account.reset_sent`, `account.password_reset`).
+- Penegakan izin dan cakupan wilayah: mitra dan peserta ditolak 403 saat mencoba mengakses rute manajemen akun. Pengelola kantor perwakilan tidak dapat melihat atau mengubah akun milik kantor lain (404).
+- Keamanan penonaktifan akun: penonaktifan akun memblokir autentikasi login, menghapus sesi aktif di tabel `sessions` (pada driver database), serta mencegah pengelola menonaktifkan akunnya sendiri agar tidak terjadi penguncian akses.
+- Pemulihan mandiri kata sandi: permohonan tautan reset menerapkan anti-enumerasi (mengembalikan respons sukses seragam untuk email terdaftar, email asing, maupun email peserta), pembatasan frekuensi (throttling), verifikasi token, penolakan token peserta/tidak valid, pemutusan sesi aktif lama, serta validasi standar kata sandi minimal 12 karakter memuat huruf dan angka.
+- Pemeriksaan Pint, kompilasi template Blade (`php artisan view:cache`), dan sintaks PHP lulus bersih.
+
+---
+
 # Verifikasi antrean akses — 17 Oktober 2026
 
 - **112 tes PHPUnit, 1.158 assertion lulus**, termasuk sembilan tes gerbang dan tiga tes formulir asinkron baru. Database fitur tetap SQLite in-memory, terpisah dari demo.

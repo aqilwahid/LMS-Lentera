@@ -13,7 +13,7 @@
             </div>
             <div class="field"><label for="password">Kata sandi</label><input id="password" name="password" type="password" autocomplete="current-password" required @error('password') aria-invalid="true" @enderror></div>
             <button class="btn primary wide" type="submit">Masuk</button>
-            <p>Belum memiliki akun atau perlu pemulihan akses? Hubungi pengelola kegiatan.</p>
+            <p><a href="{{ route('password.request') }}">Lupa kata sandi?</a> Belum memiliki akun? Hubungi pengelola BI.</p>
         </form>
     </div>
     <div class="login-art"><img src="{{ asset('assets/lighthouse.png') }}" alt=""><div class="login-art-caption"><h2>Perluas wawasan bersama LENTERA.</h2><p>Belajar, mengikuti kegiatan, dan menyampaikan evaluasi.</p></div></div>

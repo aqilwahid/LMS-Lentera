@@ -2,7 +2,7 @@
 
 LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank Indonesia, pengelola BI, dan mitra perguruan tinggi.
 
-**Status per 17 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1 berversi, pretest/post-test, serta analisis L2 BI/mitra sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
+**Status per 17 Oktober 2026:** fondasi backend, pengelolaan kegiatan/sesi, master institusi/narasumber, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, analisis L2 BI/mitra, serta pengelolaan akun pengelola/mitra dan pemulihan kata sandi mandiri sudah dapat dijalankan dan diperiksa secara lokal. Alur peserta membuka QR/tautan kelas → mengisi formulir tanpa akun → membuka kelas → mengisi L1 → menerima konfirmasi telah terhubung ke database. Login hanya untuk pengelola BI dan mitra. Prototype 20 layar tetap tersedia sebagai referensi visual V2; alur login peserta pada prototype lama belum diselaraskan dengan alur QR backend. Aplikasi belum dinyatakan siap produksi.
 
 ## Sudah dikerjakan
 
@@ -27,6 +27,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Evaluasi L2 | Soal pilihan ganda dan kunci berversi per KPwBI, assignment/jadwal per sesi, pre/post tanpa login, draf manual server, pengiriman final, skor server, publikasi skor dan ringkasan pasangan lengkap. |
 | Analisis L2 | Filter tanggal/kegiatan/sesi/versi/institusi, pasangan sah dan rata-rata berbobot jumlah pasangan. BI dibatasi KPwBI; mitra hanya agregat institusinya dari hasil yang sudah dibuka. |
 | Antrean akses | Gerbang sebelum Laravel/database membatasi request aktif dan laju masuk. Ruang tunggu menampilkan posisi, pesan bergantian dan tic-tac-toe lokal. Isian formulir tetap di tab; pembatas dapat diaktifkan dan diatur melalui Artisan. |
+| Pengelolaan akun | BI membuat/mengubah/menonaktifkan akun pengelola BI dan mitra dalam cakupan KPwBI; kata sandi ditetapkan pemilik lewat tautan email (60 menit). Lupa kata sandi untuk pengelola/mitra aktif tanpa membocorkan keberadaan email; sesi lama dihapus setelah reset atau penonaktifan; semua dicatat pada riwayat. Pengiriman email memerlukan konfigurasi MAIL_* produksi. |
 | Dokumentasi | Keputusan stack, cara menjalankan, asumsi bisnis, pemetaan layar backend, hasil QA, dan batas implementasi telah ditulis. |
 
 **Alur peserta yang ditetapkan:** peserta tidak login atau membuat akun. Pengelola membagikan QR kelas, lalu peserta mengisi Nama Lengkap; Instansi/Perguruan Tinggi; NIP/NIM/NPM; Jurusan/Program Studi; Fakultas; No. HP; Kategori; Nama Narasumber; dan Email. Nama narasumber berasal dari sesi kelas dan tidak dapat diubah peserta.
@@ -37,7 +38,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 
 | Area | Pekerjaan berikutnya |
 | --- | --- |
-| Akun dan profil | UI pengelolaan akun/peran BI/mitra, pemulihan kata sandi pengelola/mitra, koreksi identitas peserta yang diaudit, serta pemulihan akses peserta lintas perangkat. |
+| Akun dan profil | koreksi identitas peserta yang diaudit, serta pemulihan akses peserta lintas perangkat. |
 | Pengelolaan | Pengaturan akun/KPwBI, persetujuan/distribusi instrumen lintas kantor, koreksi identitas/jawaban final, penghapusan/arsip dan aturan retensi. Instrumen L1/L2 per KPwBI sudah tersedia. |
 | Materi dan panduan | Finalisasi panduan awam menjadi PDF/halaman LMS, pemindai konten PDF, retensi/penghapusan dan pembagian materi mitra. Materi PDF kelas privat beserta versi dan izin sudah tersedia; aset PDF prototype tidak otomatis diimpor. |
 | L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
@@ -146,7 +147,8 @@ node tests/admission-browser.cjs
 
 Hasil lokal terakhir:
 
-- **112 tes PHPUnit, 1.158 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- **117 tes PHPUnit, 1.192 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- Pengelolaan akun dan pemulihan kata sandi diverifikasi: pembuatan akun mitra/BI oleh pengelola dengan pembatasan cakupan KPwBI, pengaktifan/penonaktifan, pencegahan penonaktifan akun sendiri, penghapusan sesi database saat akun dinonaktifkan atau kata sandi direset, pemulihan mandiri anti-enumerasi email, pembatasan laju (throttling), penolakan token salah/peserta, dan pencatatan riwayat audit.
 - Uji antrean terisolasi menyelesaikan 48 request sintetis pada 12 proses PHP; jumlah aktif tertinggi tepat tiga untuk batas tiga, tanpa melampaui batas. Penghentian paksa proses melepas slot tanpa menunggu TTL. Hasil ini memeriksa mekanisme pembatas, bukan kapasitas hosting.
 - Chromium 17 Oktober 2026 menguji antrean aktif, isian tetap utuh, pembatalan, tic-tac-toe, reload ruang tunggu, pendaftaran satu POST dan konfirmasi L1 pada 375/768/1.440 px. Regresi L2 draf/final/skor/retry/versi juga lulus dengan antrean aktif. Detail dan batas hasil ada di [QA.md](docs/QA.md).
 - Pint, validasi Composer, pemeriksaan kebutuhan platform, kompilasi Blade, dan Vite production build lulus.
@@ -208,6 +210,7 @@ Snapshot contoh historis pada prototype: **7 April 2026, 141 respons L1, rata-ra
 - [ANALYTICS.md](docs/ANALYTICS.md): analisis L2 BI/mitra, periode berdasarkan post-test, cakupan institusi, pasangan sah, denominator dan privasi.
 - [PERFORMANCE.md](docs/PERFORMANCE.md): antrean akses, tic-tac-toe, konfigurasi batas, deployment dan rencana uji kapasitas.
 - [MASTERS_PARTICIPANTS.md](docs/MASTERS_PARTICIPANTS.md): master, snapshot, pemetaan instansi, kepesertaan, privasi dan audit.
+- [ACCOUNTS.md](docs/ACCOUNTS.md): pengelolaan akun pengelola/mitra, pemulihan mandiri kata sandi, isolasi sesi dan riwayat audit.
 - [MANAGEMENT.md](docs/MANAGEMENT.md): pengelolaan kegiatan/sesi, akses QR, audit, dan pemeriksaan versi formulir.
 - [BACKEND.md](docs/BACKEND.md): konfigurasi, aturan sementara, pengujian, dan deployment.
 - [DESIGN.md](docs/DESIGN.md): desain V2.

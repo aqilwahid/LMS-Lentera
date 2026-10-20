@@ -27,7 +27,7 @@ Jumlah halaman dapat berubah saat tata letak final dibuat.
 | 8 | Konfirmasi dan bantuan saat koneksi bermasalah. |
 | 9 | Pertanyaan umum dan kontak bantuan. |
 
-Panduan pengelola/mitra disusun terpisah: masuk; master/kepesertaan; kegiatan/sesi; materi; instrumen L1/L2; jadwal dan publikasi skor; QR; ringkasan/riwayat; keluar dan bantuan. Sesuaikan jumlah halaman setelah gambar final tersedia. Pretest/post-test sudah masuk sketsa; fitur lanjutan yang belum tersedia tetap ditandai rencana.
+Panduan pengelola/mitra disusun terpisah: masuk; pemulihan kata sandi mandiri; manajemen akun; master/kepesertaan; kegiatan/sesi; materi; instrumen L1/L2; jadwal dan publikasi skor; QR; ringkasan/riwayat; keluar dan bantuan. Sesuaikan jumlah halaman setelah gambar final tersedia. Pretest/post-test sudah masuk sketsa; fitur lanjutan yang belum tersedia tetap ditandai rencana.
 
 ## Daftar gambar yang disiapkan nanti
 
@@ -55,6 +55,7 @@ Panduan pengelola/mitra disusun terpisah: masuk; master/kepesertaan; kegiatan/se
 | A15/A16 | Instrumen L1 BI | Lima butir, simpan draf, pratinjau, terbit dan riwayat versi. |
 | A17/A18 | Instrumen/pengaturan L2 BI | Soal/kunci, versi, jadwal, prasyarat, publikasi dan pasangan pre/post. |
 | A19/A20 | Analisis L2 BI/mitra | Filter tanggal/cakupan, denominator, pasangan sah dan privasi mitra. |
+| A21/A22 | Pemulihan kata sandi dan manajemen akun BI | Formulir lupa/reset kata sandi mandiri, daftar akun, dan buat/ubah akun mitra/BI. |
 | P11/P12 | Antrean peserta dan tic-tac-toe | Posisi terakhir, isian belum terkirim, permainan opsional, pembatalan dan konfirmasi setelah giliran. |
 
 Gunakan screenshot aplikasi final dengan data sintetis. Screenshot QA lokal tidak otomatis menjadi aset publik: pilih, periksa, dan samarkan data sebelum digunakan. Jangan menampilkan APP_KEY, kredensial, identitas asli, atau token kelas produksi. QR dalam dokumen contoh harus jelas diberi label contoh; QR kegiatan aktif dibagikan panitia secara terpisah.

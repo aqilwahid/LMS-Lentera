@@ -5,6 +5,7 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | Acuan V2 | Rute server | Status |
 | --- | --- | --- |
 | S02 (BI/mitra) | GET/POST /masuk; POST /keluar | Login session hanya untuk pengelola/mitra |
+| S02 (pemulihan kata sandi) | GET/POST /lupa-kata-sandi; GET /atur-kata-sandi/{token}; POST /atur-kata-sandi | Permohonan pemulihan mandiri via email, anti-enumerasi, pembatasan laju, token reset dan verifikasi standar kata sandi |
 | Pendaftaran peserta | GET/POST /kelas/{token} | Form identitas tanpa akun melalui QR |
 | Ruang tunggu | /waiting-room.html dan POST /admission.php | Antrean sebelum Laravel; posisi/pesan, tic-tac-toe lokal, lanjut saat tersedia. Dialog pada halaman menjaga isian POST selama menunggu. |
 | Kelas peserta | GET /kelas/{token}/kegiatan | Kelas sesuai pendaftaran dan sesi browser |
@@ -25,6 +26,7 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | S07/S09 (peserta QR) | /kelas/{token}/l2/{pre atau post}; POST /{start atau save atau submit} | Mulai, draf manual server, final tahan retry, skor sesuai publikasi; kunci tidak dikirim. |
 | S11/S15 (L2 sesi BI) | GET/PUT /pengelola/sesi/{session}/l2 | Pilih versi, jadwal pre/post, prasyarat opsional, publikasi dan ringkasan pasangan lengkap. |
 | S15/S17 (analisis L2 BI/mitra) | GET /analisis/l2 | Filter tanggal/kegiatan/sesi/versi/institusi, jumlah final/pasangan dan rata-rata. Mitra hanya institusi sendiri dan hasil terbit, tanpa data individu. |
+| S20 (kelola akun BI) | /pengelola/akun; /buat; /{id}/ubah; /{id}/pemulihan | Daftar, tambah, ubah status keaktifan, dan kirim ulang reset kata sandi sesuai cakupan KPwBI |
 | S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi |
 
 Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).

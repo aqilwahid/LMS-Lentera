@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassAccessController;
 use App\Http\Controllers\GuestClassController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ParticipantManagementController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Middleware\EnsureActiveUser;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,10 @@ Route::get('/kelas/{token}/materi/{material}/unduh', [MaterialController::class,
 Route::middleware('guest')->group(function () {
     Route::get('/masuk', [AuthController::class, 'create'])->name('login');
     Route::post('/masuk', [AuthController::class, 'store'])->middleware('throttle:30,1');
+    Route::get('/lupa-kata-sandi', [PasswordController::class, 'forgot'])->name('password.request');
+    Route::post('/lupa-kata-sandi', [PasswordController::class, 'sendLink'])->middleware('throttle:5,1')->name('password.email');
+    Route::get('/atur-kata-sandi/{token}', [PasswordController::class, 'reset'])->name('password.reset');
+    Route::post('/atur-kata-sandi', [PasswordController::class, 'update'])->middleware('throttle:10,1')->name('password.update');
 });
 Route::post('/keluar', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
@@ -74,6 +80,12 @@ Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
     Route::get('/pengelola/sesi/{session}/ubah', [ManagementController::class, 'editSession'])->name('management.sessions.edit');
     Route::put('/pengelola/sesi/{session}', [ManagementController::class, 'updateSession'])->name('management.sessions.update');
     Route::post('/pengelola/sesi/{session}/akses', [ManagementController::class, 'access'])->name('management.sessions.access');
+    Route::get('/pengelola/akun', [AccountController::class, 'index'])->name('accounts.index');
+    Route::get('/pengelola/akun/buat', [AccountController::class, 'create'])->name('accounts.create');
+    Route::post('/pengelola/akun', [AccountController::class, 'store'])->name('accounts.store');
+    Route::get('/pengelola/akun/{id}/ubah', [AccountController::class, 'edit'])->whereNumber('id')->name('accounts.edit');
+    Route::put('/pengelola/akun/{id}', [AccountController::class, 'update'])->whereNumber('id')->name('accounts.update');
+    Route::post('/pengelola/akun/{id}/pemulihan', [AccountController::class, 'resetLink'])->whereNumber('id')->name('accounts.reset');
     Route::get('/pengelola/riwayat', [ManagementController::class, 'auditIndex'])->name('management.audit');
     Route::get('/pengelola/sesi/{session}/akses', [ClassAccessController::class, 'show'])->name('class.access');
     Route::get('/pengelola/sesi/{session}/qr', [ClassAccessController::class, 'qr'])->name('class.qr');

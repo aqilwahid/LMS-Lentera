@@ -14,9 +14,42 @@ Naskah ini masih berupa draf. Alamat website, gambar layar, kontak bantuan, sert
 4. Tekan **Masuk**.
 5. Pastikan nama dan peran akun Anda sesuai.
 
-Jika gagal masuk, periksa kembali email dan kata sandi. Jika muncul pesan terlalu banyak percobaan, tunggu selama waktu yang disebutkan lalu coba lagi. Jika belum mempunyai akun, lupa kata sandi, atau akun tidak aktif, hubungi petugas pengelola akses. Pemulihan kata sandi melalui email belum tersedia.
+Jika gagal masuk, periksa kembali email dan kata sandi. Jika muncul pesan terlalu banyak percobaan, tunggu selama waktu yang disebutkan lalu coba lagi. Jika lupa kata sandi, pilih tautan **Lupa kata sandi?** di bawah tombol masuk untuk menerima tautan pemulihan melalui email. Jika belum mempunyai akun atau akun berstatus nonaktif, hubungi petugas pengelola BI.
 
-> Ruang gambar A01: halaman masuk pengelola/mitra dan letak tombol “Masuk”. Gunakan akun contoh; jangan memperlihatkan kata sandi.
+> Ruang gambar A01: halaman masuk pengelola/mitra, tautan "Lupa kata sandi?", dan letak tombol “Masuk”. Gunakan akun contoh; jangan memperlihatkan kata sandi.
+
+## Memulihkan kata sandi secara mandiri
+
+Pengelola BI dan pemantau mitra aktif dapat mereset kata sandi tanpa menunggu bantuan admin:
+
+1. Pada halaman masuk, pilih tautan **Lupa kata sandi?**.
+2. Masukkan alamat email akun Anda, lalu tekan **Kirim tautan atur kata sandi**.
+3. Buka kotak masuk email Anda dan cari pesan berisi tautan pengaturan kata sandi (tautan berlaku selama 60 menit).
+4. Tekan tautan pemulihan tersebut untuk membuka formulir **Atur kata sandi baru**.
+5. Masukkan kata sandi baru minimal 12 karakter dengan kombinasi huruf dan angka, ulangi pada kolom konfirmasi, lalu simpan.
+6. Masuk kembali menggunakan kata sandi baru Anda.
+
+Demi keamanan, sistem tidak memberitahukan apakah email terdaftar atau tidak (pencegahan kebocoran email). Peserta kegiatan tidak memiliki akun dan tidak menggunakan alur ini.
+
+> Ruang gambar A21: formulir permohonan pemulihan dan formulir atur kata sandi baru.
+
+## Mengelola akun pengelola dan mitra — khusus pengelola BI
+
+Pengelola BI dapat membuat dan mengelola akun untuk staf internal BI maupun narahubung mitra perguruan tinggi dalam wilayah kantor perwakilannya:
+
+1. Pilih menu **Akun** pada navigasi atas.
+2. Cari akun berdasarkan nama atau email jika ingin memeriksa status akun yang sudah ada.
+3. Untuk membuat akun baru, pilih **Tambah akun**.
+4. Isi nama lengkap dan email resmi pengguna.
+5. Pilih peran:
+   - **Pengelola BI**: akun otomatis terikat pada KPwBI yang sama dengan pengelola yang membuat.
+   - **Mitra**: pilih nama perguruan tinggi/institusi mitra dari daftar institusi aktif.
+6. Tekan **Simpan akun**. Sistem otomatis menetapkan kata sandi acak awal dan mengirim tautan pengaturan kata sandi ke email pengguna baru.
+7. Untuk mengubah nama atau menonaktifkan akun, pilih **Ubah akun** pada daftar. Pengelola tidak dapat menonaktifkan akunnya sendiri.
+8. Menonaktifkan akun akan memutus seluruh sesi aktif pengguna dan menolak upaya masuk selanjutnya.
+9. Untuk mengirim ulang tautan pemulihan bagi akun aktif, buka halaman ubah akun lalu pilih **Kirim ulang tautan atur kata sandi**.
+
+> Ruang gambar A22: daftar akun pengguna, formulir tambah akun, dan tombol kirim ulang tautan pemulihan.
 
 ## Mengelola master institusi dan narasumber
 
@@ -248,7 +281,7 @@ Atur waktu pengisian dengan ruang untuk antrean. Jadwal tutup tidak otomatis dip
 
 | Kendala | Langkah yang dapat dilakukan |
 | --- | --- |
-| Tidak bisa masuk atau lupa kata sandi | Hubungi petugas pengelola akses. |
+| Tidak bisa masuk atau lupa kata sandi | Gunakan tautan **Lupa kata sandi?** di halaman masuk untuk menerima tautan pemulihan via email (berlaku 60 menit). Jika tidak menerima email atau akun dinonaktifkan, hubungi pengelola BI kantor perwakilan Anda. |
 | QR atau kegiatan tidak terlihat | Periksa apakah akun yang dipakai adalah pengelola BI dan cakupan KPwBI-nya sesuai. Jika belum sesuai, hubungi petugas. |
 | Peserta mendapat halaman login | Bagikan ulang **Tautan peserta**, bukan alamat halaman masuk atau ringkasan pengelola. |
 | Peserta tidak dapat membuka QR dari HP | Uji tautannya dari perangkat lain. Pastikan alamat bukan localhost/127.0.0.1 dan pendaftaran masih dibuka. |

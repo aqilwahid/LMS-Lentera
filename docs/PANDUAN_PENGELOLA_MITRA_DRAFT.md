@@ -229,8 +229,12 @@ Materi terikat pada sesi; belum tersedia pembagian materi ke akun mitra. Judul/k
 
 1. Buka **Beranda**.
 2. Periksa keterangan cakupan di bawah judul **Gambaran pembelajaran.**
-3. Baca bagian **Hasil L1 tersimpan**.
-4. Perhatikan nama kegiatan, institusi, sesi, jumlah respons, periode pengisian, dan rata-rata penilaian.
+3. Perhatikan empat kartu ringkasan KPI di bagian atas:
+   - **Rata-rata L1**: rata-rata skor evaluasi seluruh respons pada cakupan/periode aktif (skala 6). Tampil tanda strip (`—`) jika belum ada respons.
+   - **Respons L1**: total seluruh formulir evaluasi L1 yang telah dikirim peserta.
+   - **Sesi dengan respons**: jumlah sesi pembelajaran unik yang memiliki respons evaluasi.
+   - **Isian institusi**: jumlah nama perguruan tinggi/institusi peserta yang terdata.
+4. Baca tabel **Hasil L1 tersimpan**. Setiap baris menampilkan nama kegiatan, sesi, versi instrumen, institusi peserta, nilai rata-rata berserta indikator visual batang skor, jumlah respons, serta rentang tanggal pengisian. Pada layar ponsel, tabel dapat digeser ke samping dengan aman tanpa merusak tata letak.
 
 Pengelola BI melihat hasil sesuai KPwBI pada akunnya. Mitra mempunyai **akses lihat** untuk institusinya dan tidak mendapat halaman pembagian QR.
 
@@ -240,9 +244,9 @@ Respons adalah formulir evaluasi yang masuk. Jangan menyamakan jumlah respons de
 
 Jika muncul **Belum ada respons L1 pada cakupan Anda.**, belum ada respons yang dapat ditampilkan untuk cakupan akun tersebut. Ini bukan nilai nol.
 
-Anda dapat menyaring ringkasan menurut rentang tanggal dengan mengisi **Tanggal awal** dan **Tanggal akhir**, lalu menekan **Terapkan periode**. Pilih **Seluruh periode** untuk menghapus filter tanggal. Filter tanggal juga otomatis terbawa saat mengunduh CSV melalui tombol **Unduh CSV (Excel)**. Grafik tahunan dan ekspor laporan cetak resmi dari server belum tersedia. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
+Anda dapat menyaring ringkasan menurut rentang tanggal dengan mengisi **Tanggal awal** dan **Tanggal akhir**, lalu menekan **Terapkan periode**. Kartu KPI dan tabel hasil akan otomatis menyesuaikan dengan rentang yang dipilih. Pilih **Seluruh periode** untuk menghapus filter tanggal. Filter tanggal juga otomatis terbawa saat mengunduh CSV melalui tombol **Unduh CSV (Excel)**. Grafik tahunan dan ekspor laporan cetak resmi dari server belum tersedia. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
 
-> Ruang gambar A04: ringkasan dengan penanda pada cakupan, filter periode tanggal awal/akhir, rata-rata, jumlah respons, periode, dan tombol unduh CSV. Jangan menampilkan hasil contoh sebagai hasil produksi.
+> Ruang gambar A04: ringkasan dengan penanda pada cakupan, kartu ringkasan KPI, filter periode tanggal awal/akhir, tabel berbatang skor, jumlah respons, periode, dan tombol unduh CSV. Jangan menampilkan hasil contoh sebagai hasil produksi.
 
 ## Membaca analisis L2 — BI dan mitra
 

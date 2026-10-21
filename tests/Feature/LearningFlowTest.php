@@ -172,7 +172,10 @@ class LearningFlowTest extends TestCase
         $this->actingAs($this->participant())->post($this->url(), $this->payload());
         $day = now()->toDateString();
         $admin = User::where('role', 'bi_admin')->first();
-        $this->actingAs($admin)->get("/beranda?from=$day&to=$day")->assertOk()->assertSee('3,20 / 6');
+        $this->actingAs($admin)->get("/beranda?from=$day&to=$day")
+            ->assertOk()
+            ->assertSee('Ringkasan hasil L1')
+            ->assertSee('3,20 / 6');
         $this->get('/beranda?from='.now()->addDay()->toDateString())->assertOk()->assertDontSee('3,20 / 6')->assertSee('Belum ada respons L1');
         $this->get('/beranda?to='.now()->subDay()->toDateString())->assertOk()->assertDontSee('3,20 / 6');
         $this->get("/beranda?from=$day&to=$day&format=csv")->assertOk()->assertDownload('ringkasan-l1-'."$day-sd-$day.csv");

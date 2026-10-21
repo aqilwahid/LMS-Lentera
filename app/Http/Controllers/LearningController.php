@@ -38,6 +38,7 @@ class LearningController extends Controller
             $query->where('r.submitted_at', '<=', CarbonImmutable::createFromFormat('!Y-m-d', $filters['to'], $zone)->endOfDay());
         }
         // Keep sessions, instrument versions and historical institutions separate.
+        $totals = (clone $query)->selectRaw('COUNT(*) as responses, AVG(r.score_sum) / 5 as mean_score, COUNT(DISTINCT r.learning_session_id) as sessions, COUNT(DISTINCT e.institution_name) as institutions')->first();
         $aggregates = $query->select('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')
             ->selectRaw('COUNT(*) as responses, AVG(r.score_sum) / 5 as mean_score, MIN(r.submitted_at) as period_start, MAX(r.submitted_at) as period_end')
             ->groupBy('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')->orderBy('a.title')->orderBy('r.learning_session_id')->orderBy('e.institution_name');
@@ -51,7 +52,7 @@ class LearningController extends Controller
             ? Activity::where('office_id', $user->office_id)->with('sessions')->paginate(10, ['*'], 'activities_page')
             : null;
 
-        return view('learning.aggregate', compact('aggregates', 'activities'));
+        return view('learning.aggregate', compact('aggregates', 'activities', 'totals'));
     }
 
     public function activity(Activity $activity)

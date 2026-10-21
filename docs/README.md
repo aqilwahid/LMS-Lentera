@@ -1,6 +1,6 @@
 # Dokumentasi LENTERA
 
-Pembaruan: 21 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, analisis L2 per institusi/periode, pengelolaan akun pengelola/mitra dan pemulihan kata sandi mandiri, serta ekspor CSV (Excel) dan cetak/simpan PDF browser tersedia untuk BI dan mitra sesuai cakupan KPwBI dan institusi. Prototype 20 layar dipertahankan sebagai referensi visual.
+Pembaruan: 22 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, analisis L2 per institusi/periode, pengelolaan akun pengelola/mitra dan pemulihan kata sandi mandiri, dashboard L1 dengan ringkasan KPI dan navigasi aksesibel (keyboard/mobile), serta ekspor CSV (Excel) dan cetak/simpan PDF browser tersedia untuk BI dan mitra sesuai cakupan KPwBI dan institusi. Prototype 20 layar dipertahankan sebagai referensi visual.
 
 ## Panduan untuk pengguna awam
 

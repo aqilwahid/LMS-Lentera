@@ -1,3 +1,27 @@
+# Verifikasi antarmuka dashboard, navigasi aksesibel, dan ringkasan KPI — 22 Oktober 2026
+
+- **121 tes PHPUnit, 1.236 assertion lulus**, menggunakan SQLite in-memory, tanpa regresi pada fungsionalitas dan aliran backend.
+- Kompilasi Blade `php artisan view:cache` dan pemeriksaan gaya kode `php vendor/bin/pint --test` lulus bersih.
+- Komponen navigasi atas (`components/navigation.blade.php`):
+  - Penanda tautan halaman yang sedang aktif menggunakan atribut semantik `aria-current="page"`.
+  - Aksesibilitas keyboard pada menu akun dan menu seluler: penutupan instan menggunakan tombol `Escape` (`@keydown.escape.window="menu = false; account = false"`), serta penutupan saat mengklik di luar area (`@click.outside`).
+  - Atribut ARIA lengkap: `:aria-expanded`, `aria-controls`, `aria-label`, dan label peran pengguna.
+  - Fallback `<noscript>` untuk aksi keluar akun tanpa ketergantungan JavaScript.
+- Peningkatan tampilan dashboard ringkasan L1 (`learning/aggregate.blade.php`):
+  - Kartu metrik KPI dihitung dari kueri agregat yang sama (`$totals`): Rata-rata L1 (format desimal Indonesia `/ 6`, atau `—` jika belum ada respons), Respons L1, Sesi dengan respons, dan Isian institusi.
+  - Penegakan filter periode tanggal awal/akhir: nilai kartu KPI dan data tabel otomatis tersaring secara konsisten.
+  - Tabel hasil L1 yang aksesibel dan responsif: caption tersembunyi untuk pembaca layar (`.sr-only`), hierarki header kolom/baris (`scope="col"`, `scope="row"`), indikator visual batang skor (`.score-bar` dengan pengisian proporsional), dan pembungkus gulir lokal berfokus (`role="region"`, `tabindex="0"`) agar tabel tidak merusak tata letak pada layar sempit.
+  - Penanganan kondisi kosong yang rapi (`.empty-box`) saat belum ada respons dalam cakupan akun.
+- Peningkatan tampilan kegiatan peserta (`learning/dashboard.blade.php` dan `learning/activity.blade.php`):
+  - Tata letak kartu grid (`.activity-grid`, `.activity-card`) dengan badge kegiatan dan aksi jelas.
+  - Daftar sesi dengan metadata waktu, narasumber, dan tombol evaluasi terstruktur.
+- Kualitas tampilan dan aksesibilitas:
+  - Target sentuh kontrol interaktif dan tombol minimal 44 × 44 px.
+  - Rasio kontras teks minimal 4,5:1 untuk keterbacaan optimal.
+  - Responsif diukur pada resolusi 375 px (ponsel), 768 px (tablet), dan 1.440 px (desktop).
+
+---
+
 # Verifikasi impor respons L1 historis, ekspor CSV, dan filter periode L1 — 21 Oktober 2026
 
 - **121 tes PHPUnit, 1.236 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.

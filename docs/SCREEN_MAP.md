@@ -27,9 +27,9 @@ Panduan S19 belum dihubungkan sebagai halaman backend. Sketsa isi awam tersedia 
 | S11/S15 (L2 sesi BI) | GET/PUT /pengelola/sesi/{session}/l2 | Pilih versi, jadwal pre/post, prasyarat opsional, publikasi dan ringkasan pasangan lengkap. |
 | S15/S17 (analisis L2 BI/mitra) | GET /analisis/l2 | Filter tanggal/kegiatan/sesi/versi/institusi, jumlah final/pasangan dan rata-rata. Mitra hanya institusi sendiri dan hasil terbit, tanpa data individu. Mendukung `?format=csv` dan cetak PDF. |
 | S20 (kelola akun BI) | /pengelola/akun; /buat; /{id}/ubah; /{id}/pemulihan | Daftar, tambah, ubah status keaktifan, dan kirim ulang reset kata sandi sesuai cakupan KPwBI |
-| S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi; mendukung unduh CSV ringkasan via `?format=csv` |
+| S10/S17 | GET /beranda (BI/mitra) | Agregat database sesuai KPwBI/institusi dengan kartu KPI (rata-rata L1, respons, sesi, institusi), tabel hasil berbatang skor dengan pembungkus gulir responsif, filter periode, dan unduh CSV via `?format=csv` |
 
-Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).
+Layout, navigasi dan formulir menggunakan Blade serta CSS/aset V2. Navigasi atas dilengkapi penanda halaman aktif (`aria-current`), menu akun dan ponsel dengan kendali keyboard (Esc menutup), serta target sentuh minimal 44 px. Layar backend belum mencakup seluruh 20 layar. Rute /beranda, /kegiatan/{activity} dan /sesi/{session}/l1 untuk akun peserta lama hanya menjadi kompatibilitas internal; alur peserta terbaru memakai QR. Semua rute hash di bawah tetap merupakan **prototype terpisah** dengan localStorage; bukan rute atau izin server. Pemetaan lebih lanjut dilakukan bertahap sesuai [BACKEND.md](BACKEND.md).
 
 ---
 

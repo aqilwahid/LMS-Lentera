@@ -1,3 +1,29 @@
+# Verifikasi impor respons L1 historis dan ekspor CSV — 21 Oktober 2026
+
+- **120 tes PHPUnit, 1.228 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- Impor respons L1 historis (`HistoricalImportTest`):
+  - Alur staging pada tabel `import_rows`: pembacaan berkas CSV (pemisah `;` atau `,`, maks 2 MB / 2.000 baris) dengan pratinjau status per baris (siap, institusi belum dipetakan, duplikat, tidak valid, baris ringkasan).
+  - Pemetaan alias institusi manual yang disimpan di `institution_aliases` untuk dipakai pada impor selanjutnya tanpa pencocokan otomatis yang berisiko.
+  - Penerapan idempoten dalam satu transaksi: membuat kepesertaan dan respons final L1 dengan aman; penerapan ulang tidak menggandakan respons.
+  - Deteksi dan pencegahan duplikasi: penolakan berkas identik berdasarkan hash SHA-256 dan deteksi duplikat pasangan NIM + email.
+  - Pencatatan riwayat audit lengkap pada setiap tahapan impor (`import.staged`, `import.alias`, `import.applied`).
+- Fitur ekspor CSV ditambahkan melalui `Controller::csv()` menggunakan response streaming `streamDownload()`:
+  - Ringkasan L1: `GET /beranda?format=csv` mengekspor judul kegiatan, ID sesi, ID instrumen, isian institusi peserta, jumlah respons, nilai rata-rata, waktu respons pertama, dan waktu respons terakhir.
+  - Analisis L2: `GET /analisis/l2?format=csv` mengekspor nama kegiatan, sesi, isian institusi peserta, nama master institusi (atau penanda belum dipetakan), nama instrumen, versi, jumlah pretest final, post-test final, pasangan sah, rata-rata pretest pasangan, rata-rata post-test pasangan, dan selisih poin persentase post-pre.
+- Format lokal Indonesia & kompatibilitas Microsoft Excel:
+  - Pemisah kolom titik koma (`;`) dan format desimal menggunakan tanda koma (`,`).
+  - Dilengkapi awalan UTF-8 Byte Order Mark (`\xEF\xBB\xBF`) agar Excel di lingkungan Windows/Office langsung mengenali karakter UTF-8 tanpa teks berantakan.
+- Pencegahan serangan injeksi formula spreadsheet (CSV formula injection):
+  - Isian teks dari peserta yang diawali karakter formula (`=`, `+`, `-`, `@`, `\t`, `\r`) secara otomatis dinetralkan dengan prefiks kutip tunggal (`'`).
+- Penegakan izin dan isolasi cakupan akun:
+  - Mitra hanya mengekspor data yang menjadi hak institusinya dan dari sesi yang publikasinya telah dibuka oleh pengelola BI.
+  - Sesi yang belum dipublikasikan, data institusi lain, nama peserta, nomor identitas, dan email tidak dibocorkan ke dalam berkas CSV.
+  - Filter format yang tidak didukung (misalnya `format=xlsx`) divalidasi dan ditolak dengan pesan kesalahan.
+- Tombol **Cetak / simpan PDF** pada tampilan analisis L2 memanfaatkan kapabilitas cetak bawaan browser (`window.print()`) dengan layout cetak yang rapi.
+- Pint `--test` lulus, kompilasi Blade `php artisan view:cache` lulus tanpa error.
+
+---
+
 # Verifikasi pengelolaan akun dan pemulihan kata sandi — 17 Oktober 2026
 
 - **117 tes PHPUnit, 1.192 assertion lulus**, menggunakan SQLite in-memory, termasuk suite pengujian `AccountManagementTest`.

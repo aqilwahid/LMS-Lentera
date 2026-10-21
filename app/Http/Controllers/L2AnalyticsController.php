@@ -29,7 +29,7 @@ class L2AnalyticsController extends Controller
             'session_id' => ['nullable', 'integer', Rule::in($sessions->pluck('id')->all())],
             'instrument_id' => ['nullable', 'integer', Rule::in($instruments->pluck('id')->all())],
             'institution_id' => ['nullable', 'integer', Rule::in($user->role === 'bi_admin' ? [0, ...$institutions->pluck('id')->all()] : [$user->institution_id])],
-            'office_id' => 'prohibited',
+            'office_id' => 'prohibited', 'format' => 'nullable|in:csv',
         ], ['in' => 'Pilihan tidak tersedia pada cakupan akun Anda.', 'office_id.prohibited' => 'Cakupan KPwBI ditentukan dari akun.']);
         if (! empty($filters['session_id']) && ! empty($filters['activity_id'])
             && $sessions->firstWhere('id', (int) $filters['session_id'])->activity_id !== (int) $filters['activity_id']) {
@@ -60,7 +60,15 @@ class L2AnalyticsController extends Controller
             'e.institution_name as institution_source_name', 'n.name as institution_master_name')
             ->groupBy('a.id', 'a.title', 's.id', 's.title', 'x.id', 'i.id', 'i.name', 'i.version',
                 DB::raw('COALESCE(e.institution_id, e.mapped_institution_id)'), 'e.institution_name', 'n.name');
-        $rows = $analytics->measures($grouped)->orderByDesc('s.id')->orderBy('e.institution_name')->orderBy('institution_id')->paginate(15)->withQueryString();
+        $ordered = $analytics->measures($grouped)->orderByDesc('s.id')->orderBy('e.institution_name')->orderBy('institution_id');
+        if (($filters['format'] ?? null) === 'csv') {
+            $num = fn ($v) => $v === null ? null : (float) $v;
+
+            return $this->csv('analisis-l2-'.$filters['from'].'-sd-'.$filters['to'].'.csv',
+                ['Kegiatan', 'Sesi', 'Isian institusi', 'Master institusi', 'Instrumen', 'Versi', 'Pretest final', 'Post-test final', 'Pasangan sah', 'Rata-rata pretest', 'Rata-rata post-test', 'Selisih post-pre'],
+                $ordered->lazy()->map(fn ($r) => [$r->activity_title, $r->session_title, $r->institution_source_name, $r->institution_master_name ?? 'Belum dikenali atau dipetakan', $r->instrument_name, $r->version, $r->pre_count, $r->post_count, $r->pair_count, $num($r->pre_mean), $num($r->post_mean), $num($r->delta)]));
+        }
+        $rows = $ordered->paginate(15)->withQueryString();
 
         return response()->view('analytics.l2', compact('filters', 'activities', 'sessions', 'instruments', 'institutions', 'summary', 'rows'))->header('Cache-Control', 'private, no-store');
     }

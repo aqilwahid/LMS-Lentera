@@ -31,7 +31,12 @@ class LearningController extends Controller
         // Keep sessions, instrument versions and historical institutions separate.
         $aggregates = $query->select('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')
             ->selectRaw('COUNT(*) as responses, AVG(r.score_sum) / 5 as mean_score, MIN(r.submitted_at) as period_start, MAX(r.submitted_at) as period_end')
-            ->groupBy('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')->paginate(15);
+            ->groupBy('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')->orderBy('a.title')->orderBy('r.learning_session_id')->orderBy('e.institution_name');
+        if ($request->query('format') === 'csv') {
+            return $this->csv('ringkasan-l1-'.now()->toDateString().'.csv', ['Kegiatan', 'Sesi (nomor)', 'Instrumen (nomor)', 'Isian institusi', 'Jumlah respons', 'Rata-rata (1-6)', 'Respons pertama', 'Respons terakhir'],
+                $aggregates->lazy()->map(fn ($r) => [$r->title, $r->learning_session_id, $r->l1_instrument_id, $r->institution_name, $r->responses, (float) $r->mean_score, $r->period_start, $r->period_end]));
+        }
+        $aggregates = $aggregates->paginate(15);
 
         $activities = $user->role === 'bi_admin'
             ? Activity::where('office_id', $user->office_id)->with('sessions')->paginate(10, ['*'], 'activities_page')

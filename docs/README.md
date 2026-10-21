@@ -1,6 +1,6 @@
 # Dokumentasi LENTERA
 
-Pembaruan: 17 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, analisis L2 per institusi/periode, serta pengelolaan akun pengelola/mitra dan pemulihan kata sandi mandiri tersedia untuk BI sesuai KPwBI. Prototype 20 layar dipertahankan sebagai referensi visual.
+Pembaruan: 21 Oktober 2026. Backend tahap pertama memakai **akses peserta melalui QR tanpa login**. Login hanya untuk pengelola BI dan mitra. Pengelolaan kegiatan/sesi, jadwal, QR, master, kepesertaan, materi PDF privat, instrumen L1/L2 berversi, pretest/post-test, analisis L2 per institusi/periode, pengelolaan akun pengelola/mitra dan pemulihan kata sandi mandiri, serta ekspor CSV (Excel) dan cetak/simpan PDF browser tersedia untuk BI dan mitra sesuai cakupan KPwBI dan institusi. Prototype 20 layar dipertahankan sebagai referensi visual.
 
 ## Panduan untuk pengguna awam
 
@@ -26,6 +26,7 @@ Sketsa mengikuti fitur backend yang tersedia, termasuk materi PDF privat dan pre
 | [ANALYTICS.md](ANALYTICS.md) | Filter/agregat L2 BI dan mitra, periode, pasangan sah, denominator serta privasi. |
 | [PERFORMANCE.md](PERFORMANCE.md) | Antrean sebelum Laravel, ruang tunggu/tic-tac-toe, konfigurasi, batas perlindungan dan uji kapasitas. |
 | [MASTERS_PARTICIPANTS.md](MASTERS_PARTICIPANTS.md) | Master, snapshot, pemetaan, status kepesertaan dan privasi. |
+| [IMPORT.md](IMPORT.md) | Impor CSV respons L1 historis: staging, alias institusi, duplikat, penerapan idempoten. |
 | [ACCOUNTS.md](ACCOUNTS.md) | Pengelolaan akun BI/mitra, pemulihan kata sandi, isolasi sesi dan riwayat audit. |
 | [MANAGEMENT.md](MANAGEMENT.md) | Pengelolaan kegiatan/sesi, jadwal/QR, pemeriksaan versi dan audit. |
 | [BACKEND.md](BACKEND.md) | Konfigurasi, model data, asumsi, pengujian, dan hosting. |

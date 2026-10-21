@@ -15,6 +15,7 @@
                 <a href="{{ route('instruments.index') }}">Instrumen L1</a>
                 <a href="{{ route('l2.instruments.index') }}">Instrumen L2</a>
                 <a href="{{ route('accounts.index') }}">Akun</a>
+                <a href="{{ route('imports.index') }}">Impor historis</a>
                 <a href="{{ route('management.audit') }}">Riwayat perubahan</a>
             @endif
             <button class="btn secondary" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="account-menu">Akun</button>

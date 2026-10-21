@@ -3,7 +3,7 @@
 @section('content')
 <div class="page-heading"><div><p class="eyebrow">{{ auth()->user()->role === 'partner' ? 'MITRA · AKSES LIHAT' : 'PENGELOLA BI' }}</p><h1>Gambaran pembelajaran.</h1>
 <p>{{ auth()->user()->role === 'partner' ? auth()->user()->institution?->name : 'Cakupan KPwBI akun Anda' }} · seluruh periode yang tersedia.</p></div></div>
-<section class="panel"><h2>Hasil L1 tersimpan</h2><p>Setiap kelompok memisahkan sesi, versi instrumen, dan institusi saat kepesertaan.</p>
+<section class="panel"><h2>Hasil L1 tersimpan</h2><p>Setiap kelompok memisahkan sesi, versi instrumen, dan institusi saat kepesertaan.</p><p><a class="btn secondary" href="{{ route('dashboard', ['format' => 'csv']) }}">Unduh CSV (Excel)</a></p>
 <div class="server-list">
 @forelse($aggregates as $row)
 <article><h3>{{ $row->title }}</h3><p>{{ $row->institution_name }} · sesi #{{ $row->learning_session_id }} · instrumen #{{ $row->l1_instrument_id }}</p>

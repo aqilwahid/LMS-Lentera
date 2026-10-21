@@ -97,6 +97,26 @@ class L2AnalyticsTest extends TestCase
         $response->assertSee('-20,00 poin persentase');
     }
 
+    public function test_csv_export_respects_scope_and_neutralises_formulas(): void
+    {
+        $released = $this->assessment(name: 'Own released');
+        $hidden = $this->assessment(name: 'SECRET_UNRELEASED_SESSION', visible: false);
+        $this->pair($released, $this->enrollment($released, ['institution_name' => '=HYPERLINK("x")']), 20, 80);
+        $this->pair($hidden, $this->enrollment($hidden));
+        $other = Institution::where('id', '!=', $this->partner->institution_id)->firstOrFail();
+        $this->pair($released, $this->enrollment($released, ['institution_id' => $other->id, 'institution_name' => 'SECRET_OTHER_INSTITUTION']), 100, 0);
+        $response = $this->actingAs($this->partner)->get($this->url(['format' => 'csv']))->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
+        $csv = $response->streamedContent();
+        $this->assertStringContainsString('Pasangan sah', $csv);
+        $this->assertStringContainsString("'=HYPERLINK", $csv);
+        $this->assertStringContainsString('20,00;80,00;60,00', $csv);
+        foreach (['SECRET_UNRELEASED_SESSION', 'SECRET_OTHER_INSTITUTION', 'SECRET_FULL_NAME', 'secret_email@example.test'] as $private) {
+            $this->assertStringNotContainsString($private, $csv);
+        }
+        $this->assertSame(3, substr_count($this->actingAs($this->admin)->get($this->url(['format' => 'csv']))->streamedContent(), "\n") - 1);
+        $this->get($this->url(['format' => 'xlsx']))->assertSessionHasErrors('format');
+    }
+
     public function test_date_boundaries_include_whole_local_day_and_pair_by_post_date(): void
     {
         $assessment = $this->assessment();

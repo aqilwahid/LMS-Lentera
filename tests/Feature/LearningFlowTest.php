@@ -148,6 +148,9 @@ class LearningFlowTest extends TestCase
         $this->assertSame('Universitas Sultan Ageng Tirtayasa', Enrollment::first()->institution_name);
         $partner = User::where('role', 'partner')->first();
         $this->actingAs($partner)->get('/beranda')->assertOk()->assertSee('3,20 / 6')->assertDontSee('Contoh masukan')->assertDontSee($participant->email);
+        $csv = $this->get('/beranda?format=csv')->assertOk()->assertHeader('Content-Type', 'text/csv; charset=UTF-8')->streamedContent();
+        $this->assertStringContainsString(';3,20;', $csv);
+        $this->assertStringNotContainsString($participant->email, $csv);
         $partner->forceFill(['institution_id' => $institution->id])->save();
         $this->actingAs($partner)->get('/beranda')->assertOk()->assertSee('Belum ada respons L1')->assertDontSee('3,20 / 6');
         $this->get(route('activities.show', Activity::first()))->assertForbidden();

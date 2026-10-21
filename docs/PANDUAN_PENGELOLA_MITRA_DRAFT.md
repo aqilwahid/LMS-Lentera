@@ -240,9 +240,9 @@ Respons adalah formulir evaluasi yang masuk. Jangan menyamakan jumlah respons de
 
 Jika muncul **Belum ada respons L1 pada cakupan Anda.**, belum ada respons yang dapat ditampilkan untuk cakupan akun tersebut. Ini bukan nilai nol.
 
-Ringkasan saat ini menampilkan periode yang tersedia pada setiap kelompok. Pemilihan periode lengkap, grafik tahunan, dan ekspor laporan belum tersedia. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
+Ringkasan saat ini menampilkan periode yang tersedia pada setiap kelompok. Pemilihan periode lengkap, grafik tahunan, dan ekspor laporan cetak resmi belum tersedia. Untuk mengunduh data ringkasan L1, gunakan tombol **Unduh CSV (Excel)** di atas daftar. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
 
-> Ruang gambar A04: ringkasan dengan penanda pada cakupan, rata-rata, jumlah respons, dan periode. Jangan menampilkan hasil contoh sebagai hasil produksi.
+> Ruang gambar A04: ringkasan dengan penanda pada cakupan, rata-rata, jumlah respons, periode, dan tombol unduh CSV. Jangan menampilkan hasil contoh sebagai hasil produksi.
 
 ## Membaca analisis L2 — BI dan mitra
 
@@ -252,6 +252,8 @@ Ringkasan saat ini menampilkan periode yang tersedia pada setiap kelompok. Pemil
 4. Tekan **Terapkan filter L2**.
 5. Periksa jumlah pretest final, post-test final dan pasangan sah sebelum membaca rata-rata/selisih.
 6. Baca rincian tiap sesi, versi dan isian institusi sumber. Gunakan **Kembali ke tahun berjalan** untuk menghapus filter.
+7. Tekan **Unduh CSV (Excel)** untuk mengunduh seluruh rincian hasil sesuai filter ke berkas CSV yang kompatibel langsung dengan Microsoft Excel (pemisah titik koma `;` dan desimal koma `,`).
+8. Tekan **Cetak / simpan PDF** untuk mencetak tampilan halaman atau menyimpannya sebagai berkas PDF melalui fitur cetak peramban Anda.
 
 Mitra hanya melihat hasil yang sudah dibuka pengelola dan tidak mendapat identitas atau jawaban per peserta. Jika suatu sesi belum muncul, minta pengelola memeriksa publikasi hasil dan pemetaan institusi. Pilihan kegiatan/sesi juga mengikuti hasil final yang tersedia pada cakupan akun.
 
@@ -288,13 +290,13 @@ Atur waktu pengisian dengan ruang untuk antrean. Jadwal tutup tidak otomatis dip
 | Jadwal perlu diubah | Buka Atur sesi, perbarui jadwal, lalu Simpan sesi. |
 | Narasumber terkunci atau identitas peserta perlu diperbaiki | Hubungi petugas; jangan mengubah konteks sesi yang sudah diikuti peserta. |
 | Hasil institusi tidak terlihat pada akun mitra | Minta petugas memeriksa cakupan institusi, pendaftaran peserta, dan apakah L1 sudah terkirim. Jangan menggunakan akun institusi lain. |
-| Tidak menemukan tombol ekspor | Ekspor laporan belum tersedia pada backend tahap ini. |
+| Tidak menemukan tombol ekspor | Tombol **Unduh CSV (Excel)** dan **Cetak / simpan PDF** tersedia di halaman Analisis L2 serta Beranda. Ekspor XLSX/PDF berformat resmi server masih dalam tahap pengembangan. |
 
 **Kontak pengelola akses dan tim sistem:** [nama petugas, kanal bantuan, dan jam layanan akan dilengkapi sebelum terbit].
 
 ## Bagian yang akan ditambahkan setelah fiturnya tersedia
 
-Koreksi identitas peserta; jenis soal/aturan L2 lanjutan; impor historis; filter periode; grafik; serta ekspor laporan PDF/Excel.
+Koreksi identitas peserta; jenis soal/aturan L2 lanjutan; impor historis; filter periode L1; grafik tahunan; serta ekspor laporan resmi PDF/XLSX dari server.
 
 Langkah, nama tombol, dan gambar untuk bagian tersebut mengikuti implementasi final. Panduan ini belum menyediakan langkah pengoperasian fitur yang baru berupa rencana.
 

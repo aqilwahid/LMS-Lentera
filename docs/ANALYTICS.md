@@ -9,6 +9,7 @@ Pembaruan 16 Oktober 2026. Halaman **Analisis L2** tersedia di GET /analisis/l2 
 3. Bila perlu, pilih kegiatan, sesi dan versi instrumen. BI juga dapat memilih institusi atau **Belum dikenali atau dipetakan**.
 4. Tekan **Terapkan filter L2**, lalu periksa jumlah respons final, pasangan sah dan rincian kelompok.
 5. Gunakan **Kembali ke tahun berjalan** untuk menghapus filter dan kembali ke periode awal.
+6. Tekan **Unduh CSV (Excel)** untuk mengunduh data rincian dalam format CSV yang kompatibel langsung dengan Microsoft Excel (pemisah titik koma `;`, desimal koma `,`, UTF-8 BOM, dan pengamanan formula). Tekan **Cetak / simpan PDF** untuk mencetak tampilan atau menyimpannya sebagai berkas PDF melalui peramban.
 
 Pilihan kegiatan/sesi/instrumen berasal dari hasil final yang memenuhi cakupan akun pada seluruh periode, sebelum filter tanggal. Jika belum ada hasil final, pilihan belum tersedia. Tanggal awal/akhir wajib valid; akhir tidak boleh sebelum awal. Kombinasi sesi dan kegiatan yang tidak cocok ditolak. Pagination mempertahankan filter.
 
@@ -71,6 +72,6 @@ Browser test analisis memakai instrumen terbit sintetis dari tests/l2-browser.cj
 
 ## Batas dan berikutnya
 
-Belum tersedia: ekspor PDF/XLSX server, grafik/tren tahunan, analisis butir, denominator seluruh peserta wajib tes, filter status kepesertaan, impor historis, serta pemisahan persetujuan publikasi peserta/mitra. Halaman ini tidak menetapkan kelulusan atau peringkat institusi.
+Belum tersedia: ekspor XLSX/PDF berformat resmi cetakan dari server (ekspor CSV kompatibel Excel dan cetak PDF peramban sudah tersedia), grafik/tren tahunan, analisis butir, denominator seluruh peserta wajib tes, filter status kepesertaan, impor historis, serta pemisahan persetujuan publikasi peserta/mitra. Halaman ini tidak menetapkan kelulusan atau peringkat institusi.
 
 MariaDB/Hostinger, query plan pada data besar, uji beban 200–1.500 pengguna, Safari/Firefox dan pembaca layar belum diverifikasi. Berikutnya impor historis melalui staging dan laporan server, kemudian pengujian integrasi/kapasitas sebelum produksi.

@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Enrollment;
 use App\Models\L1Response;
 use App\Models\LearningSession;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -28,15 +29,23 @@ class LearningController extends Controller
             abort_unless($user->office_id, 403);
             $query->where('a.office_id', $user->office_id);
         }
+        $filters = $request->validate(['from' => 'nullable|date_format:Y-m-d', 'to' => 'nullable|date_format:Y-m-d|after_or_equal:from']);
+        $zone = config('app.timezone');
+        if ($filters['from'] ?? null) {
+            $query->where('r.submitted_at', '>=', CarbonImmutable::createFromFormat('!Y-m-d', $filters['from'], $zone)->startOfDay());
+        }
+        if ($filters['to'] ?? null) {
+            $query->where('r.submitted_at', '<=', CarbonImmutable::createFromFormat('!Y-m-d', $filters['to'], $zone)->endOfDay());
+        }
         // Keep sessions, instrument versions and historical institutions separate.
         $aggregates = $query->select('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')
             ->selectRaw('COUNT(*) as responses, AVG(r.score_sum) / 5 as mean_score, MIN(r.submitted_at) as period_start, MAX(r.submitted_at) as period_end')
             ->groupBy('a.title', 'r.learning_session_id', 'r.l1_instrument_id', 'e.institution_name')->orderBy('a.title')->orderBy('r.learning_session_id')->orderBy('e.institution_name');
         if ($request->query('format') === 'csv') {
-            return $this->csv('ringkasan-l1-'.now()->toDateString().'.csv', ['Kegiatan', 'Sesi (nomor)', 'Instrumen (nomor)', 'Isian institusi', 'Jumlah respons', 'Rata-rata (1-6)', 'Respons pertama', 'Respons terakhir'],
+            return $this->csv('ringkasan-l1-'.($filters['from'] ?? 'awal').'-sd-'.($filters['to'] ?? now()->toDateString()).'.csv', ['Kegiatan', 'Sesi (nomor)', 'Instrumen (nomor)', 'Isian institusi', 'Jumlah respons', 'Rata-rata (1-6)', 'Respons pertama', 'Respons terakhir'],
                 $aggregates->lazy()->map(fn ($r) => [$r->title, $r->learning_session_id, $r->l1_instrument_id, $r->institution_name, $r->responses, (float) $r->mean_score, $r->period_start, $r->period_end]));
         }
-        $aggregates = $aggregates->paginate(15);
+        $aggregates = $aggregates->paginate(15)->withQueryString();
 
         $activities = $user->role === 'bi_admin'
             ? Activity::where('office_id', $user->office_id)->with('sessions')->paginate(10, ['*'], 'activities_page')

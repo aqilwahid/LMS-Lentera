@@ -1,6 +1,10 @@
-# Verifikasi impor respons L1 historis dan ekspor CSV — 21 Oktober 2026
+# Verifikasi impor respons L1 historis, ekspor CSV, dan filter periode L1 — 21 Oktober 2026
 
-- **120 tes PHPUnit, 1.228 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- **121 tes PHPUnit, 1.236 assertion lulus**, menggunakan SQLite in-memory yang terpisah dari database demo.
+- Filter periode L1 pada Dashboard (`LearningFlowTest::test_dashboard_period_filter_is_inclusive_validated_and_applies_to_csv`):
+  - Penyaringan tanggal awal (`from`) dan tanggal akhir (`to`) secara inklusif menurut zona waktu aplikasi (awal hari `00:00:00` s.d. akhir hari `23:59:59`).
+  - Validasi ketat format `Y-m-d` dan aturan `after_or_equal:from` untuk mencegah rentang terbalik.
+  - Nilai filter tanggal dipertahankan pada tautan paginasi (`withQueryString()`) dan nama berkas serta isi ekspor CSV.
 - Impor respons L1 historis (`HistoricalImportTest`):
   - Alur staging pada tabel `import_rows`: pembacaan berkas CSV (pemisah `;` atau `,`, maks 2 MB / 2.000 baris) dengan pratinjau status per baris (siap, institusi belum dipetakan, duplikat, tidak valid, baris ringkasan).
   - Pemetaan alias institusi manual yang disimpan di `institution_aliases` untuk dipakai pada impor selanjutnya tanpa pencocokan otomatis yang berisiko.

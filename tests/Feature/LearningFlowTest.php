@@ -167,6 +167,19 @@ class LearningFlowTest extends TestCase
         $this->get(route('activities.show', Activity::first()))->assertForbidden();
     }
 
+    public function test_dashboard_period_filter_is_inclusive_validated_and_applies_to_csv(): void
+    {
+        $this->actingAs($this->participant())->post($this->url(), $this->payload());
+        $day = now()->toDateString();
+        $admin = User::where('role', 'bi_admin')->first();
+        $this->actingAs($admin)->get("/beranda?from=$day&to=$day")->assertOk()->assertSee('3,20 / 6');
+        $this->get('/beranda?from='.now()->addDay()->toDateString())->assertOk()->assertDontSee('3,20 / 6')->assertSee('Belum ada respons L1');
+        $this->get('/beranda?to='.now()->subDay()->toDateString())->assertOk()->assertDontSee('3,20 / 6');
+        $this->get("/beranda?from=$day&to=$day&format=csv")->assertOk()->assertDownload('ringkasan-l1-'."$day-sd-$day.csv");
+        $this->get("/beranda?from=$day&to=2000-01-01")->assertSessionHasErrors('to');
+        $this->get('/beranda?from=bukan-tanggal')->assertSessionHasErrors('from');
+    }
+
     public function test_disabled_accounts_and_login_throttling(): void
     {
         for ($i = 0; $i < 5; $i++) {

@@ -240,9 +240,9 @@ Respons adalah formulir evaluasi yang masuk. Jangan menyamakan jumlah respons de
 
 Jika muncul **Belum ada respons L1 pada cakupan Anda.**, belum ada respons yang dapat ditampilkan untuk cakupan akun tersebut. Ini bukan nilai nol.
 
-Ringkasan saat ini menampilkan periode yang tersedia pada setiap kelompok. Pemilihan periode lengkap, grafik tahunan, dan ekspor laporan cetak resmi belum tersedia. Untuk mengunduh data ringkasan L1, gunakan tombol **Unduh CSV (Excel)** di atas daftar. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
+Anda dapat menyaring ringkasan menurut rentang tanggal dengan mengisi **Tanggal awal** dan **Tanggal akhir**, lalu menekan **Terapkan periode**. Pilih **Seluruh periode** untuk menghapus filter tanggal. Filter tanggal juga otomatis terbawa saat mengunduh CSV melalui tombol **Unduh CSV (Excel)**. Grafik tahunan dan ekspor laporan cetak resmi dari server belum tersedia. Identitas, jawaban, dan masukan per peserta tidak ditampilkan pada ringkasan.
 
-> Ruang gambar A04: ringkasan dengan penanda pada cakupan, rata-rata, jumlah respons, periode, dan tombol unduh CSV. Jangan menampilkan hasil contoh sebagai hasil produksi.
+> Ruang gambar A04: ringkasan dengan penanda pada cakupan, filter periode tanggal awal/akhir, rata-rata, jumlah respons, periode, dan tombol unduh CSV. Jangan menampilkan hasil contoh sebagai hasil produksi.
 
 ## Membaca analisis L2 — BI dan mitra
 

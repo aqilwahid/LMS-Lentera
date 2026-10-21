@@ -225,4 +225,29 @@ class MastersAndParticipantsTest extends TestCase
         $this->assertSame('active', $e->fresh()->status);
         $this->assertSame(1, $e->fresh()->revision);
     }
+
+    public function test_identity_correction_is_audited_locked_and_scoped(): void
+    {
+        $e = $this->unknown();
+        $this->responseFor($e);
+        $payload = ['revision' => 1, 'full_name' => 'Peserta Privat Benar', 'identity_number' => '0000124', 'email' => 'Benar@Example.test', 'phone' => '081200000000', 'department' => 'Unit', 'faculty' => 'Unit', 'reason' => 'Salah ketik NIM'];
+        $this->actingAs($this->admin());
+        $this->put(route('participants.correct', $e), [...$payload, 'institution_name' => 'Tampered', 'participant_category' => 'Tampered'])->assertRedirect();
+        $fresh = $e->fresh();
+        $this->assertSame(['Peserta Privat Benar', '0000124', 'benar@example.test', 2, 'Alias Kampus Belum Dikenali'], [$fresh->full_name, $fresh->identity_number, $fresh->email, $fresh->revision, $fresh->institution_name]);
+        $this->assertSame(1, L1Response::where('enrollment_id', $e->id)->count());
+        $audit = AuditEntry::where('action', 'enrollment.corrected')->firstOrFail();
+        $this->assertSame('0000123', $audit->changes['before']['identity_number']);
+        $this->assertSame('Salah ketik NIM', $audit->changes['after']['reason']);
+        $this->assertArrayNotHasKey('phone', $audit->changes['after']);
+        // Stale revision, no-op, and missing reason are rejected.
+        $this->put(route('participants.correct', $e), [...$payload, 'full_name' => 'Lain'])->assertSessionHasErrors('revision');
+        $this->put(route('participants.correct', $e), [...$payload, 'revision' => 2, 'identity_number' => '0000124', 'full_name' => 'Peserta Privat Benar', 'email' => 'benar@example.test'])->assertSessionHasErrors('full_name');
+        $this->put(route('participants.correct', $e), [...$payload, 'revision' => 2, 'full_name' => 'X', 'reason' => ''])->assertSessionHasErrors('reason');
+        $this->assertSame(1, AuditEntry::where('action', 'enrollment.corrected')->count());
+        // Other office and partner cannot correct.
+        $other = Enrollment::create(['activity_id' => Activity::create(['title' => 'K', 'office_id' => DB::table('offices')->insertGetId(['name' => 'Kantor Lain'])])->id, 'institution_name' => 'X', 'full_name' => 'Y']);
+        $this->put(route('participants.correct', $other), $payload)->assertForbidden();
+        $this->actingAs(User::where('role', 'partner')->firstOrFail())->put(route('participants.correct', $e), [...$payload, 'revision' => 2])->assertForbidden();
+    }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// Hostinger cron (once per minute): php artisan schedule:run. No daemon/Supervisor assumed.
+Schedule::command('queue:work database --stop-when-empty --max-time=50 --tries=3')->everyMinute()->withoutOverlapping(5);
+Schedule::command('auth:clear-resets')->hourly();
+Schedule::command('queue:prune-failed --hours=720')->daily();

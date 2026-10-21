@@ -7,6 +7,7 @@ use App\Models\AuditEntry;
 use App\Models\Enrollment;
 use App\Models\Institution;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -55,6 +56,40 @@ class ParticipantManagementController extends Controller
             'enrollment' => $enrollment->load(['joinedSession', 'user', 'mappedInstitution']),
             'institutions' => Institution::where('office_id', $request->user()->office_id)->where(fn ($q) => $q->where('is_active', true)->orWhere('id', $enrollment->mapped_institution_id))->orderBy('name')->get(),
         ])->header('Cache-Control', 'private, no-store');
+    }
+
+    // Contact/identity typos only; original institution and category stay fixed because aggregates depend on them.
+    public function correct(Request $request, Enrollment $enrollment)
+    {
+        $this->record($request, $enrollment);
+        $data = $request->validate([
+            'revision' => 'required|integer|min:1',
+            'full_name' => 'required|string|max:255', 'identity_number' => 'required|string|max:100',
+            'email' => 'required|email|max:255', 'phone' => ['required', 'string', 'max:30', 'regex:/^[+0-9][0-9 ()-]{5,29}$/'],
+            'department' => 'required|string|max:255', 'faculty' => 'required|string|max:255',
+            'reason' => 'required|string|min:5|max:500',
+        ], ['phone.regex' => 'Nomor HP harus berisi nomor telepon yang valid.', 'reason.required' => 'Alasan koreksi wajib diisi.']);
+        $data['email'] = strtolower(trim($data['email']));
+        $fields = ['full_name', 'identity_number', 'email', 'phone', 'department', 'faculty'];
+        DB::transaction(function () use ($request, $enrollment, $data, $fields) {
+            $locked = Enrollment::whereKey($enrollment->id)->lockForUpdate()->firstOrFail();
+            if ($locked->revision !== (int) $data['revision']) {
+                throw ValidationException::withMessages(['revision' => 'Kepesertaan telah diubah. Muat ulang halaman sebelum menyimpan.']);
+            }
+            $new = array_map('trim', array_intersect_key($data, array_flip($fields)));
+            $before = $locked->only($fields);
+            $changed = array_keys(array_diff_assoc($new, $before));
+            if (! $changed) {
+                throw ValidationException::withMessages(['full_name' => 'Tidak ada data yang berubah.']);
+            }
+            $locked->forceFill($new);
+            $locked->revision++;
+            $locked->save();
+            AuditEntry::create(['actor_id' => $request->user()->id, 'office_id' => $request->user()->office_id, 'entity_type' => 'enrollment', 'entity_id' => $locked->id,
+                'action' => 'enrollment.corrected', 'changes' => ['before' => Arr::only($before, $changed), 'after' => Arr::only($new, $changed) + ['reason' => $data['reason']]], 'created_at' => now()]);
+        }, 3);
+
+        return redirect()->route('participants.show', $enrollment)->with('status', 'Koreksi identitas tersimpan dan dicatat pada riwayat.');
     }
 
     public function update(Request $request, Enrollment $enrollment)

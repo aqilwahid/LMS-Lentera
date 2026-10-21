@@ -5,7 +5,12 @@
 <section class="panel"><h2>Identitas saat pendaftaran</h2>
 @foreach(['full_name'=>'Nama lengkap','institution_name'=>'Instansi asli','identity_number'=>'NIP/NIM/NPM','department'=>'Jurusan/Program Studi','faculty'=>'Fakultas','phone'=>'No. HP','participant_category'=>'Kategori','email'=>'Email'] as $field=>$label)<p><strong>{{ $label }}</strong><br>{{ $enrollment->$field ?? 'Belum tersedia pada data lama' }}</p>@endforeach
 <p><strong>Sesi</strong><br>{{ $enrollment->joinedSession?->title ?? 'Kepesertaan kegiatan lama' }}</p>
-<p>Identitas dan isian instansi asli tidak dapat diubah dari halaman ini.</p></section>
+<p>Instansi asli dan kategori tidak dapat diubah. Salah ketik pada data di bawah dapat dikoreksi dengan alasan; setiap koreksi dicatat pada riwayat.</p></section>
+<form class="panel" method="post" action="{{ route('participants.correct',$enrollment) }}">@csrf @method('put')<h2>Koreksi identitas</h2>
+<input name="revision" type="hidden" value="{{ old('revision',$enrollment->revision) }}">
+@foreach(['full_name'=>'Nama lengkap','identity_number'=>'NIP/NIM/NPM','email'=>'Email','phone'=>'No. HP','department'=>'Jurusan/Program Studi','faculty'=>'Fakultas'] as $field=>$label)<div class="field"><label for="c-{{ $field }}">{{ $label }}</label><input id="c-{{ $field }}" name="{{ $field }}" value="{{ old($field,$enrollment->$field) }}" maxlength="255" required></div>@endforeach
+<div class="field"><label for="c-reason">Alasan koreksi</label><input id="c-reason" name="reason" value="{{ old('reason') }}" minlength="5" maxlength="500" required></div>
+<button class="btn secondary">Simpan koreksi</button></form>
 <form class="panel" method="post" action="{{ route('participants.update',$enrollment) }}">@csrf @method('put')
 <input id="revision" name="revision" type="hidden" value="{{ old('revision',$enrollment->revision) }}">
 <div class="field"><label for="status">Status kepesertaan</label><select id="status" name="status"><option value="active" @selected(old('status',$enrollment->status)==='active')>Aktif</option><option value="revoked" @selected(old('status',$enrollment->status)==='revoked')>Nonaktif</option></select></div>

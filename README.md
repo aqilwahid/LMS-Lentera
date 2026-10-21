@@ -27,6 +27,7 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 | Evaluasi L2 | Soal pilihan ganda dan kunci berversi per KPwBI, assignment/jadwal per sesi, pre/post tanpa login, draf manual server, pengiriman final, skor server, publikasi skor dan ringkasan pasangan lengkap. |
 | Analisis L2 | Filter tanggal/kegiatan/sesi/versi/institusi, pasangan sah dan rata-rata berbobot jumlah pasangan. BI dibatasi KPwBI; mitra hanya agregat institusinya dari hasil yang sudah dibuka. |
 | Antrean akses | Gerbang sebelum Laravel/database membatasi request aktif dan laju masuk. Ruang tunggu menampilkan posisi, pesan bergantian dan tic-tac-toe lokal. Isian formulir tetap di tab; pembatas dapat diaktifkan dan diatur melalui Artisan. |
+| Koreksi identitas peserta | Pengelola BI mengoreksi nama, NIM, email, HP, jurusan dan fakultas peserta dengan alasan wajib, kunci revisi, dan riwayat sebelum/sesudah. Instansi asli, kategori dan respons final tidak berubah. |
 | Impor historis | Pengelola BI mengunggah CSV respons L1 lama ke sebuah sesi: staging dan pratinjau, baris ringkasan dikecualikan, pemetaan alias institusi manual, deteksi duplikat (NIM + email), penolakan berkas identik, serta penerapan satu transaksi dan idempoten. Lihat [IMPORT.md](docs/IMPORT.md). |
 | Pengelolaan akun | BI membuat/mengubah/menonaktifkan akun pengelola BI dan mitra dalam cakupan KPwBI; kata sandi ditetapkan pemilik lewat tautan email (60 menit). Lupa kata sandi untuk pengelola/mitra aktif tanpa membocorkan keberadaan email; sesi lama dihapus setelah reset atau penonaktifan; semua dicatat pada riwayat. Pengiriman email memerlukan konfigurasi MAIL_* produksi. |
 | Ekspor dan laporan awal | Ekspor CSV kompatibel Excel (titik koma, desimal koma, UTF-8 BOM, netralisasi formula spreadsheet) untuk ringkasan L1 dan analisis L2 sesuai cakupan akun; tombol cetak/simpan PDF browser. |
@@ -40,14 +41,14 @@ LENTERA mengelola kegiatan literasi kebanksentralan bagi peserta eksternal Bank 
 
 | Area | Pekerjaan berikutnya |
 | --- | --- |
-| Akun dan profil | koreksi identitas peserta yang diaudit, serta pemulihan akses peserta lintas perangkat. |
-| Pengelolaan | Pengaturan akun/KPwBI, persetujuan/distribusi instrumen lintas kantor, koreksi identitas/jawaban final, penghapusan/arsip dan aturan retensi. Instrumen L1/L2 per KPwBI sudah tersedia. |
+| Akun dan profil | Pemulihan akses peserta lintas perangkat. Koreksi identitas peserta yang diaudit sudah tersedia. |
+| Pengelolaan | Pengaturan akun/KPwBI, persetujuan/distribusi instrumen lintas kantor, koreksi jawaban final, penghapusan/arsip dan aturan retensi. Instrumen L1/L2 per KPwBI sudah tersedia. |
 | Materi dan panduan | Finalisasi panduan awam menjadi PDF/halaman LMS, pemindai konten PDF, retensi/penghapusan dan pembagian materi mitra. Materi PDF kelas privat beserta versi dan izin sudah tersedia; aset PDF prototype tidak otomatis diimpor. |
 | L1 lanjutan | Multi-narasumber, aturan kewajiban pengisian resmi, draf server/autosave, dan mekanisme koreksi administratif yang dapat diaudit. |
 | L2 lanjutan | Autosave, navigasi satu soal, jenis soal/bobot lain, retake/timer/nilai lulus, pembahasan, koreksi final dan kebijakan resmi. Pilihan ganda, draf manual, skor server dan publikasi sudah tersedia. |
 | Impor historis lanjutan | Pembacaan `.xlsx` langsung (PhpSpreadsheet), impor L2, pembatalan batch, dan rekonsiliasi terhadap total sumber. Impor CSV L1 sudah tersedia. |
 | Analisis/laporan | Filter periode L1, dashboard/grafik tahunan, analisis butir L2, ekspor XLSX/PDF berformat resmi dari server, dan arsip laporan. Filter/agregat L2 BI/mitra sudah tersedia, beserta ekspor CSV (dibuka di Excel) untuk ringkasan L1 dan analisis L2 sesuai cakupan, serta cetak/simpan PDF dari browser. |
-| Pekerjaan latar/email | Job bertahap, penjadwalan cron yang terverifikasi, anti-overlap, SMTP/API transaksional, dan pemantauan kegagalan. Tabel antrean sudah ada, job aplikasi belum tersedia. |
+| Pekerjaan latar/email | Verifikasi cron `schedule:run` dan SMTP/API transaksional di Hostinger, notifikasi aktif (email/alert) saat job gagal, dan job impor/ekspor bertahap bila data membesar. Email kata sandi sudah lewat antrean dengan jadwal worker terbatas, anti-overlap, retry dan pencatatan kegagalan. |
 | Integrasi | SSO BI dan ERP-HRIS menunggu spesifikasi serta akses nyata. |
 | Produksi | Verifikasi MariaDB/PHP/ekstensi/cron akun Hostinger, deployment dengan document root public, backup/pemulihan, dan konfigurasi produksi. |
 | Kapasitas/QA lanjutan | Pengujian konkurensi pada MariaDB, uji beban 200–1.500 pengguna, Safari/Firefox, pembaca layar, dan audit visual seluruh layar backend. |

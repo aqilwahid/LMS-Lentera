@@ -57,7 +57,7 @@ Status active mengizinkan akses sesuai QR/jadwal; revoked menghentikan akses kel
 
 Setiap pembaruan master/kepesertaan memakai revision dan transaksi dengan row lock. Formulir lama ditolak. Perubahan dan audit disimpan dalam transaksi yang sama; kegagalan audit membatalkan perubahan. Cakupan KPwBI serta institusi tujuan diperiksa server. Payload tidak dapat mengubah office_id atau identitas historis peserta.
 
-Email/NIP/HP belum diverifikasi. Pemetaan bukan verifikasi identitas dan bukan pemberian akun. Pemulihan browser/perangkat baru, koreksi identitas/final L1, retensi/penghapusan, hubungan banyak KPwBI, serta penyatuan identitas peserta lintas kegiatan belum disediakan.
+Pengelola BI dapat mengoreksi nama, NIM/NIP, email, HP, jurusan dan fakultas (alasan wajib, kunci revisi); instansi asli dan kategori tidak dapat diubah. Nilai sebelum/sesudah dan alasan koreksi disimpan pada riwayat perubahan. Email/NIP/HP belum diverifikasi. Pemetaan bukan verifikasi identitas dan bukan pemberian akun. Pemulihan browser/perangkat baru, koreksi jawaban final L1, retensi/penghapusan, hubungan banyak KPwBI, serta penyatuan identitas peserta lintas kegiatan belum disediakan.
 
 ## Hasil dan tahap berikutnya
 

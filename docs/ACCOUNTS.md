@@ -69,5 +69,6 @@ php artisan serve --host=127.0.0.1 --port=8000 --no-reload
 ## Hasil dan tahap berikutnya
 
 - **117 tes PHPUnit, 1.192 assertion lulus**, mencakup pembuatan akun, pengiriman tautan via notifikasi, penegakan audit, isolasi kantor/KPwBI, larangan penonaktifan mandiri, pencegahan enumerasi email, penolakan token peserta/tidak sah, serta validasi kebijakan kata sandi.
+- Email tautan kata sandi dikirim lewat antrean database; di produksi wajib ada cron `php artisan schedule:run` tiap menit (lihat BACKEND.md).
 - Pengiriman email pada lingkungan lokal/testing menggunakan driver `array` atau `log`. Lingkungan produksi memerlukan konfigurasi `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, dan `MAIL_FROM_ADDRESS` yang terverifikasi.
 - Tahap berikutnya mencakup koreksi identitas peserta yang diaudit, pemulihan akses peserta lintas perangkat, impor historis, dan laporan server.

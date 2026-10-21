@@ -112,13 +112,13 @@ Pada hosting: verifikasi PHP CLI/web 8.4, ekstensi, versi MariaDB, batas akun da
 
 Document root harus menunjuk hanya ke public. Source, vendor, .env dan storage privat berada di luar root web. Build dijalankan lokal/CI; composer install --no-dev --optimize-autoloader, php artisan migrate --force, lalu php artisan optimize pada deployment terkontrol. Direktori storage dan bootstrap/cache harus writable. Uji backup dan pemulihan sebelum migrasi data produksi.
 
-SESSION_DRIVER=database, CACHE_STORE=database dan QUEUE_CONNECTION=database sudah menjadi default. Untuk job singkat pada cron, contoh:
+SESSION_DRIVER=database, CACHE_STORE=database dan QUEUE_CONNECTION=database sudah menjadi default. Cukup satu entri cron per menit; jadwal di `routes/console.php` menjalankan worker antrean terbatas (`--stop-when-empty --max-time=50`, anti-overlap 5 menit), membersihkan token reset kedaluwarsa tiap jam, dan memangkas job gagal >30 hari:
 
 ```text
-* * * * * cd /path/lentera && /path/php artisan queue:work database --stop-when-empty --max-time=50 --tries=3
+* * * * * cd /path/lentera && /path/php artisan schedule:run >> /dev/null 2>&1
 ```
 
-Jangan aktifkan cron sebelum memastikan job bounded dan mekanisme anti-overlap sesuai kemampuan akun. Belum ada job aplikasi tahap ini. Tidak mengasumsikan root, Redis, Supervisor atau daemon. Email lokal memakai log, SMTP/API nyata dikonfigurasi saat akses tersedia.
+Email tautan atur/pemulihan kata sandi dikirim lewat antrean (3 percobaan, jeda 1 lalu 5 menit), sehingga tanpa cron email tidak terkirim. Job gagal tersimpan di `failed_jobs` dan dicatat pada log; periksa dengan `php artisan queue:failed`, kirim ulang dengan `php artisan queue:retry all`. Pastikan PHP CLI di cron sama versinya dengan PHP web. Tidak mengasumsikan root, Redis, Supervisor atau daemon. Email lokal memakai log, SMTP/API nyata dikonfigurasi saat akses tersedia.
 
 ## Pengelolaan tahap berikutnya yang sudah tersedia
 

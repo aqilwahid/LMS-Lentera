@@ -38,7 +38,7 @@ class Enrollment extends Model
     protected static function booted(): void
     {
         static::updating(function ($enrollment) {
-            if ($enrollment->isDirty(['user_id', 'activity_id', 'institution_id', 'institution_name', 'participant_category', 'joined_session_id', 'guest_access_hash', 'full_name', 'identity_number', 'department', 'faculty', 'phone', 'email'])) {
+            if ($enrollment->isDirty(['user_id', 'activity_id', 'institution_id', 'institution_name', 'participant_category', 'joined_session_id', 'guest_access_hash'])) {
                 throw new \LogicException('Konteks kepesertaan historis tidak boleh diubah.');
             }
         });

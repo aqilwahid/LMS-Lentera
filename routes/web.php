@@ -71,6 +71,7 @@ Route::middleware(['auth', EnsureActiveUser::class])->group(function () {
     Route::get('/pengelola/kepesertaan', [ParticipantManagementController::class, 'index'])->name('participants.index');
     Route::get('/pengelola/kepesertaan/{enrollment}', [ParticipantManagementController::class, 'show'])->name('participants.show');
     Route::put('/pengelola/kepesertaan/{enrollment}', [ParticipantManagementController::class, 'update'])->name('participants.update');
+    Route::put('/pengelola/kepesertaan/{enrollment}/identitas', [ParticipantManagementController::class, 'correct'])->name('participants.correct');
     Route::get('/pengelola/kegiatan', [ManagementController::class, 'index'])->name('management.activities.index');
     Route::get('/pengelola/kegiatan/buat', [ManagementController::class, 'create'])->name('management.activities.create');
     Route::post('/pengelola/kegiatan', [ManagementController::class, 'store'])->name('management.activities.store');

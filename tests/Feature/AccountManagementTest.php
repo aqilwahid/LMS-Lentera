@@ -4,12 +4,15 @@ namespace Tests\Feature;
 
 use App\Models\Institution;
 use App\Models\User;
+use App\Notifications\QueuedResetPassword;
 use Database\Seeders\DemoSeeder;
-use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Notifications\SendQueuedNotifications;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class AccountManagementTest extends TestCase
@@ -38,7 +41,7 @@ class AccountManagementTest extends TestCase
             ->assertRedirect();
         $new = User::where('email', 'baru@example.test')->firstOrFail();
         $this->assertSame('partner', $new->role);
-        Notification::assertSentTo($new, ResetPassword::class);
+        Notification::assertSentTo($new, QueuedResetPassword::class);
         $this->assertDatabaseHas('audit_entries', ['entity_type' => 'user', 'entity_id' => $new->id, 'action' => 'account.created']);
         $this->post('/keluar');
 
@@ -84,8 +87,18 @@ class AccountManagementTest extends TestCase
         $this->assertSame(session('status'), $known->getSession()->get('status'));
         $this->assertSame($known->getSession()->get('status'), $unknown->getSession()->get('status'));
         $this->assertSame($known->getSession()->get('status'), $participant->getSession()->get('status'));
-        Notification::assertSentToTimes($this->user('mitra'), ResetPassword::class, 1);
-        Notification::assertNotSentTo($this->user('peserta'), ResetPassword::class);
+        Notification::assertSentToTimes($this->user('mitra'), QueuedResetPassword::class, 1);
+        Notification::assertNotSentTo($this->user('peserta'), QueuedResetPassword::class);
+    }
+
+    public function test_reset_email_is_queued_and_scheduler_runs_bounded_worker(): void
+    {
+        Queue::fake();
+        $this->post(route('password.email'), ['email' => 'mitra@example.test']);
+        Queue::assertPushed(SendQueuedNotifications::class, fn ($job) => $job->notification instanceof QueuedResetPassword);
+        $events = collect(app(Schedule::class)->events())->map(fn ($e) => $e->command);
+        $this->assertTrue($events->contains(fn ($c) => str_contains($c, 'queue:work database --stop-when-empty')));
+        $this->assertTrue($events->contains(fn ($c) => str_contains($c, 'auth:clear-resets')));
     }
 
     public function test_reset_rejects_invalid_token_and_participant_token(): void

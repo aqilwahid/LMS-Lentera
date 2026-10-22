@@ -1,3 +1,17 @@
+# Verifikasi pembaruan halaman muka, aset WebP, dan optimasi aset — 22 Oktober 2026
+
+- **26 tes PHPUnit, 229 assertion lulus** (`GuestClassTest` dan `LearningFlowTest`), SQLite in-memory.
+- Kompilasi Blade `php artisan view:cache` dan pemeriksaan gaya kode `php vendor/bin/pint --test` lulus bersih.
+- Halaman muka publik (`home.blade.php`):
+  - Tata letak landing page responsif: Hero banner dengan kredensial Bank Indonesia, alur empat langkah mengikuti kelas tanpa akun, dan CTA masuk pengelola/mitra.
+  - Footer terstruktur dengan identitas, navigasi akses, dan petunjuk bantuan.
+- Optimasi aset dan performa:
+  - Format WebP modern untuk seluruh aset grafis dan logo dengan dimensi eksplisit (`width`/`height`) serta lazy-loading.
+  - Konfigurasi caching browser (`mod_expires`) dan kompresi output (`mod_deflate`) pada `public/.htaccess`.
+  - Sinkronisasi aset WebP otomatis melalui `scripts/sync-assets.mjs`.
+
+---
+
 # Verifikasi antarmuka dashboard, navigasi aksesibel, dan ringkasan KPI — 22 Oktober 2026
 
 - **121 tes PHPUnit, 1.236 assertion lulus**, menggunakan SQLite in-memory, tanpa regresi pada fungsionalitas dan aliran backend.

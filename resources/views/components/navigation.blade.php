@@ -28,9 +28,9 @@
 @endphp
 <header class="top-header server-header" x-data="{ menu: false, account: false }" @keydown.escape.window="menu = false; account = false">
     <div class="server-header-bar">
-        <a class="server-brand" href="{{ $user ? route('dashboard') : route('home') }}" aria-label="LENTERA — beranda"><img class="brand-logo" src="{{ asset('assets/lentera-logo.png') }}" alt="LENTERA"></a>
+        <a class="server-brand" href="{{ $user ? route('dashboard') : route('home') }}" aria-label="LENTERA — beranda"><img class="brand-logo" width="150" height="50" src="{{ asset('assets/lentera-logo.webp') }}" alt="LENTERA"></a>
         <div class="server-header-tools">
-            <img class="bi-logo" src="{{ asset('assets/bank-indonesia-logo.png') }}" alt="Bank Indonesia">
+            <img class="bi-logo" width="120" height="21" src="{{ asset('assets/bank-indonesia-logo.webp') }}" alt="Bank Indonesia">
             @auth
                 <div class="account" @click.outside="account = false">
                     <button class="account-btn" type="button" @click="account = !account" :aria-expanded="account.toString()" aria-controls="account-menu">

@@ -16,6 +16,6 @@
             <p><a href="{{ route('password.request') }}">Lupa kata sandi?</a> Belum memiliki akun? Hubungi pengelola BI.</p>
         </form>
     </div>
-    <div class="login-art"><img src="{{ asset('assets/lighthouse.png') }}" alt=""><div class="login-art-caption"><h2>Perluas wawasan bersama LENTERA.</h2><p>Belajar, mengikuti kegiatan, dan menyampaikan evaluasi.</p></div></div>
+    <div class="login-art"><img src="{{ asset('assets/lighthouse.webp') }}" alt="" width="900" height="900" loading="lazy"><div class="login-art-caption"><h2>Perluas wawasan bersama LENTERA.</h2><p>Belajar, mengikuti kegiatan, dan menyampaikan evaluasi.</p></div></div>
 </div>
 @endsection

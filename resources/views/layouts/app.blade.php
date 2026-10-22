@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#245D83">
+    <meta name="theme-color" content="#1f5f8b">
+    <meta name="description" content="LENTERA, ruang literasi dan edukasi kebanksentralan Bank Indonesia.">
     <title>@yield('title', 'LENTERA')</title>
-    <link rel="icon" href="{{ asset('assets/lentera-logo.png') }}">
+    <link rel="icon" href="{{ asset('assets/lentera-logo.webp') }}">
     <link rel="stylesheet" href="{{ asset('styles-v2.css') }}">
     <link rel="stylesheet" href="{{ asset('waiting-room.css') }}">
     <script src="{{ asset('waiting-room.js') }}" defer></script>
@@ -22,6 +23,13 @@
     <x-validation-errors />
     @yield('content')
 </main>
-<footer class="public-footer container"><span>LENTERA · Literasi dan Edukasi Kebanksentralan</span></footer>
+<footer class="public-footer">
+    <div class="pf-inner">
+        <div><img src="{{ asset('assets/lentera-logo.webp') }}" alt="LENTERA" width="120" height="40" loading="lazy"><p>Literasi dan Edukasi Kebanksentralan.</p></div>
+        <nav aria-label="Tautan footer"><h2>Akses</h2><a href="{{ route('home') }}">Beranda</a><a href="{{ route('login') }}">Masuk pengelola / mitra</a></nav>
+        <div><h2>Bantuan</h2><p>Belum menerima QR kelas? Hubungi pengelola kegiatan Anda.</p></div>
+    </div>
+    <div class="pf-copy">&copy; {{ now()->year }} LENTERA &middot; Literasi dan Edukasi Kebanksentralan</div>
+</footer>
 </body>
 </html>

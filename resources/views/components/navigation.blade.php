@@ -54,8 +54,24 @@
     </div>
     @if($links)
         <nav id="server-nav" class="server-nav" :class="{ 'is-open': menu }" aria-label="Navigasi utama">
-            @foreach($links as [$label, $href, $active])
-                <a href="{{ $href }}" @if($active) aria-current="page" @endif>{{ $label }}</a>
+            @php
+            $icons = [
+                'Kelas saya' => 'M4 5a2 2 0 012-2h12v16H6a2 2 0 00-2 2V5zM8 7h6',
+                'Beranda' => 'M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10',
+                'Analisis L2' => 'M4 20V10M10 20V4M16 20v-7M22 20H2',
+                'Kelola kegiatan' => 'M3 5h18v16H3zM3 10h18M8 3v4M16 3v4',
+                'Institusi' => 'M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6',
+                'Narasumber' => 'M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0',
+                'Kepesertaan' => 'M9 11a3 3 0 100-6 3 3 0 000 6zM2 20a7 7 0 0114 0M17 11a3 3 0 100-6M22 20a6 6 0 00-4-5.6',
+                'Instrumen L1' => 'M9 4h6v3H9zM6 5H5v16h14V5h-1M9 12h6M9 16h4',
+                'Instrumen L2' => 'M9 4h6v3H9zM6 5H5v16h14V5h-1M9 12l2 2 4-4',
+                'Akun' => 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z',
+                'Impor historis' => 'M12 3v12M7 10l5 5 5-5M4 21h16',
+                'Riwayat perubahan' => 'M3 12a9 9 0 109-9M3 4v5h5M12 7v5l3 2',
+            ];
+        @endphp
+        @foreach($links as [$label, $href, $active])
+                <a href="{{ $href }}" @if($active) aria-current="page" @endif><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="{{ $icons[$label] ?? 'M5 12h14' }}"/></svg>{{ $label }}</a>
             @endforeach
         </nav>
     @endif

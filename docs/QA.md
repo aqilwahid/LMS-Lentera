@@ -1,3 +1,18 @@
+# Verifikasi perintah buat admin CLI dan template konfigurasi produksi — 22 Oktober 2026
+
+- **1 tes PHPUnit, 7 assertion lulus** (`CreateAdminCommandTest`), SQLite in-memory.
+- Pemeriksaan gaya kode `php vendor/bin/pint --test` lulus bersih.
+- Perintah CLI `lentera:create-admin`:
+  - Validasi email valid dan unik pada tabel `users`.
+  - Validasi panjang kata sandi minimal 12 karakter; penolakan kata sandi pendek.
+  - Pembuatan otomatis entri kantor KPwBI pada tabel `offices` jika belum ada.
+  - Pembuatan akun berstatus `bi_admin`, `is_active = true`, dan pencatatan audit `account.created` dalam transaksi database yang sama.
+- Konfigurasi lingkungan produksi:
+  - Berkas `.env.production.example` siap pakai dengan rekomendasi keamanan (`APP_DEBUG=false`, `LENTERA_DEMO_ENABLED=false`, `SESSION_SECURE_COOKIE=true`, `BCRYPT_ROUNDS=12`).
+  - Pembaruan panduan deployment dan bootstrapping produksi pada `README.md` dan `docs/ACCOUNTS.md`.
+
+---
+
 # Verifikasi pembaruan halaman muka, aset WebP, dan optimasi aset — 22 Oktober 2026
 
 - **26 tes PHPUnit, 229 assertion lulus** (`GuestClassTest` dan `LearningFlowTest`), SQLite in-memory.

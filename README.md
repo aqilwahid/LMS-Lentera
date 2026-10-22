@@ -105,6 +105,19 @@ powershell -ExecutionPolicy Bypass -File scripts/build-local.ps1
 
 Script menyalin hasil build ke public/build dan menyinkronkan aset V2. Lokasi runtime portabel, konfigurasi MariaDB, dan langkah Hostinger dijelaskan di [docs/BACKEND.md](docs/BACKEND.md).
 
+## Mode produksi
+
+Salin `.env.production.example` menjadi `.env` di server (`APP_ENV=production`, `APP_DEBUG=false`, `LENTERA_DEMO_ENABLED=false`), isi `APP_URL`, kredensial MariaDB dan SMTP, lalu:
+
+```powershell
+php artisan key:generate
+php artisan migrate --force
+php artisan config:cache
+php artisan lentera:create-admin "KPwBI Banten" "Nama Pengelola" pengelola@bi.go.id   # akun pengelola pertama, kata sandi ditanya interaktif
+```
+
+Jangan menjalankan `DemoSeeder` di produksi (sudah ditolak di luar `local`/`testing`). Pasang cron `* * * * * php artisan schedule:run`.
+
 ## Memperbarui instalasi lokal yang sudah ada
 
 Setelah mengambil perubahan terbaru, jalankan migrasi tambahan. Pertahankan `.env`, APP_KEY, serta database yang sudah ada; tidak perlu membuat database baru atau mengulang seeder untuk memperoleh fitur pengelolaan.

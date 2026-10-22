@@ -25,6 +25,21 @@ Pengguna dengan peran Pengelola BI atau Mitra yang lupa kata sandi dapat:
 
 Mitra dan peserta tidak memiliki hak akses untuk mengelola akun. Peserta tidak memiliki akun pengguna dan tidak dapat menggunakan alur pemulihan kata sandi ini.
 
+## Pembuatan akun pengelola awal via CLI (Bootstrapping)
+
+Pada instalasi baru atau lingkungan produksi (di mana `DemoSeeder` tidak boleh dijalankan), akun pengelola BI pertama dibuat melalui perintah Artisan:
+
+```powershell
+php artisan lentera:create-admin "KPwBI Banten" "Nama Pengelola" pengelola@bi.go.id
+```
+
+Perintah ini:
+- Membuat KPwBI pada tabel `offices` jika belum ada.
+- Meminta kata sandi secara aman dan tersembunyi via CLI dengan validasi minimal 12 karakter.
+- Membuat pengguna dengan peran `bi_admin`, status aktif (`is_active = true`), dan kantor terkait.
+- Mencatat rekaman audit `account.created` pada transaksi database yang sama.
+- Setelah akun pertama ini dibuat, pengelola dapat masuk melalui web dan membuat akun staf BI maupun mitra lainnya dari UI.
+
 ## Aturan keamanan dan server
 
 - **Isolasi KPwBI**: Pengelola BI dibatasi oleh `office_id` akunnya. Pengelola hanya dapat melihat, membuat, mengubah, dan memicu reset kata sandi bagi akun pengelola BI di kantor yang sama atau akun mitra yang terikat pada institusi aktif di kantor tersebut. Upaya mengakses atau memanipulasi ID akun di luar cakupan kantor ditolak dengan HTTP 404/403.
